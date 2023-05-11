@@ -12,12 +12,9 @@ const connectToDatabase = async () => {
 /*------------------------------END-----------------------------*/
 
 const getAssertController = async (req, res) => {
-
-    const {assertId} =  req.query
-
-    const assertsCollection = await connectToDatabase()
-
     try {
+        const {assertId} =  req.query
+    const assertsCollection = await connectToDatabase()
         const assert = await assertsCollection.findOne({_id: new ObjectId(assertId)});
         res.status(200).json({ status: 200, assert })
 
@@ -27,18 +24,18 @@ const getAssertController = async (req, res) => {
 }
 
 const patchAssertController= async(req,res)=>{
-   
     try {
         const {assertId} =  req.query
         const assert =req.body
         const assertsCollection = await connectToDatabase()
+    //    Open one of the project with patch for me
         
         await assertsCollection.updateOne({_id:ObjectId(assertId)},{
-            $set:{...assert, updatedAt: new Date()},  
+            $set:{assert},  
         })
         res.status(200).json({ message: "assert updated successfully" })
     } catch (error) {
-        res.status(500).json({ status: 500, message: "Something went wrong" })
+        res.status(500).json({ status: 500, message:  error})
     }
 }
 

@@ -15,19 +15,20 @@ const CashUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const router = useRouter()
     const {assert}= router.query;
-    console.log(assert);
-
+    console.log(router.query);
  
-    const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher,{ refreshInterval: 1000 })
+    const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher)
    console.log(data?.assert);
 
    const onSubmit =async receivedInfo=>{
-        // const dataPush={
-        //     cashupId:uuidv4(),
-        //     receivedInfo
-        // }
+        const dataPush={
+            cashupId:uuidv4(),
+            ...receivedInfo
+        }
+        // so how do i add an id to the info coming?
+        // Log it and see
 
-        console.log(receivedInfo);
+        console.log(dataPush);
        
 
         const postData={
@@ -39,7 +40,7 @@ const CashUp = () => {
             
             cashup:[
                 ...data.assert.cashup,
-                receivedInfo
+                dataPush
             ],
             expenditure:[
                 ...data.assert.expenditure,
@@ -50,7 +51,7 @@ const CashUp = () => {
 
         }
 // Do you mean assert id or assert: yes   i got assert from router.query
-        const response = await fetch(`/api/asserts/${assert}`, {
+        const response = await fetch( `/api/asserts/${assert}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -75,7 +76,7 @@ const CashUp = () => {
             {/* <ToastContainer/> */}
 
             <div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
-            <h2>Cash Up for 001Assert (Parkoso)</h2>
+            <h2>Cash Up for {data?.assert?.assertId}</h2>
 
             <div>
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
