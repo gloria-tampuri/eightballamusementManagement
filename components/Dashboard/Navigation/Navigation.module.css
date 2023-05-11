@@ -1,0 +1,23 @@
+.header h1{
+    color: var(--blue);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+.header hr{
+    margin: 1rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.nav{
+    margin-top: 2rem;
+}
+.section{
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 0.3rem;
+}
+
+.link{
+    text-decoration: none;
+    color: rgb(37, 37, 37);
+}

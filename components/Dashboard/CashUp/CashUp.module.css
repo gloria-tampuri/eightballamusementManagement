@@ -1,0 +1,81 @@
+.back{
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 2rem;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: var(--red);
+}
+
+.infoAddition h2{
+    text-align: center;
+    color: var(--blue);
+    font-size: 2rem;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.form{
+    width: 80%;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.form h2{
+    font-size: 1rem;
+    color: var(--red);
+}
+
+.section{
+    margin-bottom: 0.5rem;
+}
+
+.section label{
+display: flex;
+margin-bottom: 0.3rem;
+}
+
+.section input{
+   
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    border: 1px solid rgb(187, 186, 186);
+}
+
+.section select{
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    border: 1px solid rgb(187, 186, 186);
+}
+
+.button{
+    display: flex;
+    justify-content: right;
+}
+
+.form button{
+    width: 100%;
+    margin-top: 1rem;
+    background:linear-gradient(90deg, var(--red) -24.43%, var(--blue) 60.26%, #CD6504 139.82%);
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.3rem;
+    color: white;
+    font-weight: 700;
+    
+    
+}
+
+
+.errors{
+    font-weight: 100;
+    color: var(--pale-red);
+    padding-top: 0.2rem;
+}

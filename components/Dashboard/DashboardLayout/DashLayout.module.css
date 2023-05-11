@@ -1,0 +1,40 @@
+.dashboard{
+    display: flex;
+    padding: 2rem;
+    gap: 3rem;
+}
+
+.nav{
+    width: 20%;
+    height: 100vh;
+    padding: 2rem;
+    /* background-color: teal; */
+    box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
+    border-radius: 1rem;
+    border-radius: 1px 1px 15px rgba(0,0, 0, 0.2);
+}
+
+.other{
+    width: 80%;
+    height: 100vh;
+}
+
+.other header{
+    
+    width: 100%;
+    /* background-color: yellowgreen; */
+    border-radius: 1rem;
+    margin-bottom: 5vh;
+    padding: 1.5rem 2rem;
+    box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
+   
+}
+
+.main{
+    /* background-color: greenyellow; */
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
+    min-height: 85%;
+    padding: 2rem;
+}
