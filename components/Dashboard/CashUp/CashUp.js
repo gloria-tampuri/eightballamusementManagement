@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import useSWR from 'swr'
+import CashUpList from './CashUpList';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -23,7 +24,8 @@ const CashUp = () => {
    const onSubmit =async receivedInfo=>{
         const dataPush={
             cashupId:uuidv4(),
-            ...receivedInfo
+            ...receivedInfo,
+            updatedAt: new Date()
         }
         // so how do i add an id to the info coming?
         // Log it and see
@@ -163,6 +165,10 @@ const CashUp = () => {
                     <div className={classes.button}>  <button>Add Cash Up</button></div>
                 </form>
             </div>
+
+    <CashUpList/>
+
+
         </div>
     )
 }

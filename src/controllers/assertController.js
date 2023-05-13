@@ -28,10 +28,10 @@ const patchAssertController= async(req,res)=>{
         const {assertId} =  req.query
         const assert =req.body
         const assertsCollection = await connectToDatabase()
-    //    Open one of the project with patch for me
+
         
-        await assertsCollection.updateOne({_id:ObjectId(assertId)},{
-            $set:{assert},  
+        await assertsCollection.updateOne({_id: new ObjectId(assertId)},{
+            $set:{...assert},  
         })
         res.status(200).json({ message: "assert updated successfully" })
     } catch (error) {
