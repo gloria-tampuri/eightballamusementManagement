@@ -1,0 +1,32 @@
+.list{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #343A46;
+    background-color:rgb(245, 245, 245) ;
+    padding: 1rem;
+}
+
+.list table{
+    width: 100%;
+}
+
+.list thead, .list tbody {
+    width: 100%;
+}
+
+.list td, .list th{
+    /* width: 100%; */
+    padding: 8px;
+    text-align: center
+  }
+  
+ 
+  .list tbody tr:nth-child(odd){
+     background-color: var(--blue);
+     color: white;
+  
+  }
+
+  

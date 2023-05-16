@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext, useState} from 'react'
 import classes from './List.module.css'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
