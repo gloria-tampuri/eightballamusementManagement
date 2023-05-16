@@ -1,10 +1,13 @@
 import React from 'react'
 import DashLayout from '../../../../../components/Dashboard/DashboardLayout/DashLayout'
+import Location from '../../../../../components/Dashboard/Location/Location'
 
-const Location = () => {
+const LocationPage = () => {
   return (
-    <DashLayout>Location</DashLayout>
+    <DashLayout>
+      <Location/>
+    </DashLayout>
   )
 }
 
-export default Location
+export default LocationPage

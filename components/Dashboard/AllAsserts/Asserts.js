@@ -14,6 +14,11 @@ const Asserts = () => {
 
   const { data, error, isLoading } = useSWR('/api/asserts', fetcher)
     console.log(data);
+
+    const location=data?.assert?.location
+  const current = location?.find((val)=>val.currentLocation===true)
+  console.log(current);
+
   return (
     <div className={classes.list}>
     <h3>List of Items</h3>
@@ -21,7 +26,8 @@ const Asserts = () => {
   {data?.asserts.map((assert)=>  <Link href={`/dashboard/asserts/${assert._id}`} key={assert._id}>
       <div className={classes.item}>
      <div className={classes.info}> <h4>{assert.assertId}</h4>
-      <p>Parkoso</p></div>
+   {assert.location.map((val)=><p key={val.locationName}>{val.currentLocation===true && val.locationName}</p>) }
+     </div>
       <div className={classes.action}>
       {/* <Link className={classes.edit} href={`/dashboard/asserts/${assert_id}`}> Edit</Link> */}
       <p className={classes.delete}>Delete</p>

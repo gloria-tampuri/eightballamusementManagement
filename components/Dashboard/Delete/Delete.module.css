@@ -1,0 +1,43 @@
+.close{
+   
+    display: flex;
+   justify-content: right;
+
+}
+.closeIcon{
+    color: #ffffff;
+    font-size: 3rem;
+    background-color: var(--blue);
+    padding: 0.8rem;
+    border-radius: 50%;  
+}
+.header{
+    margin: 1rem;
+    text-align: center;
+    color: var(--Deep-green);
+    font-size: 1.2rem;
+}
+
+.actions{
+    display:flex;
+    place-items: center;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.actions2{
+    background-color:var(--blue);
+    color: white;
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+}
+
+.actions1{
+    background-color: #FF0000;
+    color: white;
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+    margin-right: 1rem;
+}

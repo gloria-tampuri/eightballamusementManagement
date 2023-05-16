@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './AssertInfo.module.css'
 import useSWR from 'swr'
-import {BiArrowBack} from 'react-icons/bi'
+import {BiArrowBack, BiCurrentLocation} from 'react-icons/bi'
 import { useRouter } from 'next/router'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -13,8 +13,11 @@ const AssertInfo = () => {
    console.log(router.query);
 
    const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher)
-  console.log(data?.assert);
+  console.log(data?.assert?.location);
 
+  const location=data?.assert?.location
+  const current = location?.find((val)=>val.currentLocation===true)
+  console.log(current?.locationName);
  
 
   return (
@@ -34,7 +37,7 @@ const AssertInfo = () => {
         <li>Date Purchased: <span className={classes.emphasis}>{data?.assert?.datePurchased}</span></li>
         <li>Price Purchased: <span className={classes.emphasis}>{data?.assert?.purchasedPrice}</span></li>
         <li>Assert Condition: <span className={classes.emphasis}>{data?.assert?.assertState}</span></li>
-        <li>Current Location: <span className={classes.emphasis}></span></li>
+        <li>Current Location: <span className={classes.emphasis}>{current?.locationName}</span></li>
         <li>Current Tokens: <span className={classes.emphasis}></span></li>
         <li>Cash Up for April: <span className={classes.emphasis}></span></li>
         <li>Expenditure for April: <span className={classes.emphasis}></span></li>
