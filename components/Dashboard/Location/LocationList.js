@@ -36,7 +36,7 @@ const LocationList = () => {
           </tr>
         </thead>
         <tbody>
-            {data && data?.assert?.location.map((site)=><tr td={site.locationId}>
+            {data && data?.assert?.location.map((site)=><tr key={site.locationId}>
             <td>{site.locationName}</td>
             <td>{site.numberofTokens}</td>
             <td>{site.startDate}</td>
