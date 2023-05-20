@@ -1,6 +1,25 @@
+.back{
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 2rem;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: var(--red);
+}
+
+.location h2{
+    text-align: center;
+    color: var(--blue);
+    font-size: 2rem;
+    text-decoration: underline;
+    font-weight: 700;
+}
+
 .location form{
     width: 50%;
-    margin: 0 auto;
+    margin: 2rem auto;
 }
 
 .section{
