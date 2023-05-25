@@ -16,10 +16,10 @@ const CashUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const router = useRouter()
     const {assert}= router.query;
-    console.log(router.query);
+  
  
     const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher)
-   console.log(data?.assert);
+console.log(data);
 
    const onSubmit =async receivedInfo=>{
         const dataPush={
@@ -27,10 +27,6 @@ const CashUp = () => {
             ...receivedInfo,
             updatedAt: new Date()
         }
-        // so how do i add an id to the info coming?
-        // Log it and see
-
-        console.log(dataPush);
        
 
         const postData={
@@ -166,7 +162,7 @@ const CashUp = () => {
                 </form>
             </div>
 
-    <CashUpList/>
+    <CashUpList assert={data&&data.assert}/>
 
 
         </div>
