@@ -8,9 +8,13 @@ const AddAssertForm = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async data=>{
+        const pushdata ={
+            ...data,
+            purchasedPrice:Number(data.purchasedPrice)
+        }
 
         const info={
-            ...data,
+            ...pushdata,
             cashup:[
 
             ],

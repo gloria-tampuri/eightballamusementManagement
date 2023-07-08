@@ -1,11 +1,17 @@
+
+.navDisplay{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
 .header h1{
-    color: var(--blue);
+    color: white;
     font-weight: 700;
     font-size: 1.5rem;
 }
 .header hr{
     margin: 1rem 0;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(186, 182, 182, 0.915);
 }
 .nav{
     margin-top: 2rem;
@@ -19,5 +25,18 @@
 
 .link{
     text-decoration: none;
-    color: rgb(37, 37, 37);
+    color:white ;
+}
+
+.logout{
+    margin-top: 2rem;
+    background-color: var(--red);
+    width: 100%;
+    border-radius: 0.3rem;
+    padding: 0.3rem 1rem;
+    color: white;
+}
+
+.icons{
+    font-size: 1.5rem;
 }

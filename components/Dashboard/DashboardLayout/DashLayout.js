@@ -10,7 +10,6 @@ const DashLayout = ({children}) => {
         <Navigation/>
     </div>
     <div className={classes.other}>
-        <header><DashHeader/></header>
         <div className={classes.main}>
         {children}
         </div>

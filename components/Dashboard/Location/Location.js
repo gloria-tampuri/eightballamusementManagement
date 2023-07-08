@@ -26,7 +26,7 @@ const Location = () => {
         const receivedInfo = {
             locationId: uuidv4(),
             locationName: locationName,
-            numberofTokens: numberofTokens,
+            numberofTokens: Number(numberofTokens),
             startDate: startDate,
             endDate: endDate,
             currentLocation: currentLocation
@@ -76,7 +76,7 @@ const Location = () => {
     return (
         <div className={classes.location}>
             <div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
-            <h2>Cash Up for {data?.assert?.assertId}</h2>
+            <h2> Locations for {data?.assert?.assertId}</h2>
             <form onSubmit={onSubmitHandler}>
                 <div className={classes.section}>
                     <label>Name of Location</label>

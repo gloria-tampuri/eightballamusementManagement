@@ -8,6 +8,7 @@
     width: 20%;
     height: 100vh;
     padding: 2rem;
+    background-color: var(--blue);
     /* background-color: teal; */
     box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
     border-radius: 1rem;
@@ -16,7 +17,7 @@
 
 .other{
     width: 80%;
-    height: 100vh;
+
 }
 
 .other header{

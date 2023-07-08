@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import useSWR from 'swr'
 import CashUpList from './CashUpList';
 
+
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
@@ -17,18 +18,35 @@ const CashUp = () => {
     const router = useRouter()
     const {assert}= router.query;
   
- 
-    const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher)
+   
+    const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher,{refreshInterval: 1000})
 console.log(data);
 
-   const onSubmit =async receivedInfo=>{
+const location=data?.assert?.location
+const current = location?.find((val)=>val.currentLocation===true)
+console.log(current?.locationName);
+
+   const onSubmit =async info=>{
+
+    const receivedInfo={
+        ...info,
+        
+        tokenPrice:Number(info.tokenPrice),
+        percentage:Number(info.percentage),
+        numberOfFreeTokens:Number(info.numberOfFreeTokens),
+        numberOfTokensPlayed:Number(info.numberOfTokensPlayed),
+        totalAmount:Number(info.totalAmount),
+        companyAmount:Number(info.companyAmount),
+        siteAmount:Number(info.siteAmount)
+    }
         const dataPush={
+            location:current?.locationName,
             cashupId:uuidv4(),
             ...receivedInfo,
             updatedAt: new Date()
         }
        
-
+        console.log(dataPush);
         const postData={
             assertId:data?.assert?.assertId,
             datePurchased:data?.assert?.datePurchased,

@@ -31,6 +31,28 @@ export default async function handler(req, res) {
             res.status(500).json({ status: 500, message: "Something went wrong" })
         }
     }
+
+    if(req.method ==='PUT'){
+        const updatedData =req.body
+        const assertsCollection = await connectToDatabase()
+        const { assertId, locationId } = req.query;
+            console.log(assertId,locationId);
+        try{
+            await assertsCollection.updateOne({
+                _id:new ObjectId(assertId),"location.locationId":locationId
+               
+            },{
+                $set:{
+                   'location.$':updatedData
+                }
+            })
+            res.status(200).json({ message: "assert updated successfully" })
+
+        }
+        catch{
+            res.status(500).json({ status: 500, message: "Something went wrong" })
+        }
+    }
 }
 
 //api/asserts/[cropId]/location/[locationId]
