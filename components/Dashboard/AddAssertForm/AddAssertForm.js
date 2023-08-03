@@ -1,11 +1,16 @@
 import React from 'react'
 import { useForm } from "react-hook-form";
 import classes from './AddAssertForm.module.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
 const AddAssertForm = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const notify = () => toast.success("Asset Added !",  {
+        position: 'top-center',
+      });
 
     const onSubmit = async data=>{
         const pushdata ={
@@ -26,6 +31,8 @@ const AddAssertForm = () => {
             ]
 
         }
+        notify()
+
 
         const res = await fetch('/api/asserts', {
             method: "POST",
@@ -36,7 +43,6 @@ const AddAssertForm = () => {
           })
           if (res.status === 201) {
             reset()
-            console.log('assert added!');
           } else {
             console.log('Error');
           }
@@ -44,11 +50,12 @@ const AddAssertForm = () => {
     };
     return (
         <div className={classes.form}>
+              <ToastContainer/>
 
             <form className={classes.forms} onSubmit={handleSubmit(onSubmit)}>
-                <h2>Add a New Assert</h2>
+                <h2>Add a New Asset</h2>
                 <div className={classes.section}>
-                    <label>Assert Id</label>
+                    <label>Asset Id</label>
                     <input
                         placeholder='Assert ID'
                         type='text'
@@ -79,13 +86,14 @@ const AddAssertForm = () => {
                 <div className={classes.section}>
                     <label>State of Assert</label>
                     <input
-                        placeholder='Assert State'
+                        placeholder='Asset State'
                         type='text'
                         {...register("assertState", { required: true })}
                     />
                     {errors.assertState && <p className={classes.errors}>State is required</p>}
                 </div>
               <div className={classes.button}>  <button>Add Assert</button></div>
+
             </form>
         </div>
     )

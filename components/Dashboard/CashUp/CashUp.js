@@ -1,8 +1,9 @@
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
 import { useRouter } from 'next/router'
 import classes from './CashUp.module.css'
 import { BiArrowBack } from 'react-icons/bi'
 import { useForm } from "react-hook-form";
+import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import useSWR from 'swr'
@@ -12,8 +13,62 @@ import CashUpList from './CashUpList';
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
+
 const CashUp = () => {
+
+    const[cashupDate,setCashupDate]=useState('')
+    const[tokenPrice,setTokenPrice]=useState(0)
+    const[tokensSold,setTokensSold]=useState(0)
+    const[totalSale,setTotalSale]=useState(0)
+    const[commission,setCommission]=useState(0)
+    const[companyAmount,setCompanyAmount]=useState(0)
+    const[siteShare,setSiteShare]=useState(0)
+    const[cashReceived, setCashReceived]=useState(0)
+    const [balance,setBalance]=useState(0)
+    const[tokensIssued, setTokensIssued]=useState(0)
+    const[startFloat, setStartFloat]=useState(0)
+    const[closeFloat,setCloseFloat]=useState(0)
     
+    const CaltotalAmount =()=>{
+      const total = tokenPrice*tokensSold
+      setTotalSale(Math.round(total))
+    }
+    // CaltotalAmount()
+
+    const siteShareHandler=()=>{
+        const percentage = commission
+        const price =tokenPrice
+        const soldTokens = tokensSold
+        const siteMoney = (price * soldTokens)*percentage
+        setSiteShare(Math.round(siteMoney))
+    } 
+    // siteShareHandler()
+
+    const companySharehandler=()=>{
+        const percentage = commission
+        const price =tokenPrice
+        const soldTokens = tokensSold
+        const companyPercentage = 1-percentage
+        const companyMoney = (price * soldTokens)*companyPercentage
+        setCompanyAmount(Math.round(companyMoney))
+    }
+    // companySharehandler()
+    useEffect(() => {
+        CaltotalAmount();
+        siteShareHandler();
+        companySharehandler();
+        balanceHandler();
+        startFloatHandler()
+    }, [tokenPrice, tokensSold, commission, cashReceived,closeFloat,tokensIssued]);
+
+    const balanceHandler=()=>{
+        const bb =( companyAmount - cashReceived)
+        setBalance(bb)
+    }
+    const startFloatHandler=()=>{
+        const totaltokens = +tokensIssued + (+closeFloat)
+        setStartFloat(totaltokens)
+    }
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const router = useRouter()
     const {assert}= router.query;
@@ -26,19 +81,28 @@ const location=data?.assert?.location
 const current = location?.find((val)=>val.currentLocation===true)
 console.log(current?.locationName);
 
-   const onSubmit =async info=>{
+const notify = () => toast.success("Cashup Added Successfully !",{
+    position: 'top-center',
+  });
+   const onSubmit =async()=>{
+    // e.preventDefault()
+    
 
     const receivedInfo={
-        ...info,
-        
-        tokenPrice:Number(info.tokenPrice),
-        percentage:Number(info.percentage),
-        numberOfFreeTokens:Number(info.numberOfFreeTokens),
-        numberOfTokensPlayed:Number(info.numberOfTokensPlayed),
-        totalAmount:Number(info.totalAmount),
-        companyAmount:Number(info.companyAmount),
-        siteAmount:Number(info.siteAmount)
+        cashupDate:cashupDate,
+        tokensSold:Number(tokensSold),
+        tokenPrice:Number(tokenPrice),
+        commission:Number(commission),
+        totalSale:Number(totalSale),
+        siteShare:Number(siteShare),
+        companyAmount:Number(companyAmount),
+        cashReceived:Number(cashReceived),
+        balance:Number(balance),
+        startFloat:Number(startFloat),
+        closeFloat:Number(closeFloat),
+        tokensIssued:Number(tokensIssued)
     }
+    console.log(receivedInfo);
         const dataPush={
             location:current?.locationName,
             cashupId:uuidv4(),
@@ -74,8 +138,20 @@ console.log(current?.locationName);
             },
             body: JSON.stringify(postData)
         })
+        notify()
         if (response.ok) {
-            reset();
+            setCashupDate(''),
+        setTokensSold(0),
+        setTokenPrice(0),
+        setCommission(0),
+        setTotalSale(0),
+        setSiteShare(0),
+        setCompanyAmount(0),
+        setCashReceived(0),
+        setBalance(0),
+        setStartFloat(0),
+        setCloseFloat(0),
+        setTokensIssued(0)
         }
        
 
@@ -101,18 +177,22 @@ console.log(current?.locationName);
                         <input
                             placeholder='Date'
                             type='date'
-                            {...register("date", { required: true })}
+                            value={cashupDate}
+                            // {...register("date", { required: true })}
+                            onChange={(e)=>{setCashupDate(e.target.value)}}
                         />
-                        {errors.date && <p className={classes.errors}>Date needed</p>}
+                        {/* {errors.date && <p className={classes.errors}>Date needed</p>} */}
                     </div>
                     <div className={classes.section}>
-                        <label>Number of tokens Played</label>
+                        <label>Sold Tokens</label>
                         <input
                             placeholder='number of tokens Played'
                             type='number'
-                            {...register("numberOfTokensPlayed", { required: true })}
+                            value={tokensSold}
+                            onChange={(e)=>{setTokensSold(e.target.value)}}
+                            // {...register("numberOfTokensPlayed", { required: true })}
                         />
-                        {errors.numberOfTokensPlayed && <p className={classes.errors}>Number of tokens Played needed</p>}
+                        {/* {errors.numberOfTokensPlayed && <p className={classes.errors}>Number of tokens Played needed</p>} */}
                     </div>
 
                     <div className={classes.section}>
@@ -120,67 +200,121 @@ console.log(current?.locationName);
                         <input
                             placeholder='Token price'
                             type='number'
-                            {...register("tokenPrice", { required: true })}
+                            // {...register("tokenPrice", { required: true })}
+                            value={tokenPrice}
+                            onChange={(e)=>{setTokenPrice(e.target.value)}}
                         />
-                        {errors.tokenPrice && <p className={classes.errors}>Token Price needed</p>}
+                        {/* {errors.tokenPrice && <p className={classes.errors}>Token Price needed</p>} */}
                     </div>
 
                     <div className={classes.section}>
-                        <label>Percentage</label>
+                        <label>Commission</label>
                         <input
                             placeholder='Site Percentage'
                             type='number'
-                            {...register("percentage", { required: true })}
+                            value={commission}
+                            onChange={(e)=>{setCommission(e.target.value)}}
+                            // {...register("percentage", { required: true })}
                         />
-                        {errors.percentage && <p className={classes.errors}>Percentage needed</p>}
+                        {/* {errors.percentage && <p className={classes.errors}>Percentage needed</p>} */}
                     </div>
 
 
 
                     <div className={classes.section}>
-                        <label>Number of free tokens</label>
-                        <input
-                            placeholder='Number of free tokens'
-                            type='number'
-                            {...register("numberOfFreeTokens", { required: true })}
-                        />
-                        {errors.numberOfFreeTokens && <p className={classes.errors}>Number of free tokens needed</p>}
-                    </div>
-                    <div className={classes.section}>
-                        <label>Total Amount</label>
+                        <label>Total Sale</label>
                         <input
                             placeholder='Total Amount'
                             type='number'
-                            {...register("totalAmount", { required: true })}
+                            value={totalSale}
+                            // {...register("totalAmount", { required: true })}
+                            onChange={CaltotalAmount}
                         />
-                        {errors.totalAmount && <p className={classes.errors}>Total Amount needed</p>}
-                    </div>
-                    <div className={classes.section}>
-                        <label>Amount given to site</label>
-                        <input
-                            placeholder='Amount given to site'
-                            type='number'
-                            {...register("siteAmount", { required: true })}
-                        />
-                        {errors.siteAmount && <p className={classes.errors}>Amount given to site needed</p>}
+                        {/* {errors.totalAmount && <p className={classes.errors}>Total Amount needed</p>} */}
                     </div>
 
                     <div className={classes.section}>
-                        <label>Company Amount</label>
+                        <label>Site Share</label>
                         <input
-                            placeholder='Company Amount'
+                            placeholder='Number of free tokens'
+                            type='number'
+                            value={siteShare}
+                            onChange={siteShareHandler}
+                            // {...register("numberOfFreeTokens", { required: true })}
+                        />
+                        {/* {errors.numberOfFreeTokens && <p className={classes.errors}>Number of free tokens needed</p>} */}
+                    </div>
+
+                    <div className={classes.section}>
+                        <label>Company Share</label>
+                        <input
+                            placeholder='Company share'
                             type='number'
                             {...register("companyAmount", { required: true })}
+                            value={companyAmount}
+                            onChange={companySharehandler}
                         />
-                        {errors.companyAmount && <p className={classes.errors}>Company Amount needed</p>}
+                        {/* {errors.companyAmount && <p className={classes.errors}>Company Amount needed</p>} */}
                     </div>
-                    <div></div>
+                    <div className={classes.section}>
+                        <label>Cash Received</label>
+                        <input
+                            placeholder='cash recieved'
+                            type='number'
+                            
+                            value={cashReceived}
+                            onChange={(e)=>{setCashReceived(e.target.value)}}
+                        />
+                    </div>
+
+                    <div className={classes.section}>
+                        <label>Balance</label>
+                        <input
+                            placeholder='Balance'
+                            type='number'
+                            
+                            value={balance}
+                            onChange={balanceHandler}
+                        />
+                    </div>
+                    <div className={classes.section}>
+                        <label>Tokens Issued</label>
+                        <input
+                            placeholder='Token Issued'
+                            type='number'
+                            
+                            value={tokensIssued}
+                            onChange={(e)=>{setTokensIssued(e.target.value)}}
+                        />
+                    </div>
+                    <div className={classes.section}>
+                        <label>Close Float</label>
+                        <input
+                            placeholder='End float'
+                            type='number'
+                            
+                            value={closeFloat}
+                            onChange={(e)=>{setCloseFloat(e.target.value)}}
+                        />
+                    </div>
+                    <div className={classes.section}>
+                        <label>Start Float</label>
+                        <input
+                            placeholder='Start float'
+                            type='number'
+                            
+                            value={startFloat}
+                            onChange={startFloatHandler}
+                        />
+                    </div>
+                  
 
                     <div className={classes.button}>  <button>Add Cash Up</button></div>
                 </form>
             </div>
 
     <CashUpList assert={data&&data.assert}/>
+    <ToastContainer />
 
 
         </div>

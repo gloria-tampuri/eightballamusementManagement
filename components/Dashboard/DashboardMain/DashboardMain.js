@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import classes from './DashboardMain.module.css'
 import useSWR from 'swr'
+import CashUp from '../CashUp/CashUp'
+import 'react-toastify/dist/ReactToastify.css'; // Make sure to import this line
+
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -37,7 +40,7 @@ const DashboardMain = () => {
       const sales = document?.cashup;
 
       sales.forEach((sale) => {
-        const saleDate = new Date(sale.date);
+        const saleDate = new Date(sale.cashupDate);
         const saleYear = saleDate.getFullYear();
         const saleMonth = saleDate.getMonth() + 1;
 
@@ -67,7 +70,7 @@ const DashboardMain = () => {
       const sales = document?.cashup;
 
       sales.forEach((sale) => {
-        const saleDate = new Date(sale.date);
+        const saleDate = new Date(sale.cashupDate);
         const saleYear = saleDate.getFullYear();
         const saleMonth = saleDate.getMonth() + 1;
 
@@ -89,7 +92,7 @@ const DashboardMain = () => {
     documents?.forEach((document) => {
       let totalSales = 0;
       document?.cashup?.forEach((sale) => {
-        const saleDate = new Date(sale.date);
+        const saleDate = new Date(sale.cashupDate);
         const saleYear = saleDate.getFullYear();
         const saleMonth = saleDate.getMonth() + 1;
 
@@ -139,7 +142,7 @@ const DashboardMain = () => {
 
         </div>
 
-        <div className={`${classes.box} ${classes.fifth}`}>
+        {/* <div className={`${classes.box} ${classes.fifth}`}>
           <h1>20150204 </h1>
           <p>Ayeduase</p>
           <h2>Best Performing site This Year</h2>
@@ -151,7 +154,7 @@ const DashboardMain = () => {
           <p>Parkoso</p>
           <h2>Worst Performing Site This Year</h2>
 
-        </div>
+        </div> */}
       </div>
 
       <div className={classes.list}>
@@ -167,12 +170,12 @@ const DashboardMain = () => {
           </thead>
 
           <tbody>
-            {cashUpMonthlyTable?.map((arranged, index) => <tr key={arranged._id}>
+            {cashUpMonthlyTable?.map((arranged, index) => <tr key={arranged?._id}>
               <td>{index + 1}</td>
-              <td>{arranged.assertId}</td>
-              <td>{arranged.location.find((val) => val.currentLocation === true).locationName}</td>
+              <td>{arranged?.assertId}</td>
+              <td>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
 
-              <td>{arranged.totalSalesCurrentMonth}</td>
+              <td>{arranged?.totalSalesCurrentMonth}</td>
             </tr>)}
           </tbody>
         </table>

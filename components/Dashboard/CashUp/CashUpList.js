@@ -7,10 +7,8 @@ import Delete from '../Delete/Delete'
 import { DeleteContext } from '../../../Context/DeleteContext'
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRangePicker } from 'react-date-range';
-// import { format } from 'date-fns'
+import { DateRangePicker } from 'react-date-range'
 
-// format(new Date(2014, 1, 11), 'MM/dd/yyyy')
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -32,7 +30,10 @@ const CashUpList = () => {
     const [allProducts, setAllProducts] = useState(() => data?.assert?.cashup)
     const [filteredCashup, setFilteredCashup] = useState()
 
-    console.log(filteredCashup);
+    const handlePrint = () => {
+        window.print();
+      };
+    
 
     useEffect(() => {
         if (data?.status === 200) {
@@ -51,22 +52,7 @@ const CashUpList = () => {
         showDeleteModal()
     }
 
-    const handleSelect = (date) => {
-
-        let filter = allProducts?.filter((assert) => {
-            let cashupDate = new Date(assert["date"])
-            return (
-                cashupDate >= date.selection.startDate &&
-                cashupDate <= date.selection.endDate
-            )
-        })
-
-
-
-        // setStartDate(date.selection.startDate)
-        // setEndDate(date.selection.endDate)
-        setFilteredCashup(filter)
-    }
+    
 
 
     const monthNames = [
@@ -74,7 +60,7 @@ const CashUpList = () => {
         "July", "August", "September", "October", "November", "December"
     ];
     const groupedDataByYear = data?.assert?.cashup.reduce((result, cash) => {
-        const date = new Date(cash.date)
+        const date = new Date(cash.cashupDate)
         const year = date.getFullYear();
         const monthIndex = date.getMonth();
         const monthName = monthNames[monthIndex];
@@ -111,11 +97,6 @@ const CashUpList = () => {
         return { year, months: monthsWithAmounts, totalAmount: formattedTotalAmount };
       });
       
-      
-      
-console.log(groupedDataArrayWithAmounts);      
-
-
 
     const handleMonths = (year) => {
         setShowMonths(showMonths === year ? undefined : year)
@@ -127,12 +108,6 @@ console.log(groupedDataArrayWithAmounts);
         setShowCashupInMonth(showCashupInMonth === month ? undefined : month)
 
     }
-
-    
-
-
-    
-    
 
     useEffect(() => {
         const totalRevenue = data?.assert?.cashup?.map(cashup => +cashup.companyAmount).reduce(
@@ -148,12 +123,12 @@ console.log(groupedDataArrayWithAmounts);
 
 
 
+
     return (
         <div>
             <h2>Total Revenue of Table: <span>{totalRevenue}</span></h2>
 
             <div className={classes.list}>
-
                 {groupedDataArrayWithAmounts.map((list) => <div>
                     <div>
                         <h1 className={classes.years} onClick={() => handleMonths(list.year)}>{list.year}, <span className={classes.amount}> GHC {list.totalAmount}</span></h1>
@@ -167,23 +142,21 @@ console.log(groupedDataArrayWithAmounts);
                                         <tr>
                                             <th>Date</th>
                                             <th>Location</th>
-                                            <th>Tokens Played</th>
-                                            <th>Percentage</th>
+                                            <th>Sold Tokens</th>
                                             <th>Total Amount</th>
-                                            <th>Site Amount</th>
-                                            <th>Comany Amount</th>
+                                            <th>Comany Share</th>
+                                            <th>Balance</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {month.items.map((cash) => <tr key={cash.cashupId}>
-                                            <td>{cash.date}</td>
+                                            <td>{cash.cashupDate}</td>
                                             <td>{cash.location}</td>
-                                            <td>{cash.numberOfTokensPlayed}</td>
-                                            <td>{cash.percentage}</td>
-                                            <td>{cash.totalAmount}</td>
-                                            <td>{cash.siteAmount}</td>
+                                            <td>{cash.tokensSold}</td>
+                                            <td>{cash.totalSale}</td>
                                             <td>{cash.companyAmount}</td>
+                                            <td className={classes.balance}>{cash.balance}</td>
                                             <td><AiOutlineDelete onClick={() => deleteHandler(cash.cashupId && cash.cashupId)} /></td>
                                         </tr>)}
                                     </tbody>

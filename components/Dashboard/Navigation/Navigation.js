@@ -3,8 +3,21 @@ import Link from 'next/link'
 import classes from './Navigation.module.css'
 import {MdOutlineDashboard,MdAssignmentAdd,MdOutlineWallet,} from 'react-icons/md'
 import{GiExpense} from 'react-icons/gi'
+import { useState } from "react";
+import { signUpWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "../../../auth";
+import { useRouter } from 'next/router'
+
 
 const Navigation = () => {
+   const handleSignOut = async () => {
+    try {
+      await signOut();
+      // Handle successful sign-out
+      
+    } catch (error) {
+      // Handle sign-out error
+    }
+  };
   return (
     <div  className={classes.navDisplay}>
        <div>
@@ -38,7 +51,7 @@ const Navigation = () => {
             </div>
             </Link>
             <div className={classes.logout}>
-        <h4>LOG OUT</h4>
+        <h4 onClick={handleSignOut}>LOG OUT</h4>
       </div>
             </div>
            
