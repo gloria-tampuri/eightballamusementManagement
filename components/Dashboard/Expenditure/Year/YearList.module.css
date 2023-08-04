@@ -2,3 +2,72 @@
     font-size: 2.2rem;
     margin: 1rem 0 0 2rem ;
 }
+
+.yearExpen h1{
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--red);
+}
+.total{
+    color: var(--blue);
+    font-weight: 700;
+}
+.list{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #343A46;
+    background-color:rgb(255, 249, 249) ;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+
+.years{
+    background-color:var(--pale-red) ;
+    color: white;
+    padding: 0.3rem 2rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    width: fit-content;
+    border-radius: 0.3rem;
+}
+.amount{
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.month{
+    color: var(--red);
+    /* padding: 1rem 0; */
+}
+
+.list table{
+    width: 100%;
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.list thead, .list tbody {
+    width: 100%;
+}
+
+.list td, .list th{
+    /* width: 100%; */
+    padding: 8px;
+    text-align: center
+  }
+  
+ 
+  .list tbody tr:nth-child(odd){
+     background-color: var(--blue);
+     color: white;
+  
+  }
+
+  .balance{
+    color: var(--red);
+  }

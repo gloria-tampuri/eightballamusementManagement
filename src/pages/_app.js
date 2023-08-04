@@ -16,7 +16,10 @@ export default function App({ Component, pageProps }) {
         router.push("/dashboard");
       } else {
         // User is signed out, redirect to login page (if needed)
-        router.push("/");
+        if (typeof window !== "undefined") {
+          // Only run on the client-side
+          router.push("/");
+        }
       }
     });
 
