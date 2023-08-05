@@ -24,13 +24,13 @@ const AssertInfo = () => {
     <div className={classes.assert}>
 
       <div className={classes.back} onClick={()=>router.back()}><BiArrowBack/>Back</div>
-        <h2>{data?.assert?.assertId}</h2>
+        <h2>{data?.assert?.assertId} {current?.locationName}</h2>
 
         <div className={classes.actions}>
         <div className={classes.actionbtn} onClick={() => router.push(`/dashboard/asserts/${assert}/cashup`)}>Cash Ups</div>
-        <div className={classes.actionbtn} onClick={() => router.push(`/dashboard/asserts/${assert}/expenditure`)}>Expenditure</div>
         <div className={classes.actionbtn} onClick={() => router.push(`/dashboard/asserts/${assert}/location`)}>Location</div>
       </div>
+        {/* <div className={classes.actionbtn} onClick={() => router.push(`/dashboard/asserts/${assert}/expenditure`)}>Expenditure</div> */}
 
       <ul className={classes.summary}>
         <li>Assert Number: <span className={classes.emphasis}>{data?.assert?.assertId}</span></li>

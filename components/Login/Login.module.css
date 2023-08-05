@@ -91,3 +91,35 @@ margin: 0 auto;
     width: 50%;
     margin: 1rem auto;
 }
+
+@media (max-width:640px) {
+    .wrapper{
+        padding: 0;
+    }
+    .login{
+        width: 100vw;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
+        background-color: white;
+        /* height: 100%; */
+
+    }
+
+    .words{
+        /* display: none; */
+        width: 100%;
+        border-radius: 0;
+    }
+    .made{
+        width: 100%;
+    }
+    .formContainer{
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .form{
+        width: 100%;
+    }
+}

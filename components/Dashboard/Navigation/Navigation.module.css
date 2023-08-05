@@ -40,3 +40,10 @@
 .icons{
     font-size: 1.5rem;
 }
+
+@media (max-width:640px){
+    .navDisplay{
+        /* display: none; */
+        flex-direction: row;
+    }
+}

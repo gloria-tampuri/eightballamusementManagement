@@ -39,3 +39,20 @@
     min-height: 85%;
     padding: 2rem;
 }
+
+@media (max-width:640px){
+    .dashboard{
+        padding: 0;
+        flex-direction: column;
+    }
+    .nav{
+        /* display: none; */
+        width: 100%;
+        height: fit-content;
+        border-radius: 0;
+    }
+
+    .other{
+        width: 100%;
+    }
+}
