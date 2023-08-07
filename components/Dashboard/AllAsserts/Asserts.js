@@ -14,8 +14,17 @@ const Asserts = () => {
 
   const { data, error, isLoading } = useSWR('/api/asserts', fetcher);
 
-  const location = data?.assert?.location;
-  const current = location?.find((val) => val.currentLocation === true);
+  // Check if data is loading or not available
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading data</div>;
+  }
+
+  // Sort the asserts array by timestamp in descending order (most recent first)
+  const sortedAsserts = data.asserts.slice().sort((a, b) => b.timestamp - a.timestamp);
 
   const startIdx = (currentPage - 1) * PAGE_SIZE;
   const endIdx = currentPage * PAGE_SIZE;
@@ -24,7 +33,7 @@ const Asserts = () => {
     <div className={classes.list}>
       <h3>List of Items</h3>
 
-      {data?.asserts.slice(startIdx, endIdx).map((assert) => (
+      {sortedAsserts.slice(startIdx, endIdx).map((assert) => (
         <Link href={`/dashboard/asserts/${assert._id}`} key={assert._id}>
           <div className={classes.item}>
             <div className={classes.info}>
@@ -50,7 +59,7 @@ const Asserts = () => {
           Previous
         </button>
         <button
-          disabled={endIdx >= data?.asserts.length}
+          disabled={endIdx >= sortedAsserts.length}
           onClick={() => setCurrentPage(currentPage + 1)}
         >
           Next

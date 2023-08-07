@@ -33,4 +33,10 @@
     display: flex;
   }
 
-  
+  @media(max-width:640px){
+    .list{
+        padding: 0.2rem;
+    }
+    .list table{
+overflow: scroll;    }
+  }

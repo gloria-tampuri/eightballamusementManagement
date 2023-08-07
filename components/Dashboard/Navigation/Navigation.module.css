@@ -4,10 +4,20 @@
     flex-direction: column;
     justify-content:space-between;
 }
+.header{
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+}
 .header h1{
     color: white;
     font-weight: 700;
     font-size: 1.5rem;
+}
+.menu{
+    display: none;
 }
 .header hr{
     margin: 1rem 0;
@@ -39,11 +49,23 @@
 
 .icons{
     font-size: 1.5rem;
+    color: white;
+}
+.phoneNav{
+    display: none;
 }
 
 @media (max-width:640px){
     .navDisplay{
-        /* display: none; */
         flex-direction: row;
+    }
+    .menu{
+        display: block;
+    }
+    .nav{
+        display: none;
+    }
+    .phoneNav{
+        display: block;
     }
 }

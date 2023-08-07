@@ -18,7 +18,7 @@
 }
 
 .location form{
-    width: 50%;
+    width: 60%;
     margin: 2rem auto;
 }
 
@@ -56,4 +56,10 @@ margin-bottom: 0.3rem;
     border-radius: 0.3rem;
     color: white;
     font-weight: 700;
+}
+
+@media(max-width:640px){
+    .location form{
+        width: 90%;
+    }
 }

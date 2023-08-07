@@ -15,7 +15,7 @@ const getAssertsController = async (req, res) => {
     const assertCollection = await connectToDatabase()
 
     try {
-        const asserts = await assertCollection.find().toArray();
+        const asserts = await assertCollection.find().sort({ timestampField: -1 }).toArray();
         res.status(200).json({ status: 200, asserts })
 
     } catch (error) {
