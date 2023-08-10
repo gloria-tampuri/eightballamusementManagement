@@ -8,9 +8,9 @@ box-sizing: border-box;
 }
 * {
  margin: 0;
- --blue:#070a53;
- --red:#D21312;
---pale-red:#f15a59;
+ --blue:#607ea6;
+ --red:#6aa4baad;
+--pale-red:#607ea6;
 
 }
 html, body {

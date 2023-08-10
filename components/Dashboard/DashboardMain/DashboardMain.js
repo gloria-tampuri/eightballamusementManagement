@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import classes from './DashboardMain.module.css'
 import useSWR from 'swr'
 import CashUp from '../CashUp/CashUp'
+import Link from 'next/link'
 import 'react-toastify/dist/ReactToastify.css'; // Make sure to import this line
 
 
@@ -119,11 +120,11 @@ const DashboardMain = () => {
   return (
     <div>
       <div className={classes.highlights}>
-        <div className={`${classes.box} ${classes.first}`}>
+        <Link href='/dashboard/asserts' className={`${classes.box} ${classes.first}`}>
           <h1>{totalAssets}</h1>
           <h2>Total Number of Tables</h2>
 
-        </div>
+        </Link>
 
         <div className={`${classes.box} ${classes.second}`}>
           <h1>{totalSalesYear}</h1>
