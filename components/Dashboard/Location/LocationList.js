@@ -38,8 +38,11 @@ const LocationList = () => {
         <thead>
           <tr>
             <th>Location Name</th>
+            <th>Physical Address</th>
+            <th>Site Owner</th>
+            <th>Telephone</th>
             <th>Tokens Given</th>
-            <th>Start date</th>
+            <th>Commence Date</th>
             <th>End date</th>
             <th>Actions</th>
           </tr>
@@ -52,6 +55,9 @@ const LocationList = () => {
               .map((site) => (
                 <tr key={site.locationId}>
                   <td>{site.locationName}</td>
+                  <td>{site.physicalAddress}</td>
+                  <td>{site.siteOwner}</td>
+                  <td>{site.telephoneNumber}</td>
                   <td>{site.numberofTokens}</td>
                   <td>{site.startDate}</td>
                   <td>{site.endDate === '' ? 'current Location' : site.endDate}</td>

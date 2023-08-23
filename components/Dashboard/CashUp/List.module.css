@@ -6,6 +6,9 @@
     color: #343A46;
     background-color:rgb(245, 245, 245) ;
     padding: 1rem;
+    width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch
 }
 
 .years{

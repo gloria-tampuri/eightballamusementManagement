@@ -34,9 +34,7 @@ const AssertInfo = () => {
 
       <ul className={classes.summary}>
         <li>Assert Number: <span className={classes.emphasis}>{data?.assert?.assertId}</span></li>
-        <li>Date Purchased: <span className={classes.emphasis}>{data?.assert?.datePurchased}</span></li>
-        <li>Price Purchased: <span className={classes.emphasis}>{data?.assert?.purchasedPrice}</span></li>
-        <li>Assert Condition: <span className={classes.emphasis}>{data?.assert?.assertState}</span></li>
+        <li>Date Installed: <span className={classes.emphasis}>{data?.assert?.datePurchased}</span></li>
         <li>Current Location: <span className={classes.emphasis}>{current?.locationName}</span></li>
         <li>Current Tokens: <span className={classes.emphasis}></span></li>
         <li>Cash Up for April: <span className={classes.emphasis}></span></li>

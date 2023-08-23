@@ -17,6 +17,9 @@ const Location = () => {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [currentLocation, setCurrentLocation] = useState(false)
+    const[telephoneNumber,setTelephoneNumber]=useState(0)
+    const[physicalAddress, setphysicalAddress]=useState('')
+    const[siteOwner,setSiteOwner]=useState('')
 
     const { data, error, isLoading } = useSWR(`/api/asserts/${assert}`, fetcher)
 
@@ -29,6 +32,9 @@ const Location = () => {
             numberofTokens: Number(numberofTokens),
             startDate: startDate,
             endDate: endDate,
+            telephoneNumber:telephoneNumber,
+            physicalAddress:physicalAddress,
+            siteOwner:siteOwner,
             currentLocation: currentLocation
         }
         console.log(receivedInfo);
@@ -68,6 +74,9 @@ const Location = () => {
             setNumberOfTokens(0),
                 setStartDate('')
             setEndDate('')
+            setphysicalAddress('')
+            setTelephoneNumber(0)
+            setSiteOwner('')
 
         }
     }
@@ -79,13 +88,41 @@ const Location = () => {
             <h2> Locations for {data?.assert?.assertId}</h2>
             <form onSubmit={onSubmitHandler}>
                 <div className={classes.section}>
-                    <label>Name of Location</label>
+                    <label>Site Name</label>
                     <input type='text'
-                        placeholder='Location Name'
+                        placeholder='Site Name'
                         value={locationName}
                         onChange={(e) => setLocationName(e.target.value)}
                     />
                 </div>
+
+                <div className={classes.section}>
+                    <label>Telephone Number</label>
+                    <input type='number'
+                        placeholder='Tel Number'
+                        value={telephoneNumber}
+                        onChange={(e) => setTelephoneNumber(e.target.value)}
+                    />
+                </div>
+
+                <div className={classes.section}>
+                    <label>Physical Address</label>
+                    <input type='text'
+                        placeholder='Physical Address'
+                        value={physicalAddress}
+                        onChange={(e) => setphysicalAddress(e.target.value)}
+                    />
+                </div>
+
+                <div className={classes.section}>
+                    <label>Name of Site Owner</label>
+                    <input type='text'
+                        placeholder='Name of Site Owner'
+                        value={siteOwner}
+                        onChange={(e) => setSiteOwner(e.target.value)}
+                    />
+                </div>
+
                 <div className={classes.section}>
                     <label>Number of Tokens</label>
                     <input type='number'
@@ -95,7 +132,7 @@ const Location = () => {
                     />
                 </div>
                 <div className={classes.section}>
-                    <label>Start Date</label>
+                    <label>Commence Date</label>
                     <input type='date'
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}

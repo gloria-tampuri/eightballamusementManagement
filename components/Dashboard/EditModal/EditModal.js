@@ -18,6 +18,12 @@ console.log(selectedId && selectedId);
   const [startDate, setStartDate] = useState('')
   const [endDate, setEndDate] = useState('')
   const [currentLocation, setCurrentLocation] = useState(false)
+  const[telephoneNumber,setTelephoneNumber]=useState(0)
+  const[physicalAddress, setphysicalAddress]=useState('')
+  const[siteOwner,setSiteOwner]=useState('')
+
+
+
   const {assert}= router.query;
 
   const editCtx=useContext(EditContext)
@@ -39,6 +45,9 @@ console.log(selectedId && selectedId);
         setStartDate(current.startDate)
         setEndDate(current.endDate)
         setCurrentLocation(currentLocation)
+        setTelephoneNumber(current.telephoneNumber)
+        setSiteOwner(current.siteOwner)
+        setphysicalAddress(current.physicalAddress)
     }
   },[assert])
 
@@ -50,7 +59,10 @@ const data={
     numberofTokens,
     startDate,
     endDate,
-    currentLocation
+    currentLocation,
+    telephoneNumber,
+    siteOwner,
+    physicalAddress
 }
 
  const response = await fetch(`/api/asserts/${assertId}/location/${selectedId}`,{
@@ -72,13 +84,41 @@ const data={
         <div className={classes.close}><AiOutlineClose onClick={hideEditModal} className={classes.closeIcon}/></div>
         <form onSubmit={onSubmitHandler}>
                 <div className={classes.section}>
-                    <label>Name of Location</label>
+                    <label>Site Name</label>
                     <input type='text'
-                        placeholder='Location Name'
+                        placeholder='Site Name'
                         value={locationName}
                         onChange={(e) => setLocationName(e.target.value)}
                     />
                 </div>
+
+                <div className={classes.section}>
+                    <label>Telephone Number</label>
+                    <input type='number'
+                        placeholder='Tel Number'
+                        value={telephoneNumber}
+                        onChange={(e) => setTelephoneNumber(e.target.value)}
+                    />
+                </div>
+
+                <div className={classes.section}>
+                    <label>Physical Address</label>
+                    <input type='text'
+                        placeholder='Physical Address'
+                        value={physicalAddress}
+                        onChange={(e) => setphysicalAddress(e.target.value)}
+                    />
+                </div>
+
+                <div className={classes.section}>
+                    <label>Name of Site Owner</label>
+                    <input type='text'
+                        placeholder='Name of Site Owner'
+                        value={siteOwner}
+                        onChange={(e) => setSiteOwner(e.target.value)}
+                    />
+                </div>
+
                 <div className={classes.section}>
                     <label>Number of Tokens</label>
                     <input type='number'
@@ -88,7 +128,7 @@ const data={
                     />
                 </div>
                 <div className={classes.section}>
-                    <label>Start Date</label>
+                    <label>Commence Date</label>
                     <input type='date'
                         value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}

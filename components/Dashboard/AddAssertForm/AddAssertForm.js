@@ -55,43 +55,25 @@ const AddAssertForm = () => {
             <form className={classes.forms} onSubmit={handleSubmit(onSubmit)}>
                 <h2>Add a New Asset</h2>
                 <div className={classes.section}>
-                    <label>Asset Id</label>
+                    <label>Asset Number</label>
                     <input
-                        placeholder='Assert ID'
+                        placeholder='Assert Number'
                         type='text'
                         {...register("assertId", { required: true })}
                     />
                     {errors.assertId && <p className={classes.errors}>Assert ID is required</p>}
                 </div>
                 <div className={classes.section}>
-                    <label>Date Purchased</label>
+                    <label>Date Installed</label>
                     <input
-                        placeholder='Date Purchased'
+                        placeholder='Date Installed'
                         type='date'
                         {...register("datePurchased", { required: true })}
                     />
                     {errors.datePurchased && <p className={classes.errors}>Date purchased is required</p>}
                 </div>
 
-                <div className={classes.section}>
-                    <label>Purchased Price</label>
-                    <input
-                        placeholder='Purchased price'
-                        type='number'
-                        {...register("purchasedPrice", { required: true })}
-                    />
-                    {errors.purchasedPrice && <p className={classes.errors}>Price is required</p>}
-                </div>
-
-                <div className={classes.section}>
-                    <label>State of Assert</label>
-                    <input
-                        placeholder='Asset State'
-                        type='text'
-                        {...register("assertState", { required: true })}
-                    />
-                    {errors.assertState && <p className={classes.errors}>State is required</p>}
-                </div>
+        
               <div className={classes.button}>  <button>Add Assert</button></div>
 
             </form>
