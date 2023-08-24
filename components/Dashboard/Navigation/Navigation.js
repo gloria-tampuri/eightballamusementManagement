@@ -44,13 +44,13 @@ const Navigation = () => {
             <Link  className={classes.link} href='/dashboard/addassert'>
             <div className={classes.section}>
                 <MdAssignmentAdd className={classes.icons}/>
-                <span>Add Assert</span>
+                <span>Add Asset</span>
             </div>
             </Link>
             <Link  className={classes.link} href='/dashboard/asserts'>
             <div className={classes.section}>
                 <MdOutlineWallet className={classes.icons}/>
-                <span>All Asserts</span>
+                <span>All Assets</span>
             </div>
             </Link>
             <Link  className={classes.link} href='/dashboard/expenditure'>
