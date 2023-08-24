@@ -49,11 +49,11 @@
   }
   
  
-  .list tbody tr:nth-child(odd){
+  /* .list tbody tr:nth-child(odd){
      background-color: var(--blue);
      color: white;
   
-  }
+  } */
 
   .balance{
     color: var(--red);

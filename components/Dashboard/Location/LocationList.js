@@ -48,7 +48,7 @@ const LocationList = () => {
           </tr>
         </thead>
         <tbody>
-          {data &&
+        {data &&
             data?.assert?.location
               .slice()
               .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))

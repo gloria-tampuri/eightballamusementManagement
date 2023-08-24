@@ -17,6 +17,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 const CashUp = () => {
 
     const[cashupDate,setCashupDate]=useState('')
+    const[cashupTime,setCashupTime]=useState('')
     const[tokenPrice,setTokenPrice]=useState(0)
     const[tokensSold,setTokensSold]=useState(0)
     const[totalSale,setTotalSale]=useState(0)
@@ -90,6 +91,7 @@ const notify = () => toast.success("Cashup Added Successfully !",{
 
     const receivedInfo={
         cashupDate:cashupDate,
+        cashupTime:cashupTime,
         tokensSold:Number(tokensSold),
         tokenPrice:Number(tokenPrice),
         commission:Number(commission),
@@ -183,6 +185,18 @@ const notify = () => toast.success("Cashup Added Successfully !",{
                         />
                         {/* {errors.date && <p className={classes.errors}>Date needed</p>} */}
                     </div>
+
+                    <div className={classes.section}>
+                        <label>Time</label>
+                        <input
+                            placeholder='Time'
+                            type='text'
+                            value={cashupTime}
+                            // {...register("Time", { required: true })}
+                            onChange={(e)=>{setCashupTime(e.target.value)}}
+                        />
+                        {/* {errors.date && <p className={classes.errors}>Date needed</p>} */}
+                    </div>
                     <div className={classes.section}>
                         <label>Sold Tokens</label>
                         <input
@@ -246,7 +260,7 @@ const notify = () => toast.success("Cashup Added Successfully !",{
                     </div>
 
                     <div className={classes.section}>
-                        <label>Company Share</label>
+                        <label>8Ball Share</label>
                         <input
                             placeholder='Company share'
                             type='number'

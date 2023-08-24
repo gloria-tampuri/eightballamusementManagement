@@ -18,12 +18,14 @@ const CashUpList = () => {
     const deleteCtx = useContext(DeleteContext)
     const { showDeleteModal, deleteModal } = deleteCtx
     const [selectedCashupId, setSelectedCashupId] = useState()
-    const [startDate, setStartDate] = useState()
-    const [endDate, setEndDate] = useState()
     const [showMonths, setShowMonths] = useState(false)
     const [showCashupInMonth, setShowCashupInMonth] = useState(null)
     const [totalRevenue, setTotalRevenue] = useState(0)
+    const [showTotalRevenue, setShowTotalRevenue] = useState(false);
 
+  const handleToggleTotalRevenue = () => {
+    setShowTotalRevenue(!showTotalRevenue);
+  };
     const { data, error, isLoading } = useSWR(`/api/asserts/${assert}`, fetcher)
 
 
@@ -96,7 +98,8 @@ const CashUpList = () => {
         const formattedTotalAmount = parseFloat(totalAmount.toFixed(2));
         return { year, months: monthsWithAmounts, totalAmount: formattedTotalAmount };
       });
-      
+      // Sort the years with the most current year first
+  groupedDataArrayWithAmounts.sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
     const handleMonths = (year) => {
         setShowMonths(showMonths === year ? undefined : year)
@@ -126,7 +129,10 @@ const CashUpList = () => {
 
     return (
         <div>
-            <h2>Total Revenue of Table: <span>{totalRevenue}</span></h2>
+                  <h2 onClick={handleToggleTotalRevenue}>
+        Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
+      </h2>
+
 
             <div className={classes.list}>
                 {groupedDataArrayWithAmounts.map((list) => <div key={list.year}>
@@ -141,6 +147,7 @@ const CashUpList = () => {
                                     <thead>
                                         <tr>
                                             <th>Date</th>
+                                            <th>Time</th>
                                             <th>Location</th>
                                             <th>Sold Tokens</th>
                                             <th>Total Amount</th>
@@ -152,6 +159,7 @@ const CashUpList = () => {
                                     <tbody>
                                         {month.items.map((cash) => <tr key={cash.cashupId}>
                                             <td>{cash.cashupDate}</td>
+                                            <td>{cash.cashupTime}</td>
                                             <td>{cash.location}</td>
                                             <td>{cash.tokensSold}</td>
                                             <td>{cash.totalSale}</td>
