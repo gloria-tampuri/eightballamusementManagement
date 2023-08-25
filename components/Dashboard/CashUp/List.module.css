@@ -48,7 +48,16 @@
     text-align: center
   }
   
- 
+  .seeAllDiv{
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  .seeAllDiv p{
+    color: var(--blue);
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
   /* .list tbody tr:nth-child(odd){
      background-color: var(--blue);
      color: white;

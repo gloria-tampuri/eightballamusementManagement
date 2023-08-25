@@ -1,0 +1,13 @@
+.close{
+   
+    display: flex;
+   justify-content: right;
+
+}
+.closeIcon{
+    color: #ffffff;
+    font-size: 3rem;
+    background-color: var(--blue);
+    padding: 0.8rem;
+    border-radius: 50%;  
+}

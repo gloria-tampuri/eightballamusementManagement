@@ -36,7 +36,8 @@ const AssertInfo = () => {
         <li>Assert Number: <span className={classes.emphasis}>{data?.assert?.assertId}</span></li>
         <li>Date Installed: <span className={classes.emphasis}>{data?.assert?.datePurchased}</span></li>
         <li>Current Location: <span className={classes.emphasis}>{current?.locationName}</span></li>
-        <li>Current Tokens: <span className={classes.emphasis}></span></li>
+        <li>Current Site Tel:<span className={classes.emphasis}>{current?.telephoneNumber}</span> </li>
+        <li>Current Tokens: <span className={classes.emphasis}>{current?.numberofTokens}</span></li>
         <li>Cash Up for April: <span className={classes.emphasis}></span></li>
         <li>Expenditure for April: <span className={classes.emphasis}></span></li>
 
