@@ -147,7 +147,7 @@ const Location = () => {
                     />
                 </div>
 
-                {!currentLocation && <div className={classes.section}>
+                {!currentLocation && <div className={`${classes.section} ${classes.end}`}>
                     <label>End Date</label>
                     <input type='date'
                         value={endDate}

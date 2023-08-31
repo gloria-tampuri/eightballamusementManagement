@@ -81,7 +81,8 @@ const data={
  
   return (
     <Modal>
-        <div className={classes.close}><AiOutlineClose onClick={hideEditModal} className={classes.closeIcon}/></div>
+       <div className={classes.loca}>
+       <div className={classes.close}><AiOutlineClose onClick={hideEditModal} className={classes.closeIcon}/></div>
         <form onSubmit={onSubmitHandler}>
                 <div className={classes.section}>
                     <label>Site Name</label>
@@ -152,6 +153,7 @@ const data={
                 </div>}
                 <button>Submit</button>
             </form>
+       </div>
     </Modal>
   )
 }
