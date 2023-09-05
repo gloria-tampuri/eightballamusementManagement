@@ -10,14 +10,12 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 const AssertInfo = () => {
    const router = useRouter()
    const {assert}= router.query;
-   console.log(router.query);
+  
 
    const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher)
-  console.log(data?.assert?.location);
 
   const location=data?.assert?.location
   const current = location?.find((val)=>val.currentLocation===true)
-  console.log(current?.locationName);
  
 
   return (

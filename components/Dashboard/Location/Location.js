@@ -37,7 +37,6 @@ const Location = () => {
             siteOwner:siteOwner,
             currentLocation: currentLocation
         }
-        console.log(receivedInfo);
 
 
         const postData = {

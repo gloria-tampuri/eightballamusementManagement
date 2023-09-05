@@ -3,6 +3,7 @@ import classes from './DashboardMain.module.css'
 import useSWR from 'swr'
 import CashUp from '../CashUp/CashUp'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'; // Make sure to import this line
 
 
@@ -11,9 +12,9 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const DashboardMain = () => {
   const { data, error, isLoading } = useSWR('/api/asserts', fetcher)
+  const router = useRouter()
 
   const allAssets = data?.asserts
-  console.log(allAssets);
   const [totalAssets, setTotalAssets] = useState(0);
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
@@ -59,7 +60,6 @@ const DashboardMain = () => {
     // setTotalSalesMonth(totalMonthlySales)
   };
   const totalSalesYear = calculateYearTotalSales(allAssets);
-  console.log(totalSalesYear);
 
   const calculateMonthTotalSales = (documents) => {
     const currentDate = new Date();
@@ -83,7 +83,6 @@ const DashboardMain = () => {
     return totalMonthlySales
   };
   const totalSalesMonth = calculateMonthTotalSales(allAssets)
-  console.log(totalSalesMonth);
 
   const calculateArrangeTotalSales = (documents) => {
     const currentDate = new Date();
@@ -109,13 +108,11 @@ const DashboardMain = () => {
     documents?.sort((a, b) => b.totalSalesCurrentMonth - a.totalSalesCurrentMonth);
 
     // Now documents array is sorted based on the total sales in the current month
-    console.log(documents);
     return documents
   };
 
 
   const cashUpMonthlyTable = calculateArrangeTotalSales(allAssets)
-  console.log(cashUpMonthlyTable);
 
   return (
     <div>
@@ -164,20 +161,23 @@ const DashboardMain = () => {
           <thead>
             <tr>
               <th>Position</th>
-              <th>AssetID</th>
               <th>Location</th>
+              <th>AssetID</th>
               <th>Cashup Amount</th>
             </tr>
           </thead>
 
           <tbody>
-            {cashUpMonthlyTable?.map((arranged, index) => <tr key={arranged?._id}>
+            {cashUpMonthlyTable?.map((arranged, index) =><tr key={arranged?._id} onClick={()=>router.push(`/dashboard/asserts/${arranged?._id}/cashup `)} > 
+              
               <td>{index + 1}</td>
+              <td className={classes.color}>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
               <td>{arranged?.assertId}</td>
-              <td>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
 
-              <td>{arranged?.totalSalesCurrentMonth}</td>
-            </tr>)}
+              <td className={classes.color}>{arranged?.totalSalesCurrentMonth}</td>
+             
+            </tr>
+           )}
           </tbody>
         </table>
       </div>

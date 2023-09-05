@@ -108,7 +108,6 @@ const CashUpList = () => {
     const handleMonths = (year) => {
         setShowMonths(showMonths === year ? undefined : year)
 
-        console.log(year);
     }
     const handleCashupInMonth = (month) => {
 
@@ -166,12 +165,12 @@ const CashUpList = () => {
                                         {month.items.map((cash) => <tr key={cash.cashupId}>
                                             <td>{cash.cashupDate}</td>
                                             <td>{cash.cashupTime}</td>
-                                            <td>{cash.location}</td>
+                                            <td className={classes.color}>{cash.location}</td>
                                             <td>{cash.tokensSold}</td>
                                             <td>{cash.totalSale}</td>
-                                            <td>{cash.companyAmount}</td>
+                                            <td className={classes.color}>{cash.companyAmount}</td>
                                             <td className={classes.balance}>{cash.balance}</td>
-                                            <td><AiOutlineDelete onClick={() => deleteHandler(cash.cashupId && cash.cashupId)} /></td>
+                                            <td><AiOutlineDelete className={classes.delete} onClick={() => deleteHandler(cash.cashupId && cash.cashupId)} /></td>
                                         </tr>)}
                                     </tbody>
                                 </table> : ''}

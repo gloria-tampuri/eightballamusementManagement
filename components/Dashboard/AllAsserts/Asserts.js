@@ -53,12 +53,14 @@ const Asserts = () => {
 
       <div className={classes.pagination}>
         <button
+        className={classes.frontBack}
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
         >
           Previous
         </button>
         <button
+        className={classes.frontBack}
           disabled={endIdx >= sortedAsserts.length}
           onClick={() => setCurrentPage(currentPage + 1)}
         >

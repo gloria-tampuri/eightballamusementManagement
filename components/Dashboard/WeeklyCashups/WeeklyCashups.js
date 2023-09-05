@@ -11,7 +11,6 @@ const WeeklyCashups = () => {
   const { data, error, isLoading } = useSWR('/api/asserts', fetcher);
 
   const allAssets = data?.asserts;
-  console.log(allAssets);
 
   function getWeekNumber(date) {
     const currentDate = date || new Date();
@@ -50,13 +49,11 @@ const WeeklyCashups = () => {
     documents?.sort((a, b) => b.totalSalesCurrentWeek - a.totalSalesCurrentWeek);
   
     // Now documents array is sorted based on the total sales in the current week
-    console.log(documents);
     return documents;
   };
   
 
 const cashUpWeeklyTable = calculateArrangeTotalSales(allAssets)
-  console.log(cashUpWeeklyTable);
 
   return (
     <div>
@@ -66,8 +63,8 @@ const cashUpWeeklyTable = calculateArrangeTotalSales(allAssets)
           <thead>
             <tr>
               <th>Position</th>
-              <th>AssetID</th>
               <th>Location</th>
+              <th>AssetID</th>
               <th>Cashup Amount</th>
             </tr>
           </thead>
@@ -75,10 +72,10 @@ const cashUpWeeklyTable = calculateArrangeTotalSales(allAssets)
           <tbody>
           {cashUpWeeklyTable?.map((arranged, index) => <tr key={arranged?._id}>
               <td>{index + 1}</td>
+              <td className={classes.color}>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
               <td>{arranged?.assertId}</td>
-              <td>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
 
-              <td>{arranged?.totalSalesCurrentWeek}</td>
+              <td className={classes.color}>{arranged?.totalSalesCurrentWeek}</td>
             </tr>)}
             
           </tbody>

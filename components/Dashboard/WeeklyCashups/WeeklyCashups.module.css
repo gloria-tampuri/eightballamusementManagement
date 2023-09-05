@@ -1,10 +1,59 @@
+.highlights{
+    display:grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.box{
+    /* width: 30%; */
+    /* text-align: center; */
+    color: white;
+    font-weight: 700;
+    padding: 1rem ;
+    border-radius: 0.3rem;
+    height: 130px;
+    /* background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70.107,1) 100%); */
+    box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
+    color: var(--electric-blue);
+}
+
+.box h1{
+font-size: 1.8rem;
+color: var(--gunmetal);
+
+}
+
+.box h2{
+    font-size: 1rem;
+}
+
+/* .first{
+    background-color: #bfa996;
+}
+
+.second{
+    background-color: #260b01;
+}
+.third{
+    background-color: #8c4830;
+}
+.fourth{
+    background-color: #bf7b54;
+}
+.fifth{
+    background-color: #0091d5;
+}
+.sixth{
+    background-color:  #7e909a
+} */
 .list{
     width: 100%;
     border-collapse: collapse;
     border-radius: 15px;
     overflow: hidden;
-    color: #343A46;
-    background-color:rgb(245, 245, 245) ;
+    color: var(--electric-blue);
+    /* background-color:rgb(245, 245, 245) ; */
 }
 
 .list table{
@@ -13,9 +62,10 @@
 }
 
 .list thead{
-    background-color:var(--blue);
+    background: #E7F5FE ;
+    /* background-color:rgb(60, 60, 60) ; */
     padding: 1rem;
-    color: white;
+    color: var(--electric-blue);
 }
 
 .list thead, .list tbody {
@@ -27,7 +77,13 @@
 .list td, .list th{
     /* width: 100%; */
     padding: 8px;
-    text-align: center
+    text-align: center;
+    border: 1px solid #D8E2E7; 
+  }
+
+  .color{
+    background:#E7F5FE;
+    color: var(--electric-blue);
   }
   
  
@@ -38,5 +94,5 @@
   } */
 .tabheader{
     padding: 1rem 2rem;
-    color: var(--pale-red);
+    color: var(--gunmetal);
 }

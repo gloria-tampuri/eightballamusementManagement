@@ -76,11 +76,9 @@ const CashUp = () => {
   
    
     const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher,{refreshInterval: 1000})
-console.log(data);
 
 const location=data?.assert?.location
 const current = location?.find((val)=>val.currentLocation===true)
-console.log(current?.locationName);
 
 const notify = () => toast.success("Cashup Added Successfully !",{
     position: 'top-center',
@@ -104,7 +102,6 @@ const notify = () => toast.success("Cashup Added Successfully !",{
         closeFloat:Number(closeFloat),
         tokensIssued:Number(tokensIssued)
     }
-    console.log(receivedInfo);
         const dataPush={
             location:current?.locationName,
             cashupId:uuidv4(),
@@ -112,7 +109,6 @@ const notify = () => toast.success("Cashup Added Successfully !",{
             updatedAt: new Date()
         }
        
-        console.log(dataPush);
         const postData={
             assertId:data?.assert?.assertId,
             datePurchased:data?.assert?.datePurchased,

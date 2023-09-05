@@ -24,7 +24,6 @@ const Delete = ({selectedId,routeUrl,assertId}) => {
         
        })
        hideDeleteModal()
-       console.log(selectedId);
     }
   return (
     <Modal> 

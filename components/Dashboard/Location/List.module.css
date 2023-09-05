@@ -1,40 +1,62 @@
 .list{
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
-    overflow: hidden;
-    color: #343A46;
-    background-color:rgb(245, 245, 245) ;
-    padding: 1rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 15px;
+  overflow: hidden;
+  color: var(--electric-blue);
+  /* background-color:rgb(245, 245, 245) ; */
 }
 
 .list table{
-    width: 100%;
-   
+  width: 100%;
+  
+}
+
+.list thead{
+  background:#E7F5FE;
+  /* background-color:rgb(60, 60, 60) ; */
+  padding: 1rem;
+  color: var(--electric-blue);
 }
 
 .list thead, .list tbody {
-    width: 100%;
+  width: 100%;
+  padding: 1rem;
+
 }
 
 .list td, .list th{
-    /* width: 100%; */
-    padding: 8px;
-    text-align: center
-  }
-  
- 
-  .list tbody tr:nth-child(odd){
-     background-color: var(--blue);
-     color: white;
-  
-  }
+  /* width: 100%; */
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #D8E2E7; 
+}
 
-  .action{
-    display: flex;
-  }
+.color{
+  background:#E7F5FE;
+  color: var(--electric-blue);
+}
+
+.delete{
+   color: red;
+}
+
+.action{
+  display: flex;
+}
+.edit{
+  color: blue;
+}
+
+/* .list tbody tr:nth-child(odd){
+   background-color: var(--blue);
+   color: white;
+
+} */
+.tabheader{
+  padding: 1rem 2rem;
+  color: var(--gunmetal);
+}
 
   @media(max-width:640px){
     .list{

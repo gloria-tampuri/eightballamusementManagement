@@ -10,7 +10,6 @@ import useSWR from 'swr'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const EditModal = ({selectedId,routeUrl,assertId}) => {
-console.log(selectedId && selectedId);
 
   const router = useRouter()
   const [locationName, setLocationName] = useState('')
@@ -31,12 +30,10 @@ console.log(selectedId && selectedId);
   const{hideEditModal}=editCtx
 
   const { data, error, isLoading } = useSWR( `/api/asserts/${assert}`,fetcher)
-  console.log(selectedId);
 
   const location=data?.assert?.location
   const current = location?.find((val)=>val.locationId===selectedId)
-  console.log(current?.locationName);
-  console.log(current);
+ 
     
   useEffect(()=>{
     if(assert){
@@ -72,7 +69,6 @@ const data={
       },
       body: (JSON.stringify(data))
    })
-    console.log(response);
     if(response.ok){
         hideEditModal()
     }

@@ -67,7 +67,7 @@ const YearList = () => {
                   <tr key={expen.id}>
                     <td>{expen.expenditureDate}</td>
                     <td>{expen.expenditureType}</td>
-                    <td>{expen.amount}</td>
+                    <td className={classes.color}>{expen.amount}</td>
                   </tr>
                 ))}
               </tbody>

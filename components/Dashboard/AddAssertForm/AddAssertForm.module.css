@@ -5,7 +5,7 @@
 margin: 0 auto;
 color: white;
 width: fit-content;
-background:linear-gradient(90deg, #F2784B -24.43%, #DA5029 60.26%, #CD6504 139.82%);
+background:var(--blue);
 padding: 0.5rem 2rem;
 border-radius: 0.3rem;
 }
@@ -21,7 +21,7 @@ border-radius: 0.3rem;
 .forms h2{
     text-align: center;
     font-size: 1.5rem;
-    color: var(--red);
+    color: var(--gunmetal);
     text-decoration: underline;
     text-transform: uppercase;
     margin-bottom: 2rem;
@@ -34,6 +34,7 @@ border-radius: 0.3rem;
 .section label{
 display: flex;
 margin-bottom: 0.3rem;
+color: var(--electric-blue);
 }
 
 .section input{
@@ -59,7 +60,7 @@ margin-bottom: 0.3rem;
 .forms button{
     width: 50%;
     margin-top: 1rem;
-    background:linear-gradient(90deg, var(--red) -24.43%, var(--blue) 60.26%, #CD6504 139.82%);
+    background:var(--blue);
     text-transform: uppercase;
     padding: 0.5rem;
     border: none;

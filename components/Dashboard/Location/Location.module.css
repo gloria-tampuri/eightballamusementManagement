@@ -6,12 +6,12 @@
     padding: 0.3rem 2rem;
     border-radius: 0.3rem;
     color: white;
-    background-color: var(--red);
+    background-color: var(--blue);
 }
 
 .location h2{
     text-align: center;
-    color: var(--blue);
+    color: var(--gunmetal);
     font-size: 2rem;
     text-decoration: underline;
     font-weight: 700;
@@ -23,6 +23,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
+    color: var(--electric-blue);
 }
 
 .section{
@@ -45,14 +46,14 @@ margin-bottom: 0.3rem;
 
 .current{
     text-align: right;
-    color: var(--blue);
+    color: rgb(143, 74, 74);
     font-size: 0.8rem;
 }
 
 .location form button{
     width: 50%;
     margin-top: 0.5rem;
-    background:linear-gradient(90deg, var(--red) -24.43%, var(--blue) 60.26%, #CD6504 139.82%);
+    background:var(--blue);
     text-transform: uppercase;
     padding: 0.5rem;
     border: none;

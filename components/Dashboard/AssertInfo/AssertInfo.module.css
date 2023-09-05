@@ -6,12 +6,15 @@
     padding: 0.3rem 2rem;
     border-radius: 0.3rem;
     color: white;
-    background-color: var(--red);
+    background-color: var(--blue);
+}
+.assert{
+    color: var(--gunmetal);
 }
 
 .assert h2{
     text-align: center;
-    color: var(--blue);
+    color: var(--gunmetal);
     font-size: 2rem;
     text-decoration: underline;
     font-weight: 700;
@@ -24,11 +27,12 @@
 }
 
 .actionbtn{
-    background-color: var(--pale-red);
+    /* background-color: var(--pale-red); */
     padding: 0.5rem 2rem;
     justify-content: space-between;
-    color: white;
+    color: var(--electric-blue);
     margin-right: 2rem;
+    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
 }
 
@@ -37,7 +41,7 @@
 }
 
 .emphasis{
-    color: var(--blue);
+    color: var(--electric-blue);
     font-weight: 700;
     font-size: 1.2rem;
 }

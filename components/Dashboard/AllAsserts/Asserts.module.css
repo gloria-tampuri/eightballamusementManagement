@@ -40,3 +40,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+.frontBack{
+    background-color: var(--blue);
+    padding: 0.5rem 1rem;
+    border-radius: 0.2rem;
+    margin-top: 1rem;
+    color: var(--white);
+}

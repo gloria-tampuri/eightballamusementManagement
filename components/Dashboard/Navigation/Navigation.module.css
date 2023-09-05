@@ -12,7 +12,7 @@
     align-items: center;
 }
 .header h1{
-    color: white;
+    color: var(--gunmetal);
     font-weight: 700;
     font-size: 1.5rem;
 }
@@ -35,12 +35,12 @@
 
 .link{
     text-decoration: none;
-    color:white ;
+    color: var(--electric-blue);
 }
 
 .logout{
     margin-top: 2rem;
-    background-color: var(--red);
+    background-color: var(--blue);
     width: 100%;
     border-radius: 0.3rem;
     padding: 0.3rem 1rem;
@@ -49,7 +49,7 @@
 
 .icons{
     font-size: 1.5rem;
-    color: white;
+    color: var(--gunmetal);
 }
 .phoneNav{
     display: none;

@@ -28,7 +28,6 @@ const LocationList = () => {
 
   const editHandler = (id) => {
     setSelectedLocationId(id);
-    console.log(id);
     showEditModal();
   };
 
@@ -54,17 +53,17 @@ const LocationList = () => {
               .sort((a, b) => new Date(b.startDate) - new Date(a.startDate))
               .map((site) => (
                 <tr key={site.locationId}>
-                  <td>{site.locationName}</td>
+                  <td className={classes.color}>{site.locationName}</td>
                   <td>{site.physicalAddress}</td>
                   <td>{site.siteOwner}</td>
                   <td>{site.telephoneNumber}</td>
-                  <td>{site.numberofTokens}</td>
+                  <td className={classes.color}>{site.numberofTokens}</td>
                   <td>{site.startDate}</td>
-                  <td>{site.endDate === '' ? 'current Location' : site.endDate}</td>
+                  <td className={classes.color}>{site.endDate === '' ? 'current Location' : site.endDate}</td>
                   <td>
                     <div className={classes.action}>
-                      <AiOutlineDelete onClick={() => deleteHandler(site.locationId && site.locationId)} />{' '}
-                      <AiOutlineEdit onClick={() => editHandler(site.locationId && site.locationId)} />
+                      <AiOutlineDelete className={classes.delete} onClick={() => deleteHandler(site.locationId && site.locationId)} />{' '}
+                      <AiOutlineEdit className={classes.edit} onClick={() => editHandler(site.locationId && site.locationId)} />
                     </div>
                   </td>
                 </tr>
