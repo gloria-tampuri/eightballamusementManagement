@@ -75,7 +75,9 @@
     width: 100%;
     border-collapse: collapse;
     border-radius: 15px;
-    overflow: hidden;
+    /* overflow: hidden; */
+    overflow-x: scroll;
+
     color: var(--electric-blue);
     /* background-color:rgb(245, 245, 245) ; */
 }

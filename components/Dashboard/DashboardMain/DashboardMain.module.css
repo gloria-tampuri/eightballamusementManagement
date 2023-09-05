@@ -54,6 +54,7 @@ color: var(--gunmetal);
     overflow: hidden;
     color: var(--electric-blue);
     /* background-color:rgb(245, 245, 245) ; */
+    overflow-x: scroll;
 }
 
 .list table{

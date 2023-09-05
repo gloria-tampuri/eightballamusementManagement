@@ -4,6 +4,8 @@
   border-radius: 15px;
   overflow: hidden;
   color: var(--electric-blue);
+  overflow-x: scroll;
+
   /* background-color:rgb(245, 245, 245) ; */
 }
 
