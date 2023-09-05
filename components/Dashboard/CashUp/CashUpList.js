@@ -90,10 +90,14 @@ const CashUpList = () => {
 
     const groupedDataArrayWithAmounts = groupedDataArray.map(({ year, months }) => {
         const monthsWithAmounts = months.map(({ month, items }) => {
-          const totalAmount = items.reduce((sum, item) => sum + parseFloat(item.companyAmount), 0);
-          const formattedAmount = parseFloat(totalAmount.toFixed(2));
-          return { month, items, totalAmount: formattedAmount };
+            const totalAmount = items.reduce((sum, item) => {
+                const itemAmount = parseFloat(item.companyAmount);
+                return isNaN(itemAmount) ? sum : sum + itemAmount;
+            }, 0);
+            const formattedTotalAmount = parseFloat(totalAmount.toFixed(2));
+            return { month, items, totalAmount: formattedTotalAmount };
         });
+        
         const totalAmount = monthsWithAmounts.reduce((sum, { totalAmount }) => sum + (typeof totalAmount === 'number' ? totalAmount : 0), 0);
         const formattedTotalAmount = parseFloat(totalAmount.toFixed(2));
         return { year, months: monthsWithAmounts, totalAmount: formattedTotalAmount };
@@ -111,6 +115,8 @@ const CashUpList = () => {
         setShowCashupInMonth(showCashupInMonth === month ? undefined : month)
 
     }
+    
+    
 
     useEffect(() => {
         const totalRevenue = data?.assert?.cashup?.map(cashup => +cashup.companyAmount).reduce(

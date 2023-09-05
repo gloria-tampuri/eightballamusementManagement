@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import classes from './Navigation.module.css'
 import {MdOutlineDashboard,MdAssignmentAdd,MdOutlineWallet,MdClose} from 'react-icons/md'
+import{FaCalendarWeek} from 'react-icons/fa'
 import{GrClose}from 'react-icons/gr'
 import{GiCardboardBoxClosed, GiExpense, GiHamburgerMenu} from 'react-icons/gi'
 import { useState } from "react";
@@ -51,6 +52,12 @@ const Navigation = () => {
             <div className={classes.section}>
                 <MdOutlineWallet className={classes.icons}/>
                 <span>All Assets</span>
+            </div>
+            </Link>
+            <Link  className={classes.link} href='/dashboard/weeklycashups'>
+            <div className={classes.section}>
+                <FaCalendarWeek className={classes.icons}/>
+                <span>Weekly Cashups</span>
             </div>
             </Link>
             <Link  className={classes.link} href='/dashboard/expenditure'>
