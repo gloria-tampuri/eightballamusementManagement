@@ -123,22 +123,27 @@ const DashboardMain = () => {
 
         </Link>
 
-        <div className={`${classes.box} ${classes.second}`}>
-          <h1>{totalSalesYear}</h1>
+       <Link href='/dashboard/allyear' className={`${classes.box} ${classes.second}`}>
+       <div >
+          <h1>
+            {/* {totalSalesYear} */}
+            <p>0000</p>
+            </h1>
           <h2>Total Income This Year</h2>
 
         </div>
+       </Link>
 
         <div className={`${classes.box} ${classes.third}`}>
           <h1>{totalSalesMonth}</h1>
           <h2>Income This Month</h2>
 
         </div>
-        <div className={`${classes.box} ${classes.fourth}`}>
+        {/* <div className={`${classes.box} ${classes.fourth}`}>
           <h1>4000</h1>
           <h2>Total Expenditure</h2>
 
-        </div>
+        </div> */}
 
         {/* <div className={`${classes.box} ${classes.fifth}`}>
           <h1>20150204 </h1>

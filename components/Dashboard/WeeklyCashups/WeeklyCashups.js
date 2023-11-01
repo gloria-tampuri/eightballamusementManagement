@@ -44,7 +44,7 @@ const previousWeek = Math.ceil(
           (saleDate - new Date(saleDate.getFullYear(), 0, 1)) / 604800000
         ); // Calculate the week number for the sale date
   
-        if (saleYear === currentYear && saleWeek === currentWeek) {
+        if (saleYear === currentYear && saleWeek === previousWeek) {
           totalSales += sale.companyAmount;
         }
       });

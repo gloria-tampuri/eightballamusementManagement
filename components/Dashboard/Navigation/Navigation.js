@@ -90,6 +90,12 @@ const Navigation = () => {
                 <span>All Asserts</span>
             </div>
             </Link>
+            <Link  className={classes.link} href='/dashboard/weeklycashups'>
+            <div className={classes.section}>
+                <FaCalendarWeek className={classes.icons}/>
+                <span>Weekly Cashups</span>
+            </div>
+            </Link>
             <Link  className={classes.link} href='/dashboard/expenditure'>
             <div className={classes.section}>
                 <GiExpense className={classes.icons}/>
