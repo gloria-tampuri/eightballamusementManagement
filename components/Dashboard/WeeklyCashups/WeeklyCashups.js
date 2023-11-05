@@ -15,7 +15,7 @@ const WeeklyCashups = () => {
   currentWeekStart.setHours(0, 0, 0, 0); // Set to midnight
 
   const currentWeekEnd = new Date(currentWeekStart); // End of the current week
-  currentWeekEnd.setDate(currentWeekEnd.getDate() + 7); // Add 7 days for a week
+  currentWeekEnd.setDate(currentWeekEnd.getDate() + 6); // Add 7 days for a week
   currentWeekEnd.setHours(23, 59, 59, 999); // Set to the last millisecond of the day
 
   // Filter and map the data for the current week
@@ -25,6 +25,9 @@ const WeeklyCashups = () => {
       return saleDate >= currentWeekStart && saleDate <= currentWeekEnd;
     });
   });
+
+  console.log(currentWeekStart);
+  console.log(currentWeekEnd);
 
   return (
     <div>
