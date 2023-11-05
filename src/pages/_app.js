@@ -4,6 +4,7 @@ import { EditContextProvider } from '../../Context/EditContext'
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import firebase from "../../firebase"
+import { MonthContextProvider, ShowMonthContextProvider } from '../../Context/ShowMonthContext';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -27,8 +28,12 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return<DeleteContextProvider>
+    <ShowMonthContextProvider>
+    <MonthContextProvider>
      <EditContextProvider>
      <Component {...pageProps} />
      </EditContextProvider>
+     </MonthContextProvider>
+     </ShowMonthContextProvider>
   </DeleteContextProvider>
 }

@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import useSWR from 'swr';
 import classes from './Allyear.module.css';
+import { useRouter } from 'next/router'; // Import the useRouter
+import { ShowMonthContext, useMonthContext } from '../../../Context/ShowMonthContext';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Allyear = () => {
   const { data, error, isLoading } = useSWR('/api/asserts', fetcher);
-
+  const showMonthCtx = useContext(ShowMonthContext);
+  const { handleShowMonth, handleHideMonth, showMonth } = showMonthCtx;
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
+  const { selectedYear, setSelectedYear, selectedMonth, setSelectedMonth } = useMonthContext();
 
-  const [selectedYear, setSelectedYear] = useState(currentYear);
+  // const [selectedYear, setSelectedYear] = useState(currentYear);
   const [monthlyCashupData, setMonthlyCashupData] = useState([]);
   const [totalCompanyAmount, setTotalCompanyAmount] = useState(0);
+  // const [selectedMonth, setSelectedMonth] = useState(0); // Initialize with a default value
 
-  // Array of month names
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December',
   ];
 
-  // Extract the available years
   const availableYears = data?.asserts.reduce((years, assert) => {
     assert.cashup.forEach((cash) => {
       const cashDate = new Date(cash.cashupDate);
@@ -32,9 +35,23 @@ const Allyear = () => {
     return years;
   }, []);
 
+  const router = useRouter(); // Get the router
+
+  const handleRowClick = (month) => {
+    const year = selectedYear;
+    setSelectedMonth(month);
+    // Navigate to the monthly page with year and month as route parameters
+    router.push(`/dashboard/${year}/${month + 1}`);
+  };
+
+  // const handleRowClick = (month) => {
+  //   const year = selectedYear;
+  //   setSelectedMonth(month);
+  //   handleShowMonth(month, year);
+  // };
+
   useEffect(() => {
     if (data) {
-      // Create a list of cashup data by month for the selected year
       const monthlyData = Array(12).fill(0).map(() => 0);
       let totalCompany = 0;
 
@@ -81,7 +98,7 @@ const Allyear = () => {
         </thead>
         <tbody>
           {monthlyCashupData.map((total, month) => (
-            <tr key={month}>
+            <tr key={month} onClick={() => handleRowClick(month)}>
               <td>{monthNames[month]}</td>
               <td>{total}</td>
             </tr>

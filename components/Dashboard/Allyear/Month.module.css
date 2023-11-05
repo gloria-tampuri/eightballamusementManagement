@@ -1,0 +1,55 @@
+.close{
+   
+    display: flex;
+   justify-content: right;
+
+}
+.back{
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 2rem;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: var(--blue);
+}
+
+.closeIcon{
+    color: #ffffff;
+    font-size: 2rem;
+    background-color: var(--blue);
+    padding: 0.5rem;
+    border-radius: 50%;  
+}
+
+.table{
+    width: 100%;
+    
+}
+
+.table thead{
+    background:#E7F5FE;
+    /* background-color:rgb(60, 60, 60) ; */
+    padding: 1rem;
+    color: var(--electric-blue);
+}
+
+.table thead, .table tbody {
+    width: 100%;
+    padding: 1rem;
+
+}
+
+.table td, .table th{
+    /* width: 100%; */
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #D8E2E7; 
+  }
+
+  .color{
+    background:#E7F5FE;
+    color: var(--electric-blue);
+  }
+  
