@@ -39,7 +39,7 @@ const postAssertController = async (req, res) => {
      })
 
     } catch (error) {
-        console.log(error);
+        
     }
 }
 

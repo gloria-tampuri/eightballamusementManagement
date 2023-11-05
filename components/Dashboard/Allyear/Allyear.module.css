@@ -1,3 +1,16 @@
+.back{
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 2rem;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: var(--blue);
+    margin-bottom: 2rem;
+
+}
+
 .select{
     padding: 0.5rem 2rem;
     border: 1px solid rgb(69, 69, 69);

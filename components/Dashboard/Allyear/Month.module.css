@@ -13,6 +13,7 @@
     border-radius: 0.3rem;
     color: white;
     background-color: var(--blue);
+    margin-bottom: 2rem;
 }
 
 .closeIcon{

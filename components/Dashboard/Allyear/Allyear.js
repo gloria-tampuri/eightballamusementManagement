@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import classes from './Allyear.module.css';
 import { useRouter } from 'next/router'; // Import the useRouter
 import { ShowMonthContext, useMonthContext } from '../../../Context/ShowMonthContext';
+import { BiArrowBack } from 'react-icons/bi';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -72,11 +73,11 @@ const Allyear = () => {
     }
   }, [data, selectedYear]);
 
-  console.log('Selected Year:', selectedYear);
-  console.log('Monthly Cashup Data:', monthlyCashupData);
+ 
 
   return (
     <div>
+      <div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
       <div>
         <select className={classes.select} value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
           {availableYears?.map((year) => (

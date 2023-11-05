@@ -60,7 +60,7 @@ const Month = () => {
 
         <tbody>
           {sortedData.map((assert, index) => (
-            <tr key={assert._id}>
+            <tr onClick={()=>router.push(`/dashboard/asserts/${assert?._id}/cashup `)} key={assert._id}>
               <td>{index + 1}</td>
               <td className={classes.color}>
                 {assert.location.find((val) => val.currentLocation === true)?.locationName}

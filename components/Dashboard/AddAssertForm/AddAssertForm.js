@@ -44,7 +44,7 @@ const AddAssertForm = () => {
           if (res.status === 201) {
             reset()
           } else {
-            console.log('Error');
+            
           }
 
     };

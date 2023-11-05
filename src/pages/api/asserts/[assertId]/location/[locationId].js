@@ -36,7 +36,7 @@ export default async function handler(req, res) {
         const updatedData =req.body
         const assertsCollection = await connectToDatabase()
         const { assertId, locationId } = req.query;
-            console.log(assertId,locationId);
+            // console.log(assertId,locationId);
         try{
             await assertsCollection.updateOne({
                 _id:new ObjectId(assertId),"location.locationId":locationId
