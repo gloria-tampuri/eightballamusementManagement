@@ -85,7 +85,8 @@ const Location = () => {
         <div className={classes.location}>
             <div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
             <h2> Locations for {data?.assert?.assertId}</h2>
-            <form onSubmit={onSubmitHandler}>
+           <div className='no-print'>
+           <form onSubmit={onSubmitHandler}>
                 <div className={classes.section}>
                     <label>Site Name</label>
                     <input type='text'
@@ -155,6 +156,7 @@ const Location = () => {
                 </div>}
                 <button>Submit</button>
             </form>
+           </div>
             <LocationList />
         </div>
     )

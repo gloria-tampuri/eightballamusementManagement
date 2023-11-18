@@ -33,6 +33,7 @@ const LocationList = () => {
 
   return (
     <div className={classes.list}>
+      <button className='printButton' onClick={() => window.print()}>Print</button>
       <table>
         <thead>
           <tr>
