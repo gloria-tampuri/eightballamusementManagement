@@ -17,7 +17,7 @@ const WeeklyCashups = () => {
   const currentWeekEnd = new Date(currentWeekStart); // End of the current week
   currentWeekEnd.setDate(currentWeekEnd.getDate() + 6); // Add 7 days for a week
   currentWeekEnd.setHours(23, 59, 59, 999); // Set to the last millisecond of the day
-
+let totalSum =0
   // Include all assets in the data for the current week, regardless of their cash-up amounts
   const currentWeekData = data?.asserts.map(assert => {
     const totalAmount = assert.cashup.reduce((total, sale) => {
@@ -27,7 +27,7 @@ const WeeklyCashups = () => {
       }
       return total;
     }, 0);
-
+    totalSum += totalAmount
     return { ...assert, totalAmount };
   });
 
@@ -41,7 +41,7 @@ const WeeklyCashups = () => {
     <div>
       <div className={classes.list}>
       <button className='printButton' onClick={() => window.print()}>Print</button>
-        <h2 className={classes.tabheader}>Performance of all assets for the current week</h2>
+        <h2 className={classes.tabheader}>Performance of all assets for the current week. Total Amount: {totalSum}</h2>
         <table>
           <thead>
             <tr>
