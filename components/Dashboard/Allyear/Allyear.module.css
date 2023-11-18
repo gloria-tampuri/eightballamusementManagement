@@ -11,6 +11,13 @@
 
 }
 
+
+.backPrint{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .select{
     padding: 0.5rem 2rem;
     border: 1px solid rgb(69, 69, 69);

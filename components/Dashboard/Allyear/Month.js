@@ -44,7 +44,8 @@ const Month = () => {
 
   return (
     <div>
-     <div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
+     <div className={classes.backPrint}><div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
+      <button className='printButton' onClick={() => window.print()}>Print</button></div>
       <p>Year: {year}</p>
       <p>Month: {month + 1}</p>
 

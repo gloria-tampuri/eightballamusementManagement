@@ -168,8 +168,8 @@ const notify = () => toast.success("Cashup Added Successfully !",{
             <div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
             <h2>Cash Up for {data?.assert?.assertId}</h2>
 
-            <div>
-                <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <div className='no-print'>
+                <form className={`${classes.form} no-print `}onSubmit={handleSubmit(onSubmit)}>
                     <div className={classes.section}>
                         <label>Date</label>
                         <input

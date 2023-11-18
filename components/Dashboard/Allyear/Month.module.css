@@ -15,6 +15,11 @@
     background-color: var(--blue);
     margin-bottom: 2rem;
 }
+.backPrint{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
 .closeIcon{
     color: #ffffff;

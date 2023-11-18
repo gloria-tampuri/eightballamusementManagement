@@ -10,7 +10,13 @@
 
 .info{
     display: flex;
-    gap:2rem
+    /* gap:2rem */
+justify-content: space-between;
+}
+
+.info h4{
+width: fit-content;
+margin-right: 2rem;
 }
 
 .edit{
@@ -47,4 +53,11 @@
     border-radius: 0.2rem;
     margin-top: 1rem;
     color: var(--white);
+}
+
+@media(max-width:640px){
+    .item{
+    padding: 0.5rem;
+
+    }
 }
