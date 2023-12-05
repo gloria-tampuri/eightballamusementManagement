@@ -47,10 +47,10 @@ const DashboardMain = () => {
         const saleMonth = saleDate.getMonth() + 1;
 
         if (saleYear === currentYear) {
-          totalSales += sale.companyAmount;
+          totalSales += sale.cashReceived;
         }
         if (saleMonth === currentMonth && saleYear === currentYear) {
-          totalMonthlySales += sale.companyAmount;
+          totalMonthlySales += sale.cashReceived;
 
         }
       });
@@ -76,7 +76,7 @@ const DashboardMain = () => {
         const saleMonth = saleDate.getMonth() + 1;
 
         if (saleMonth === currentMonth && saleYear === currentYear) {
-          totalMonthlySales += sale.companyAmount;
+          totalMonthlySales += sale.cashReceived;
         }
       });
     });
@@ -97,7 +97,7 @@ const DashboardMain = () => {
         const saleMonth = saleDate.getMonth() + 1;
 
         if (saleYear === currentYear && saleMonth === currentMonth) {
-          totalSales += sale.companyAmount;
+          totalSales += sale.cashReceived;
         }
       });
 

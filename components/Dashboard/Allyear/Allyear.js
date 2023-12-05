@@ -31,6 +31,7 @@ const Allyear = () => {
       const year = cashDate.getFullYear();
       if (!years.includes(year)) {
         years.push(year);
+        
       }
     });
     return years;
@@ -62,8 +63,8 @@ const Allyear = () => {
           const year = cashDate.getFullYear();
           const month = cashDate.getMonth();
           if (year === selectedYear) {
-            monthlyData[month] += cash.companyAmount;
-            totalCompany += cash.companyAmount;
+            monthlyData[month] += cash.cashReceived;
+            totalCompany += cash.cashReceived;
           }
         });
       });
@@ -83,7 +84,7 @@ const Allyear = () => {
         <select className={classes.select} value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
           {availableYears?.map((year) => (
             <option key={year} value={year}>
-              {year}
+              {year && year}
             </option>
           ))}
         </select>
@@ -99,7 +100,7 @@ const Allyear = () => {
           </tr>
         </thead>
         <tbody>
-          {monthlyCashupData.map((total, month) => (
+          {monthlyCashupData?.map((total, month) => (
             <tr key={month} onClick={() => handleRowClick(month)}>
               <td>{monthNames[month]}</td>
               <td>{total}</td>
