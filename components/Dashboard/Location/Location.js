@@ -20,6 +20,8 @@ const Location = () => {
     const[telephoneNumber,setTelephoneNumber]=useState(0)
     const[physicalAddress, setphysicalAddress]=useState('')
     const[siteOwner,setSiteOwner]=useState('')
+    const[accessories,setAccessories]=useState('')
+
 
     const { data, error, isLoading } = useSWR(`/api/asserts/${assert}`, fetcher)
 
@@ -35,7 +37,8 @@ const Location = () => {
             telephoneNumber:telephoneNumber,
             physicalAddress:physicalAddress,
             siteOwner:siteOwner,
-            currentLocation: currentLocation
+            currentLocation: currentLocation,
+            accessories:accessories
         }
 
 
@@ -76,7 +79,7 @@ const Location = () => {
             setphysicalAddress('')
             setTelephoneNumber(0)
             setSiteOwner('')
-
+            setAccessories('')
         }
     }
 
@@ -129,6 +132,14 @@ const Location = () => {
                         placeholder='Number of Tokens given to site'
                         value={numberofTokens}
                         onChange={(e) => { setNumberOfTokens(e.target.value) }}
+                    />
+                </div>
+                <div className={classes.section}>
+                    <label>Table Accessories </label>
+                    <input type='text'
+                        placeholder='Input all accessories'
+                        value={accessories}
+                        onChange={(e) => { setAccessories(e.target.value) }}
                     />
                 </div>
                 <div className={classes.section}>

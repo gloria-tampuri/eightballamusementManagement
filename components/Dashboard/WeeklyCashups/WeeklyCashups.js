@@ -23,7 +23,7 @@ let totalSum =0
     const totalAmount = assert.cashup.reduce((total, sale) => {
       const saleDate = new Date(sale.cashupDate);
       if (saleDate >= currentWeekStart && saleDate <= currentWeekEnd) {
-        total += sale.companyAmount;
+        total += sale.cashReceived;
       }
       return total;
     }, 0);

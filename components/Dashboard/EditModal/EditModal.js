@@ -20,7 +20,7 @@ const EditModal = ({selectedId,routeUrl,assertId}) => {
   const[telephoneNumber,setTelephoneNumber]=useState(0)
   const[physicalAddress, setphysicalAddress]=useState('')
   const[siteOwner,setSiteOwner]=useState('')
-
+const[accessories, setAccessories]=useState('')
 
 
   const {assert}= router.query;
@@ -45,6 +45,7 @@ const EditModal = ({selectedId,routeUrl,assertId}) => {
         setTelephoneNumber(current.telephoneNumber)
         setSiteOwner(current.siteOwner)
         setphysicalAddress(current.physicalAddress)
+        setAccessories(current.accessories)
     }
   },[assert])
 
@@ -59,7 +60,8 @@ const data={
     currentLocation,
     telephoneNumber,
     siteOwner,
-    physicalAddress
+    physicalAddress,
+    accessories
 }
 
  const response = await fetch(`/api/asserts/${assertId}/location/${selectedId}`,{
@@ -122,6 +124,14 @@ const data={
                         placeholder='Number of Tokens given to site'
                         value={numberofTokens}
                         onChange={(e) => { setNumberOfTokens(e.target.value) }}
+                    />
+                </div>
+                <div className={classes.section}>
+                    <label>Table Accessories </label>
+                    <input type='text'
+                        placeholder='Input all accessories'
+                        value={accessories}
+                        onChange={(e) => { setAccessories(e.target.value) }}
                     />
                 </div>
                 <div className={classes.section}>

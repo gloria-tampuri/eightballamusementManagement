@@ -42,6 +42,7 @@ const LocationList = () => {
             <th>Site Owner</th>
             <th>Telephone</th>
             <th>Tokens Given</th>
+            <th>Accessories</th>
             <th>Commence Date</th>
             <th>End date</th>
             <th>Actions</th>
@@ -59,6 +60,7 @@ const LocationList = () => {
                   <td>{site.siteOwner}</td>
                   <td>{site.telephoneNumber}</td>
                   <td className={classes.color}>{site.numberofTokens}</td>
+                  <td>{site?.accessories ? site.accessories : ''}</td>
                   <td>{site.startDate}</td>
                   <td className={classes.color}>{site.endDate === '' ? 'current Location' : site.endDate}</td>
                   <td>
