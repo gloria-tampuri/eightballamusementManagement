@@ -36,6 +36,7 @@ const AssertInfo = () => {
         <li>Current Location: <span className={classes.emphasis}>{current?.locationName}</span></li>
         <li>Current Site Tel:<span className={classes.emphasis}>{current?.telephoneNumber}</span> </li>
         <li>Current Tokens: <span className={classes.emphasis}>{current?.numberofTokens}</span></li>
+        <li>Table Accessories: <span className={classes.emphasis}> {current?.accessories} </span></li>
 
       </ul>
 
