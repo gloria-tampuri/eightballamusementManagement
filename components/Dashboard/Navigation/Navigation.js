@@ -8,6 +8,8 @@ import{GiCardboardBoxClosed, GiExpense, GiHamburgerMenu} from 'react-icons/gi'
 import { useState } from "react";
 import { signUpWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "../../../auth";
 import { useRouter } from 'next/router'
+import { FaTasks } from "react-icons/fa";
+
 
 
 const Navigation = () => {
@@ -66,6 +68,12 @@ const Navigation = () => {
                 <span>General Expenditure</span>
             </div>
             </Link>
+            <Link  className={classes.link} href='/dashboard/todo'>
+            <div className={classes.section}>
+                <FaTasks className={classes.icons}/>
+                <span>Todo List</span>
+            </div>
+            </Link>
             <div className={classes.logout}>
         <h4 onClick={handleSignOut}>LOG OUT</h4>
       </div>
@@ -100,6 +108,12 @@ const Navigation = () => {
             <div className={classes.section}>
                 <GiExpense className={classes.icons}/>
                 <span>General Expenditure</span>
+            </div>
+            </Link>
+            <Link  className={classes.link} href='/dashboard/todo'>
+            <div className={classes.section}>
+                <FaTasks className={classes.icons}/>
+                <span>Todo List</span>
             </div>
             </Link>
             <div className={classes.logout}>

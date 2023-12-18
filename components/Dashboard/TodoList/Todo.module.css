@@ -1,0 +1,67 @@
+.todo{
+    width: 50%;
+    margin: 0 auto;
+}
+.todo h1{
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    font-size: 2rem;
+}
+
+.form{
+width: 100%;
+margin: 0 auto;
+margin-top: 2rem;
+border-radius: 0.2rem;
+}
+
+.addTask{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid gray;
+    border-radius: 0.3rem;
+    overflow: hidden;
+}
+
+.addTask input{
+    width: 80%;
+    padding: 0.3rem 0.5rem;
+    outline: none;
+}
+
+.addTask button{
+    background-color: var(--blue);
+    padding: 0.3rem 0.5rem;
+    color: white;
+
+}
+.listContainer{
+    margin-top: 2rem;
+}
+
+.listContainer li{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    /* height: 64px; */
+    border-bottom: 1px solid gray;
+    user-select: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    margin-bottom: 1rem;
+}
+@media(max-width:640px){
+    .todo{
+        width: 100%;
+    }
+    .form{
+        width: 95%;
+    }
+    .addTask input{
+        width: 70%;
+    }
+}

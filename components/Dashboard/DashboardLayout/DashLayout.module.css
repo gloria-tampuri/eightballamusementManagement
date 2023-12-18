@@ -12,8 +12,8 @@
     color: var(--gunmetal);
     /* background-color: teal; */
     box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
-    border-radius: 1rem;
-    border-radius: 1px 1px 15px rgba(0,0, 0, 0.2);
+    border-radius: 0.3rem;
+    border-radius: 1px 0px 5px rgba(0,0, 0, 0.2);
 }
 
 .other{
@@ -35,8 +35,8 @@
 .main{
     /* background-color: greenyellow; */
     width: 100%;
-    border-radius: 1rem;
-    box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
+    border-radius: 0.3rem;
+    box-shadow: 1px 0px 15px rgba(0,0, 0, 0.2);
     min-height: 85%;
     padding: 2rem;
 }
@@ -51,6 +51,11 @@
         width: 100%;
         height: fit-content;
         border-radius: 0;
+    }
+
+    .main{
+        border-radius: 0;
+        box-shadow: none;
     }
 
     .other{
