@@ -2,12 +2,13 @@
     margin:1rem;
   }
   .yearlist{
-      width: 100%;
+      width:fit-content;
+      
   list-style: none;
   text-decoration: none;
   background-color: var(--blue);
   margin: 1rem 0;
-  padding: 0.5rem ;
+  padding: 0.5rem 2rem;
   text-align: center;
   font-weight: 700;
   border-radius: 0.3rem;
