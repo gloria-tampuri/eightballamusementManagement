@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import classes from './List.module.css'
 import useSWR from 'swr'
+import { getSignedInEmail } from '../../../auth';
 import { useRouter } from 'next/router'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import Delete from '../Delete/Delete'
@@ -127,64 +128,75 @@ const CashUpList = () => {
 
 
 
+    const[admin, setAdmin]= useState(false)
 
-
+    getSignedInEmail()
+    .then((email) => {
+      console.log("Signed-in email:", email);
+      if(email === 'richard.ababio@eightball.com'){
+        setAdmin(true)
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    console.log(admin);
 
 
 
     return (
-        <div>
-                  <h2 onClick={handleToggleTotalRevenue}>
-        Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
-      </h2>
+       <>{admin? <div>
+       <h2 onClick={handleToggleTotalRevenue}>
+Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
+</h2>
 
 
-            <div className={classes.list}>
-            <button className='printButton' onClick={() => window.print()}>Print</button>
-                {groupedDataArrayWithAmounts.map((list) => <div key={list.year}>
-                    <div>
-                    
-                        <h1 className={classes.years} onClick={() => handleMonths(list.year)}>{list.year}, <span className={classes.amount}> GHC {list.totalAmount}</span>  </h1>
-                       
-                        {showMonths === list.year ? <div>{list.months.map((month) =>
-                            <div key={month.month}>
-                                
-                                <p className={classes.month} onClick={() => handleCashupInMonth(month.month)}>{month.month}, <span className={classes.amount}>GHC {month.totalAmount}</span>
-                            </p>
-                            
-                                {showCashupInMonth === month.month ? <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Location</th>
-                                            <th>Sold Tokens</th>
-                                            <th>Total Amount</th>
-                                            <th>Comany Share</th>
-                                            <th>Balance</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {month.items.map((cash) => <tr key={cash.cashupId}>
-                                            <td>{cash.cashupDate}</td>
-                                            <td>{cash.cashupTime}</td>
-                                            <td className={classes.color}>{cash.location}</td>
-                                            <td>{cash.tokensSold}</td>
-                                            <td>{cash.totalSale}</td>
-                                            <td className={classes.color}>{cash.companyAmount}</td>
-                                            <td className={classes.balance}>{cash.balance}</td>
-                                            <td><AiOutlineDelete className={classes.delete} onClick={() => deleteHandler(cash.cashupId && cash.cashupId)} /></td>
-                                        </tr>)}
-                                    </tbody>
-                                </table> : ''}
-                            </div>)}</div> : ''}
-                    </div>
-                </div>)}
+ <div className={classes.list}>
+ <button className='printButton' onClick={() => window.print()}>Print</button>
+     {groupedDataArrayWithAmounts.map((list) => <div key={list.year}>
+         <div>
+         
+             <h1 className={classes.years} onClick={() => handleMonths(list.year)}>{list.year}, <span className={classes.amount}> GHC {list.totalAmount}</span>  </h1>
+            
+             {showMonths === list.year ? <div>{list.months.map((month) =>
+                 <div key={month.month}>
+                     
+                     <p className={classes.month} onClick={() => handleCashupInMonth(month.month)}>{month.month}, <span className={classes.amount}>GHC {month.totalAmount}</span>
+                 </p>
+                 
+                     {showCashupInMonth === month.month ? <table>
+                         <thead>
+                             <tr>
+                                 <th>Date</th>
+                                 <th>Time</th>
+                                 <th>Location</th>
+                                 <th>Sold Tokens</th>
+                                 <th>Total Amount</th>
+                                 <th>Comany Share</th>
+                                 <th>Balance</th>
+                                 <th>Delete</th>
+                             </tr>
+                         </thead>
+                         <tbody>
+                             {month.items.map((cash) => <tr key={cash.cashupId}>
+                                 <td>{cash.cashupDate}</td>
+                                 <td>{cash.cashupTime}</td>
+                                 <td className={classes.color}>{cash.location}</td>
+                                 <td>{cash.tokensSold}</td>
+                                 <td>{cash.totalSale}</td>
+                                 <td className={classes.color}>{cash.companyAmount}</td>
+                                 <td className={classes.balance}>{cash.balance}</td>
+                                 <td><AiOutlineDelete className={classes.delete} onClick={() => deleteHandler(cash.cashupId && cash.cashupId)} /></td>
+                             </tr>)}
+                         </tbody>
+                     </table> : ''}
+                 </div>)}</div> : ''}
+         </div>
+     </div>)}
 
-            </div>
-            {deleteModal && <Delete assertId={assert} routeUrl="cashup" selectedId={selectedCashupId} />}
-        </div>
+ </div>
+ {deleteModal && <Delete assertId={assert} routeUrl="cashup" selectedId={selectedCashupId} />}
+</div>:''}</>
     )
 }
 

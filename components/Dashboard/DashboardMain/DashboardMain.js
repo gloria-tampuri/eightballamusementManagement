@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import classes from './DashboardMain.module.css'
+import { getSignedInEmail } from '../../../auth';
 import useSWR from 'swr'
 import CashUp from '../CashUp/CashUp'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'; // Make sure to import this line
+import WeeklyCashups from '../WeeklyCashups/WeeklyCashups';
 
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -13,6 +15,8 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 const DashboardMain = () => {
   const { data, error, isLoading } = useSWR('/api/asserts', fetcher)
   const router = useRouter()
+
+  const[admin, setAdmin]= useState(false)
 
   const allAssets = data?.asserts
   const [totalAssets, setTotalAssets] = useState(0);
@@ -114,80 +118,83 @@ const DashboardMain = () => {
 
   const cashUpMonthlyTable = calculateArrangeTotalSales(allAssets)
 
+  getSignedInEmail()
+  .then((email) => {
+    console.log("Signed-in email:", email);
+    if(email === 'richard.ababio@eightball.com'){
+      setAdmin(true)
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+  console.log(admin);
+
+    
+
   return (
-    <div>
-      <div className={classes.highlights}>
-        <Link href='/dashboard/asserts' className={`${classes.box} ${classes.first}`}>
-          <h1>{totalAssets}</h1>
-          <h2>Total Number of Tables</h2>
+  <>
+  {
+    admin ?  <div>
+    <div className={classes.highlights}>
+      <Link href='/dashboard/asserts' className={`${classes.box} ${classes.first}`}>
+        <h1>{totalAssets}</h1>
+        <h2>Total Number of Tables</h2>
 
-        </Link>
+      </Link>
 
-       <Link href='/dashboard/allyear' className={`${classes.box} ${classes.second}`}>
-       <div >
-          <h1>
-            {/* {totalSalesYear} */}
-            <p>0000</p>
-            </h1>
-          <h2>Total Income This Year</h2>
+     <Link href='/dashboard/allyear' className={`${classes.box} ${classes.second}`}>
+     <div >
+        <h1>
+          {/* {totalSalesYear} */}
+          <p>0000</p>
+          </h1>
+        <h2>Total Income This Year</h2>
 
-        </div>
-       </Link>
-
-        <div className={`${classes.box} ${classes.third}`}>
-          <h1>{totalSalesMonth}</h1>
-          <h2>Income This Month</h2>
-
-        </div>
-        {/* <div className={`${classes.box} ${classes.fourth}`}>
-          <h1>4000</h1>
-          <h2>Total Expenditure</h2>
-
-        </div> */}
-
-        {/* <div className={`${classes.box} ${classes.fifth}`}>
-          <h1>20150204 </h1>
-          <p>Ayeduase</p>
-          <h2>Best Performing site This Year</h2>
-
-        </div>
-
-        <div className={`${classes.box} ${classes.sixth}`}>
-          <h1>20150204</h1>
-          <p>Parkoso</p>
-          <h2>Worst Performing Site This Year</h2>
-
-        </div> */}
       </div>
+     </Link>
 
-      <div className={classes.list}>
-        <h2 className={classes.tabheader}>Performance of all assets this month of {monthName}</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Position</th>
-              <th>Location</th>
-              <th>AssetID</th>
-              <th>Cashup Amount</th>
-            </tr>
-          </thead>
+      <div className={`${classes.box} ${classes.third}`}>
+        <h1>{totalSalesMonth}</h1>
+        <h2>Income This Month</h2>
 
-          <tbody>
-            {cashUpMonthlyTable?.map((arranged, index) =><tr key={arranged?._id} onClick={()=>router.push(`/dashboard/asserts/${arranged?._id}/cashup `)} > 
-              
-              <td>{index + 1}</td>
-              <td className={classes.color}>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
-              <td>{arranged?.assertId}</td>
-
-              <td className={classes.color}>{arranged?.totalSalesCurrentMonth}</td>
-             
-            </tr>
-           )}
-          </tbody>
-        </table>
       </div>
 
     </div>
+
+    <div className={classes.list}>
+      <h2 className={classes.tabheader}>Performance of all assets this month of {monthName}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Position</th>
+            <th>Location</th>
+            <th>AssetID</th>
+            <th>Cashup Amount</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {cashUpMonthlyTable?.map((arranged, index) =><tr key={arranged?._id} onClick={()=>router.push(`/dashboard/asserts/${arranged?._id}/cashup `)} > 
+            
+            <td>{index + 1}</td>
+            <td className={classes.color}>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
+            <td>{arranged?.assertId}</td>
+
+            <td className={classes.color}>{arranged?.totalSalesCurrentMonth}</td>
+           
+          </tr>
+         )}
+        </tbody>
+      </table>
+    </div>
+
+  </div>:<div>
+    <h1 className={classes.operatorHeader}>Operator Dashboard</h1>
+    <WeeklyCashups/>
+  </div>
+  }
+  </>
   )
 }
 

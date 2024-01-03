@@ -14,3 +14,18 @@ export const signInWithEmailAndPassword = (email, password) => {
 export const signOut = () => {
   return firebase.auth().signOut();
 };
+
+// Function to get the signed-in user's email
+export const getSignedInEmail = () => {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in
+        resolve(user.email);
+      } else {
+        // No user is signed in
+        reject("No signed-in user");
+      }
+    });
+  });
+};
