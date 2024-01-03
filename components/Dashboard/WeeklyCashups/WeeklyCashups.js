@@ -34,8 +34,7 @@ let totalSum =0
   // Sort the data in descending order of total cash-up amount
   currentWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
 
-  console.log(currentWeekStart);
-  console.log(currentWeekEnd);
+  
 
   return (
     <div>

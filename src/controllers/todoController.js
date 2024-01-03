@@ -41,7 +41,6 @@ const postTodoController = async (req, res) => {
      })
 
     } catch (error) {
-        // console.log(error);
     }
 }
 const deleteTodoController = async (req, res) => {

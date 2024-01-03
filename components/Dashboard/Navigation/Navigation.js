@@ -28,7 +28,6 @@ const Navigation = () => {
   const[admin, setAdmin]= useState(false)
   getSignedInEmail()
   .then((email) => {
-    console.log("Signed-in email:", email);
     if(email === 'richard.ababio@eightball.com'){
       setAdmin(true)
     }
@@ -36,7 +35,6 @@ const Navigation = () => {
   .catch((error) => {
     console.error(error);
   });
-  console.log(admin);
 
   const[showNav,setShowNav]=useState(false)
   const navToogleHandler=()=>{

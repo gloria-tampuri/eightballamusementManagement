@@ -120,7 +120,6 @@ const DashboardMain = () => {
 
   getSignedInEmail()
   .then((email) => {
-    console.log("Signed-in email:", email);
     if(email === 'richard.ababio@eightball.com'){
       setAdmin(true)
     }
@@ -128,7 +127,6 @@ const DashboardMain = () => {
   .catch((error) => {
     console.error(error);
   });
-  console.log(admin);
 
     
 
