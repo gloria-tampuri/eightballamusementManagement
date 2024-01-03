@@ -155,7 +155,7 @@ const notify = () => toast.success("Cashup Added Successfully !",{
 
    };
   
-  
+   
   
 
   
@@ -166,7 +166,7 @@ const notify = () => toast.success("Cashup Added Successfully !",{
             {/* <ToastContainer/> */}
 
             <div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
-            <h2>Cash Up for {data?.assert?.assertId}</h2>
+            <h2>{data?.assert?.assertId} {current?.locationName}</h2>
 
             <div className='no-print'>
                 <form className={`${classes.form} no-print `}onSubmit={handleSubmit(onSubmit)}>
