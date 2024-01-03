@@ -140,9 +140,10 @@ const CashUpList = () => {
 
 
             <div className={classes.list}>
+            <button className='printButton' onClick={() => window.print()}>Print</button>
                 {groupedDataArrayWithAmounts.map((list) => <div key={list.year}>
                     <div>
-                    <button className='printButton' onClick={() => window.print()}>Print</button>
+                    
                         <h1 className={classes.years} onClick={() => handleMonths(list.year)}>{list.year}, <span className={classes.amount}> GHC {list.totalAmount}</span>  </h1>
                        
                         {showMonths === list.year ? <div>{list.months.map((month) =>
