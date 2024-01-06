@@ -8,7 +8,7 @@ import { MdEmojiTransportation } from "react-icons/md";
 import{FaCalendarWeek} from 'react-icons/fa'
 import{GrClose}from 'react-icons/gr'
 import{GiCardboardBoxClosed, GiExpense, GiHamburgerMenu} from 'react-icons/gi'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signUpWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "../../../auth";
 import { useRouter } from 'next/router'
 import { FaTasks } from "react-icons/fa";
@@ -26,16 +26,18 @@ const Navigation = () => {
     }
   };
   const[admin, setAdmin]= useState(false)
-  getSignedInEmail()
-  .then((email) => {
-    if(email === 'richard.ababio@eightball.com'){
-      setAdmin(true)
-    }
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
+  useEffect(() => {
+    // Check if the signed-in email is the admin email
+    getSignedInEmail()
+        .then((email) => {
+            if (email === 'richard.ababio@eightball.com') {
+                setAdmin(true);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}, []);
   const[showNav,setShowNav]=useState(false)
   const navToogleHandler=()=>{
     setShowNav(!showNav)

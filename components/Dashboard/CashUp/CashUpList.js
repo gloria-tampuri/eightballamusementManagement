@@ -130,15 +130,18 @@ const CashUpList = () => {
 
     const[admin, setAdmin]= useState(false)
 
-    getSignedInEmail()
-    .then((email) => {
-      if(email === 'richard.ababio@eightball.com'){
-        setAdmin(true)
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    useEffect(() => {
+        // Check if the signed-in email is the admin email
+        getSignedInEmail()
+            .then((email) => {
+                if (email === 'richard.ababio@eightball.com') {
+                    setAdmin(true);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
 
 
 

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'; // Make sure to import this line
 import WeeklyCashups from '../WeeklyCashups/WeeklyCashups';
+import OperatorDashboard from '../OperatordashBoard/OperatorDashboard';
 
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -118,15 +119,18 @@ const DashboardMain = () => {
 
   const cashUpMonthlyTable = calculateArrangeTotalSales(allAssets)
 
-  getSignedInEmail()
-  .then((email) => {
-    if(email === 'richard.ababio@eightball.com'){
-      setAdmin(true)
-    }
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+  useEffect(() => {
+    // Check if the signed-in email is the admin email
+    getSignedInEmail()
+        .then((email) => {
+            if (email === 'richard.ababio@eightball.com') {
+                setAdmin(true);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}, []);
 
     
 
@@ -188,8 +192,7 @@ const DashboardMain = () => {
     </div>
 
   </div>:<div>
-    <h1 className={classes.operatorHeader}>Operator Dashboard</h1>
-    <WeeklyCashups/>
+    <OperatorDashboard/>
   </div>
   }
   </>

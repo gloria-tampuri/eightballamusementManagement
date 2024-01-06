@@ -8,6 +8,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import useSWR from 'swr'
 import CashUpList from './CashUpList';
+import { getSignedInEmail } from '../../../auth';
+
 
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -16,6 +18,8 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 const CashUp = () => {
 
+   const[admin,setAdmin]=useState(false)
+    const [personEmail,setPersonEmail]=useState('')
     const[cashupDate,setCashupDate]=useState('')
     const[cashupTime,setCashupTime]=useState('')
     const[tokenPrice,setTokenPrice]=useState(0)
@@ -29,6 +33,19 @@ const CashUp = () => {
     const[tokensIssued, setTokensIssued]=useState(0)
     const[startFloat, setStartFloat]=useState(0)
     const[closeFloat,setCloseFloat]=useState(0)
+
+    useEffect(() => {
+        // Check if the signed-in email is the admin email
+        getSignedInEmail()
+            .then((email) => {
+                if (email === 'richard.ababio@eightball.com') {
+                    setAdmin(true);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, []);
     
     const CaltotalAmount =()=>{
       const total = tokenPrice*tokensSold
@@ -100,7 +117,8 @@ const notify = () => toast.success("Cashup Added Successfully !",{
         balance:Number(balance),
         startFloat:Number(startFloat),
         closeFloat:Number(closeFloat),
-        tokensIssued:Number(tokensIssued)
+        tokensIssued:Number(tokensIssued),
+        enteredBy:personEmail
     }
         const dataPush={
             location:current?.locationName,

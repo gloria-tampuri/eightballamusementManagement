@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import classes from './WeeklyCashups.module.css';
 import { useRouter } from 'next/router';
+import { getSignedInEmail } from '../../../auth';
+import OperatorWeeklyCashups from '../OperatorWeeklyCashups/OperatorWeeklyCashups';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 const WeeklyCashups = () => {
   const { data, error } = useSWR('/api/asserts', fetcher);
   const router = useRouter();
+  const[admin, setAdmin]= useState(false)
+
 
   const currentDate = new Date(); // Current date and time
   const currentWeekStart = new Date(currentDate); // Start of the current week
@@ -34,11 +38,24 @@ let totalSum =0
   // Sort the data in descending order of total cash-up amount
   currentWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
 
+  useEffect(() => {
+    // Check if the signed-in email is the admin email
+    getSignedInEmail()
+        .then((email) => {
+            if (email === 'richard.ababio@eightball.com') {
+                setAdmin(true);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}, []);
   
 
   return (
     <div>
-      <div className={classes.list}>
+     {
+      admin? <div className={classes.list}>
       <button className='printButton' onClick={() => window.print()}>Print</button>
         <h2 className={classes.tabheader}>Performance of all assets for the current week. Total Amount: {totalSum}</h2>
         <table>
@@ -65,7 +82,8 @@ let totalSum =0
             ))}
           </tbody>
         </table>
-      </div>
+      </div>:<OperatorWeeklyCashups/>
+     }
     </div>
   );
 };
