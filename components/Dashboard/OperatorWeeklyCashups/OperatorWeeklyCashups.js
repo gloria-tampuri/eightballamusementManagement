@@ -28,7 +28,6 @@ const OperatorWeeklyCashups = () => {
       });
 
   }, []);
-  console.log(assetsData);
 
   const startOfCurrentWeek = startOfWeek(new Date());
   const endOfCurrentWeek = endOfWeek(new Date());
@@ -47,7 +46,6 @@ const OperatorWeeklyCashups = () => {
   }, []);
 
 
-  console.log(getAllWithSamuel);
   let totalSum =0
 
   const currentOperatorCashupData = getAllWithSamuel?.map(assert=>{
