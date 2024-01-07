@@ -38,6 +38,7 @@ const CashUp = () => {
         // Check if the signed-in email is the admin email
         getSignedInEmail()
             .then((email) => {
+                setPersonEmail(email)
                 if (email === 'richard.ababio@eightball.com') {
                     setAdmin(true);
                 }

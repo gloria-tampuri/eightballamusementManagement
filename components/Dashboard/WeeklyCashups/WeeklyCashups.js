@@ -82,6 +82,7 @@ let totalSum =0
             ))}
           </tbody>
         </table>
+        <OperatorWeeklyCashups/>
       </div>:<OperatorWeeklyCashups/>
      }
     </div>
