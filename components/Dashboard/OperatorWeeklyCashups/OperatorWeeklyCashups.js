@@ -67,7 +67,7 @@ currentOperatorCashupData?.sort((a, b) => b.totalAmount - a.totalAmount);
   return (
     <div className={classes.operator}>
       {/* <h1>WeeklyCashups of <span> {operatorName}</span></h1> */}
-      <h2 className={classes.tabheader}>Performance of Assets enteredBy Operator{operatorName} for the week. Total Amount: {totalSum}</h2>
+      <h2 className={classes.tabheader}>Cash up entered by Operator{operatorName} for the week. Total Amount: {totalSum}</h2>
     <div className={classes.list}>
     <table>
         <thead>
