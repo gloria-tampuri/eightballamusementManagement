@@ -65,6 +65,7 @@ const Todo = () => {
             type='text'
             placeholder='Enter task'
             value={task}
+            required
             onChange={(e) => setTask(e.target.value)}
           />
           <button>Add Task</button>

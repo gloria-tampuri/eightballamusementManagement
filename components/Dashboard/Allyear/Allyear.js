@@ -26,7 +26,7 @@ const Allyear = () => {
   ];
 
   const availableYears = data?.asserts.reduce((years, assert) => {
-    assert.cashup.forEach((cash) => {
+    assert?.cashup.forEach((cash) => {
       const cashDate = new Date(cash.cashupDate);
       const year = cashDate.getFullYear();
       if (!years.includes(year)) {

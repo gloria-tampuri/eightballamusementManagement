@@ -16,11 +16,14 @@ box-sizing: border-box;
 --borders:#D8E2E7;
 --electric-blue:#5E6E85;
 --white:#FFFFFF;
-
+--gray:#61677A;
+--dark-blue:#262A56;
 }
 html, body {
 height: 100%;
 font-family: 'Open Sans', sans-serif;
+background-color:white;
+color: rgb(27, 27, 27);
 }
 body {
 line-height: 1.5;

@@ -29,7 +29,7 @@ const Month = () => {
         const saleMonth = saleDate.getMonth() ;
 
         if (saleYear === year && saleMonth === month) {
-          totalSales += sale.companyAmount;
+          totalSales += sale.cashReceived;
         }
       });
     }

@@ -1,0 +1,92 @@
+.back{
+    font-size: 2.2rem;
+    margin: 1rem 0 ;
+}
+.yearExpen{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.yearExpen h1{
+    text-align: center;
+    font-size: 1.2rem;
+}
+.total{
+    color: var(--blue);
+    font-weight: 700;
+    margin: 1rem 0;
+}
+.list{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    color: #343A46;
+    /* background-color:rgb(255, 249, 249) ; */
+    /* padding: 1rem;
+    margin-top: 2rem; */
+    overflow-x: scroll;
+}
+
+
+.years{
+    background-color:var(--pale-red) ;
+    color: white;
+    padding: 0.3rem 2rem;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    width: fit-content;
+    border-radius: 0.3rem;
+}
+.amount{
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.month{
+    color: var(--gunmetal);
+    /* padding: 1rem 0; */
+}
+
+.list{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    color: var(--electric-blue);
+    /* background-color:rgb(245, 245, 245) ; */
+}
+
+.list table{
+    width: 100%;
+    
+}
+
+.list thead{
+    background:#E7F5FE;
+    /* background-color:rgb(60, 60, 60) ; */
+    padding: 1rem;
+    color: var(--electric-blue);
+}
+
+.list thead, .list tbody {
+    width: 100%;
+    padding: 1rem;
+
+}
+
+.list td, .list th{
+    /* width: 100%; */
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #D8E2E7; 
+  }
+
+  .color{
+    background:#E7F5FE;
+    color: var(--electric-blue);
+  }
+  .delete{
+    color: red;
+  }
+  

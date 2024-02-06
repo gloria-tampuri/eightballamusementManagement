@@ -1,8 +1,12 @@
 import React from 'react'
+import Transport from '../../../../components/Dashboard/Transport/Transport'
+import DashLayout from '../../../../components/Dashboard/DashboardLayout/DashLayout'
 
 const TransportPage = () => {
   return (
-    <div>TransportPage</div>
+    <DashLayout>
+      <Transport/>
+    </DashLayout>
   )
 }
 

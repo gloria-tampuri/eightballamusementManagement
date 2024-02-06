@@ -81,7 +81,7 @@ const ExpenditurePage = () => {
                 </div>
 
                 
-              <div className={classes.button}>  <button>Add Assert</button></div>
+              <div className={classes.button}>  <button>Add Expense</button></div>
 
             </form>
         </div>

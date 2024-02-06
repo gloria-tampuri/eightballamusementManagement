@@ -33,14 +33,8 @@ const Login = () => {
 
   return (
    <div className={classes.wrapper}>
-    <div className={classes.login}>
-      <div className={classes.words}>
-        <h2>EightBall Amusement</h2>
-        <h1>Welcome To The Land of Possibilities</h1>
-        <Image className={classes.img} src={poolpic} alt='playing pool'  />
-        <p className={classes.made}>Made By: tani-tampuri technologies</p>
-      </div>
-    <div className={classes.formContainer}>
+   <div className={classes.tgap}>
+   <div className={classes.formContainer}>
       <h2>SIGN IN</h2>
     <form className={classes.form}>
       <label htmlFor="email">Email</label>
@@ -52,7 +46,7 @@ const Login = () => {
       {/* <button onClick={handleSignOut}>Sign Out</button> */}
      </form>
     </div>
-    </div>
+   </div>
    </div>
   );
 };

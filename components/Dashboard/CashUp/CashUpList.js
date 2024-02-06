@@ -174,6 +174,7 @@ Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
                                  <th>Sold Tokens</th>
                                  <th>Total Amount</th>
                                  <th>Comany Share</th>
+                                 <th>Cash Received</th>
                                  <th>Balance</th>
                                  <th>Delete</th>
                              </tr>
@@ -186,6 +187,7 @@ Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
                                  <td>{cash.tokensSold}</td>
                                  <td>{cash.totalSale}</td>
                                  <td className={classes.color}>{cash.companyAmount}</td>
+                                 <td>{cash.cashReceived}</td>
                                  <td className={classes.balance}>{cash.balance}</td>
                                  <td><AiOutlineDelete className={classes.delete} onClick={() => deleteHandler(cash.cashupId && cash.cashupId)} /></td>
                              </tr>)}
