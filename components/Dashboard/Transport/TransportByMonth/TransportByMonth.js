@@ -4,13 +4,14 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import { BiArrowBack } from 'react-icons/bi';
 import classes from './TransportByMonth.module.css';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 const TransportByMonth = () => {
   const router = useRouter();
   const { year } = router.query;
-  const { data, error } = useSWR(`/api/transport/year/${year}`, fetcher, { refreshInterval: 1000 });
+  const { data, error, mutate } = useSWR(`/api/transport/year/${year}`, fetcher, { refreshInterval: 1000 });
 
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
@@ -25,6 +26,26 @@ const TransportByMonth = () => {
       [weekKey]: !prevState[weekKey]
     }));
   };
+
+  const deleteHandler = async (transportId) => {
+    console.log('clicked');
+    try {
+      const response = await fetch(`/api/transport/${transportId}`, { 
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete transport');
+      }
+      mutate();
+    } catch (error) {
+      console.error('Error deleting transport:', error);
+      alert('Error deleting transport: ' + error.message);
+    }
+  };
+  
+  
+  
+  
 
   // Grouping data by week and then by month
   const groupedDataByWeekAndMonth = data?.transport.reduce((result, expen) => {
@@ -87,15 +108,17 @@ const TransportByMonth = () => {
                           <td>From</td>
                           <td>Destination</td>
                           <td>Amount</td>
+                          <th>Delete</th>
                         </tr>
                       </thead>
                       <tbody>
                         {weekData.transports.map((expen) => (
-                          <tr key={expen.id}>
+                          <tr key={expen._id}>
                             <td>{expen.transportDate}</td>
                             <td>{expen.from}</td>
                             <td>{expen.destination}</td>
                             <td className={classes.color}>{expen.amount}</td>
+                            <td><AiOutlineDelete className={classes.delete} onClick={() => deleteHandler(expen._id)} /></td> 
                           </tr>
                         ))}
                       </tbody>

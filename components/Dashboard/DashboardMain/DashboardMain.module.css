@@ -102,3 +102,6 @@ color: var(--gunmetal);
     padding: 1rem 2rem;
     color: var(--gunmetal);
 }
+.redRow{
+    background-color: rgb(238, 132, 114);
+}

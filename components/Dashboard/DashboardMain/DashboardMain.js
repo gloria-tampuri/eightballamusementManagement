@@ -177,7 +177,8 @@ const DashboardMain = () => {
         </thead>
 
         <tbody>
-          {cashUpMonthlyTable?.map((arranged, index) =><tr key={arranged?._id} onClick={()=>router.push(`/dashboard/asserts/${arranged?._id}/cashup `)} > 
+          {cashUpMonthlyTable?.map((arranged, index) =><tr key={arranged?._id} onClick={()=>router.push(`/dashboard/asserts/${arranged?._id}/cashup `)} 
+           className={index >= cashUpMonthlyTable.length - 5 ? classes.redRow : ""}> 
             
             <td>{index + 1}</td>
             <td className={classes.color}>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>

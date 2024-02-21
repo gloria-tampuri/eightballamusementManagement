@@ -42,7 +42,25 @@ const postTransportController = async (req, res) => {
     }
 }
 
+const deleteTransportController = async (req, res) => {
+    const { id } = req.params; // Assuming the id is passed as a route parameter
+
+    const transportCollection = await connectToDatabase();
+    try {
+        const result = await transportCollection.deleteOne({ _id: id });
+        if (result.deletedCount === 1) {
+            res.status(200).json({ status: 200, message: `Transport with id ${id} deleted successfully` });
+        } else {
+            res.status(404).json({ status: 404, message: `Transport with id ${id} not found` });
+        }
+    } catch (error) {
+        res.status(500).json({ status: 500, message: error });
+    }
+}
+
+
 export {
     getTransportController,
-    postTransportController
+    postTransportController,
+    deleteTransportController
 }
