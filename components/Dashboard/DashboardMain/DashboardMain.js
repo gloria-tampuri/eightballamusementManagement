@@ -69,7 +69,7 @@ const DashboardMain = () => {
   const calculateMonthTotalSales = (documents) => {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; // January is 0, so we add 1 to get the current month
+    const currentMonth = currentDate.getMonth() + 1; 
     let totalMonthlySales = 0;
 
     documents?.forEach((document) => {
@@ -132,12 +132,42 @@ const DashboardMain = () => {
         });
 }, []);
 
+
+
+
+//weekly cashups
+const currentDate = new Date(); // Current date and time
+const currentWeekStart = new Date(currentDate); // Start of the current week
+currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Set to the most recent Sunday
+currentWeekStart.setHours(0, 0, 0, 0); // Set to midnight
+
+const currentWeekEnd = new Date(currentWeekStart); // End of the current week
+currentWeekEnd.setDate(currentWeekEnd.getDate() + 6); // Add 7 days for a week
+currentWeekEnd.setHours(23, 59, 59, 999); // Set to the last millisecond of the day
+let totalSum =0
+// Include all assets in the data for the current week, regardless of their cash-up amounts
+const currentWeekData = data?.asserts.map(assert => {
+  const totalAmount = assert.cashup.reduce((total, sale) => {
+    const saleDate = new Date(sale.cashupDate);
+    if (saleDate >= currentWeekStart && saleDate <= currentWeekEnd) {
+      total += sale.cashReceived;
+    }
+    return total;
+  }, 0);
+  totalSum += totalAmount
+  return { ...assert, totalAmount };
+});
+
     
 
   return (
   <>
   {
     admin ?  <div>
+        <div className={classes.notice}>
+      <p>Attention!!! Transport and Task can now be deleted. Edit wasnt part of the architecture plan. So please if you want to edit delete and type again</p>
+    </div>
+
     <div className={classes.highlights}>
       <Link href='/dashboard/asserts' className={`${classes.box} ${classes.first}`}>
         <h1>{totalAssets}</h1>
@@ -162,8 +192,16 @@ const DashboardMain = () => {
 
       </div>
 
+      <Link href='/dashboard/weeklycashups'><div className={`${classes.box} ${classes.third}`}>
+        <h1>{totalSum}</h1>
+        <h2>Income This Week</h2>
+
+      </div>
+</Link>
+      
     </div>
 
+  
     <div className={classes.list}>
       <h2 className={classes.tabheader}>Performance of all assets this month of {monthName}</h2>
       <table>

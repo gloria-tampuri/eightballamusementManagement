@@ -14,7 +14,6 @@ const connectToDatabase = async () => {
 const getTransportController = async (req, res) => {
     try {
         const { transport } = req.query; 
-        console.log(req.query);
 
         
         if (!transport) {
@@ -55,7 +54,7 @@ const deleteTransportController = async (req, res) => {
         const { transport } = req.query;
         const transportCollection = await connectToDatabase();
 
-        const result = await transportCollection.deleteOne({ _id: new ObjectId(transport) });
+        const result = await transportCollection.deleteOne({ _id: new ObjectId(transportsh) });
 
         if (result.deletedCount === 1) {
             res.status(200).json({ message: "Transport deleted successfully" });
