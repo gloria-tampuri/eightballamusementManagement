@@ -165,7 +165,7 @@ const currentWeekData = data?.asserts.map(assert => {
   {
     admin ?  <div>
         <div className={classes.notice}>
-      <p>Attention!!! Transport and Task can now be deleted. Edit wasnt part of the architecture plan. So please if you want to edit delete and type again</p>
+      <p>Attention!!! Transport and Task can now be deleted. Edit wasnt part of the architecture plan. So please if you want to edit delete and type again. Previous week cashup is also available for you. Yet to work on operator</p>
     </div>
 
     <div className={classes.highlights}>
