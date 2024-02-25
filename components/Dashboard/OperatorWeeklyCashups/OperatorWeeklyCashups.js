@@ -73,31 +73,7 @@ const currentDate = new Date(); // Current date and time
   currentWeekEnd.setDate(currentWeekEnd.getDate() + 6); // Add 7 days for a week
   currentWeekEnd.setHours(23, 59, 59, 999); 
   
-useEffect(() => {
-  if (assetsData) {
-    const previousWeekStart = new Date(currentWeekStart);
-    previousWeekStart.setDate(currentWeekStart.getDate() - 7); // Substract 7 days for previous week start
-    const previousWeekEnd = new Date(currentWeekStart);
-    previousWeekEnd.setDate(currentWeekEnd.getDate() - 1); // Subtract 1 day for previous week end
 
-    const previousWeekData = assetsData.asserts.map(assert => {
-      const totalAmount = assert.cashup.reduce((total, sale) => {
-        const saleDate = new Date(sale.cashupDate);
-        if (saleDate >= previousWeekStart && saleDate <= previousWeekEnd) {
-          total += sale.cashReceived;
-        }
-        return total;
-      }, 0);
-      return { ...assert, totalAmount };
-    });
-
-    const previousWeekTotalSum = previousWeekData.reduce((sum, assert) => sum + assert.totalAmount, 0);
-    setPreviousWeekData(previousWeekData);
-    setPreviousWeekTotalSum(previousWeekTotalSum);
-  }
-}, [assetsData, currentWeekStart, currentWeekEnd]);
-previousWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
-const previousCashupsWithSamuel = previousWeekData?.cashup?.filter((cashup) => cashup?.enteredBy === 'samuel.bempong@eightball.com' )
 
 
   return (
@@ -129,33 +105,6 @@ const previousCashupsWithSamuel = previousWeekData?.cashup?.filter((cashup) => c
           ))}
         </tbody>
       </table>
-
-      {/* <h2>Previous cashup by Samuel</h2>
-      <p>Total : {previousWeekTotalSum}</p>
-      <table>
-          <thead>
-            <tr>
-              <th>Position</th>
-              <th>Location</th>
-              <th>AssetID</th>
-              <th>Cashup Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {previousCashupsWithSamuel?.map((assert, index) => (
-              <tr onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup `)} key={assert._id}>
-                <td>{index + 1}</td>
-                <td className={classes.color}>
-                  {assert.location.find(val => val.currentLocation === true)?.locationName}
-                </td>
-                <td>{assert.assertId}</td>
-                <td className={classes.color}>
-                  {assert.totalAmount}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
     </div>
     </div>
   );

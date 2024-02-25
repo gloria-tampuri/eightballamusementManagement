@@ -56,32 +56,32 @@ let totalSum =0
 }, []);
 
 
-useEffect(() => {
-  if (data) {
-    const previousWeekStart = new Date(currentWeekStart);
-    previousWeekStart.setDate(currentWeekStart.getDate() - 7); // Substract 7 days for previous week start
-    const previousWeekEnd = new Date(currentWeekStart);
-    previousWeekEnd.setDate(currentWeekEnd.getDate() - 1); // Subtract 1 day for previous week end
+// useEffect(() => {
+//   if (data) {
+//     const previousWeekStart = new Date(currentWeekStart);
+//     previousWeekStart.setDate(currentWeekStart.getDate() - 7); // Substract 7 days for previous week start
+//     const previousWeekEnd = new Date(currentWeekStart);
+//     previousWeekEnd.setDate(currentWeekEnd.getDate() - 7); // Subtract 1 day for previous week end
 
-    const previousWeekData = data.asserts.map(assert => {
-      const totalAmount = assert.cashup.reduce((total, sale) => {
-        const saleDate = new Date(sale.cashupDate);
-        if (saleDate >= previousWeekStart && saleDate <= previousWeekEnd) {
-          total += sale.cashReceived;
-        }
-        return total;
-      }, 0);
-      return { ...assert, totalAmount };
-    });
+//     const previousWeekData = data.asserts.map(assert => {
+//       const totalAmount = assert.cashup.reduce((total, sale) => {
+//         const saleDate = new Date(sale.cashupDate);
+//         if (saleDate >= previousWeekStart && saleDate <= previousWeekEnd) {
+//           total += sale.cashReceived;
+//         }
+//         return total;
+//       }, 0);
+//       return { ...assert, totalAmount };
+//     });
 
-    const previousWeekTotalSum = previousWeekData.reduce((sum, assert) => sum + assert.totalAmount, 0);
-    setPreviousWeekData(previousWeekData);
-    setPreviousWeekTotalSum(previousWeekTotalSum);
-  }
-}, [data, currentWeekStart, currentWeekEnd]);
+//     const previousWeekTotalSum = previousWeekData.reduce((sum, assert) => sum + assert.totalAmount, 0);
+//     setPreviousWeekData(previousWeekData);
+//     setPreviousWeekTotalSum(previousWeekTotalSum);
+//   }
+// }, [data, currentWeekStart, currentWeekEnd]);
 
-// Sort the data in descending order of total cash-up amount
-previousWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
+// // Sort the data in descending order of total cash-up amount
+// previousWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
 
   
 
@@ -116,30 +116,6 @@ previousWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
           </tbody>
         </table>
         <h2 className={classes.tabheader}>Performance of all assets for the previous week. Total Amount: {previousWeekTotalSum}</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Position</th>
-              <th>Location</th>
-              <th>AssetID</th>
-              <th>Cashup Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {previousWeekData?.map((assert, index) => (
-              <tr onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup `)} key={assert._id}>
-                <td>{index + 1}</td>
-                <td className={classes.color}>
-                  {assert.location.find(val => val.currentLocation === true)?.locationName}
-                </td>
-                <td>{assert.assertId}</td>
-                <td className={classes.color}>
-                  {assert.totalAmount}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
         <OperatorWeeklyCashups/>
       </div>:<OperatorWeeklyCashups/>
      }
