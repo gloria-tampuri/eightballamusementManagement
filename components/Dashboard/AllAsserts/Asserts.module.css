@@ -1,3 +1,7 @@
+.list h3{
+    color: white;
+    font-size: 1.2rem;
+}
 .item{
     margin-top: 0.5rem;
     display: flex;
@@ -17,6 +21,11 @@ justify-content: space-between;
 .info h4{
 width: fit-content;
 margin-right: 2rem;
+color: white;
+}
+
+.info p{
+    color: rgb(215, 212, 212);
 }
 
 .edit{
@@ -48,16 +57,21 @@ margin-right: 2rem;
 }
 
 .frontBack{
-    background-color: var(--blue);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color:#202020;
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
     margin-top: 1rem;
-    color: var(--white);
+    color: rgb(215, 212, 212);
+}
+.frontBack .icon{
+    color: rgb(215, 212, 212) important!;
 }
 
 @media(max-width:640px){
     .item{
     padding: 0.5rem;
-
     }
 }

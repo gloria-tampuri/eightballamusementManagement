@@ -1,24 +1,29 @@
 .back{
-    font-size: 2.2rem;
-    margin: 1rem 0 0 2rem ;
+    display: flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 2rem;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: #202020;
+    margin-bottom: 0.5rem;
 }
 
 .yearExpen h1{
-    text-align: center;
     font-size: 1.2rem;
-    color: var(--gunmetal);
+    color: var(--white);
 }
 .total{
-    color: var(--blue);
+    color: var(--gray-text);
     font-weight: 700;
 }
 .list{
     width: 100%;
     border-collapse: collapse;
-    border-radius: 15px;
+    border-radius: 0.4rem;
     color: #343A46;
-    /* background-color:rgb(255, 249, 249) ; */
-    padding: 1rem;
+    /* padding: 1rem; */
     margin-top: 2rem;
     overflow-x: scroll;
 
@@ -26,7 +31,6 @@
 
 
 .years{
-    background-color:var(--pale-red) ;
     color: white;
     padding: 0.3rem 2rem;
     font-size: 1.4rem;
@@ -41,8 +45,7 @@
 }
 
 .month{
-    color: var(--gunmetal);
-    /* padding: 1rem 0; */
+    color: var(--white);
 }
 
 .list{
@@ -50,39 +53,39 @@
     border-collapse: collapse;
     border-radius: 15px;
     overflow: hidden;
-    color: var(--electric-blue);
-    /* background-color:rgb(245, 245, 245) ; */
+    overflow-x: scroll;
+}
+
+.list .tabheader{
+    color: var(--white);
+    padding: 2rem 0;
 }
 
 .list table{
     width: 100%;
-    
+    padding: 0;
+    color: rgb(215, 212, 212);
 }
 
 .list thead{
-    background:#E7F5FE;
-    /* background-color:rgb(60, 60, 60) ; */
-    padding: 1rem;
-    color: var(--electric-blue);
+    padding: 0.5rem;
+    color: var(--white);
 }
+
 
 .list thead, .list tbody {
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem;
 
 }
 
 .list td, .list th{
-    /* width: 100%; */
     padding: 8px;
     text-align: center;
-    border: 1px solid #D8E2E7; 
+    border: 1px solid var(--gray-text); 
   }
 
-  .color{
-    background:#E7F5FE;
-    color: var(--electric-blue);
-  }
+  
   .delete{
     color: red;
   }

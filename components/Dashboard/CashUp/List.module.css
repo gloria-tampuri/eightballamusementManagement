@@ -4,24 +4,22 @@
     border-radius: 15px;
     overflow: hidden;
     color: #343A46;
-    background-color:rgb(245, 245, 245) ;
-    padding: 1rem;
+    padding: 0rem;
     width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch
 }
 
 .years{
-    /* background-color:var(--blue) ; */
-    color: var(--gunmetal);
-
-    padding: 0.3rem 2rem;
+    color: rgb(215, 212, 212);
+    padding: 0.5rem;
     font-size: 1.4rem;
     margin-bottom: 0.5rem;
     margin-top: 1rem;
     width: fit-content;
     border-radius: 0.3rem;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
+  background-color: #202020;
 }
 .amount{
     color: var(--electric-blue);
@@ -30,26 +28,45 @@
 }
 
 .month{
-    color: var(--gunmetal);
     padding: 1rem 0;
 }
 
-.list table{
-    width: 100%;
-    background-color: white;
-    border-radius: 1rem;
-    overflow: hidden;
+.list{
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 0.4rem;
+  overflow: hidden;
+  overflow-x: scroll;
 }
 
+.list .tabheader{
+  color: var(--white);
+  padding: 2rem 0;
+}
+
+.list table{
+  width: 100%;
+  padding: 0;
+  color: rgb(215, 212, 212);
+}
+
+.list thead{
+  padding: 0.5rem;
+  color: var(--white);
+}
+
+
 .list thead, .list tbody {
-    width: 100%;
+  width: 100%;
+  padding: 0.5rem;
+
 }
 
 .list td, .list th{
-    /* width: 100%; */
-    padding: 8px;
-    text-align: center
-  }
+  padding: 8px;
+  text-align: center;
+  border: 1px solid var(--gray-text); 
+}
   
   .seeAllDiv{
     display: flex;
@@ -61,11 +78,7 @@
     font-size: 0.8rem;
     cursor: pointer;
   }
-  /* .list tbody tr:nth-child(odd){
-     background-color: var(--blue);
-     color: white;
   
-  } */
 
   .balance{
     color: var(--red);
@@ -75,52 +88,15 @@
     width: 100%;
     border-collapse: collapse;
     border-radius: 15px;
-    /* overflow: hidden; */
     overflow-x: scroll;
-
-    color: var(--electric-blue);
-    /* background-color:rgb(245, 245, 245) ; */
-}
-
-.list table{
-    width: 100%;
-    
-}
-
-.list thead{
-    background:#E7F5FE;
-    /* background-color:rgb(60, 60, 60) ; */
-    padding: 1rem;
     color: var(--electric-blue);
 }
 
-.list thead, .list tbody {
-    width: 100%;
-    padding: 1rem;
 
-}
-
-.list td, .list th{
-    /* width: 100%; */
-    padding: 8px;
-    text-align: center;
-    border: 1px solid #D8E2E7; 
-  }
-
-  .color{
-    background:#E7F5FE;
-    color: var(--electric-blue);
-  }
   .delete{
     color: red;
   }
   
- 
-  /* .list tbody tr:nth-child(odd){
-     background-color: var(--blue);
-     color: white;
-  
-  } */
 .tabheader{
     padding: 1rem 2rem;
     color: var(--gunmetal);

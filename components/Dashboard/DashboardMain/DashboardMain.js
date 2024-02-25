@@ -167,7 +167,7 @@ const currentWeekData = data?.asserts.map(assert => {
     <div className={classes.highlights}>
       <Link href='/dashboard/asserts' className={`${classes.box} ${classes.first}`}>
         <h1>{totalAssets}</h1>
-        <h2>Total Number of Tables</h2>
+        <p>Total Number of Tables</p>
 
       </Link>
 
@@ -175,22 +175,22 @@ const currentWeekData = data?.asserts.map(assert => {
      <div >
         <h1>
           {/* {totalSalesYear} */}
-          <p>0000</p>
+          0000
           </h1>
-        <h2>Total Income This Year</h2>
+        <p>Total Income This Year</p>
 
       </div>
      </Link>
 
       <div className={`${classes.box} ${classes.third}`}>
         <h1>{totalSalesMonth}</h1>
-        <h2>Income This Month</h2>
+        <p>Income This Month</p>
 
       </div>
 
       <Link href='/dashboard/weeklycashups'><div className={`${classes.box} ${classes.third}`}>
         <h1>{totalSum}</h1>
-        <h2>Income This Week</h2>
+        <p>Income This Week</p>
 
       </div>
 </Link>
@@ -212,8 +212,7 @@ const currentWeekData = data?.asserts.map(assert => {
 
         <tbody>
           {cashUpMonthlyTable?.map((arranged, index) =><tr key={arranged?._id} onClick={()=>router.push(`/dashboard/asserts/${arranged?._id}/cashup `)} 
-           className={index >= cashUpMonthlyTable.length - 5 ? classes.redRow : ""}> 
-            
+          >  
             <td>{index + 1}</td>
             <td className={classes.color}>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
             <td>{arranged?.assertId}</td>

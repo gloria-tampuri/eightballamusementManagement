@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { signUpWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "../../../auth";
 import { useRouter } from 'next/router'
 import { FaTasks } from "react-icons/fa";
+import { CiLogin } from "react-icons/ci";
 
 
 
@@ -50,7 +51,6 @@ const Navigation = () => {
             <div className={classes.menu}>
               {showNav===false?<GiHamburgerMenu className={classes.icons} onClick={navToogleHandler}/>:<MdClose onClick={navToogleHandler} className={classes.icons}/>}
             </div>
-            <hr/>
         </header>
         { admin? <div className={classes.nav} >
            <Link  className={classes.link} href='/dashboard'>
@@ -117,8 +117,9 @@ const Navigation = () => {
                 <span>Transport</span>
             </div>
             </Link>
-            <div className={classes.logout}>
-        <h4 onClick={handleSignOut}>LOG OUT</h4>
+            <div onClick={handleSignOut} className={classes.logout}>
+                <span> <CiLogin/></span>
+        <h4 > LOG OUT</h4>
       </div>
               </div>}
 
@@ -168,8 +169,9 @@ const Navigation = () => {
                 <span>Transport</span>
             </div>
             </Link>
-            <div className={classes.logout}>
-        <h4 onClick={handleSignOut}>LOG OUT</h4>
+            <div onClick={handleSignOut} className={classes.logout}>
+                <span> <CiLogin/></span>
+        <h4 > LOG OUT</h4>
       </div>
                 </div>: <div> <Link  className={classes.link} href='/dashboard'>
            <div className={classes.section}>
@@ -189,8 +191,9 @@ const Navigation = () => {
                 <span>Transport</span>
             </div>
             </Link>
-            <div className={classes.logout}>
-        <h4 onClick={handleSignOut}>LOG OUT</h4>
+            <div onClick={handleSignOut} className={classes.logout}>
+                <span> <CiLogin/></span>
+        <h4 > LOG OUT</h4>
       </div>
               </div>}
             </div>

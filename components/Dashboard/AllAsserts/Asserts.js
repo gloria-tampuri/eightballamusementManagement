@@ -3,6 +3,9 @@ import classes from './Asserts.module.css';
 import Link from 'next/link';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import { GrLinkPrevious } from "react-icons/gr";
+import { GrLinkNext } from "react-icons/gr";
+
 
 const PAGE_SIZE = 10; // Number of items per page
 
@@ -31,7 +34,7 @@ const Asserts = () => {
 
   return (
     <div className={classes.list}>
-      <h3>List of Items</h3>
+      <h3>List of all Assets</h3>
 
       {sortedAsserts.slice(startIdx, endIdx).map((assert) => (
         <Link href={`/dashboard/asserts/${assert._id}`} key={assert._id}>
@@ -57,6 +60,7 @@ const Asserts = () => {
           disabled={currentPage === 1}
           onClick={() => setCurrentPage(currentPage - 1)}
         >
+          <GrLinkPrevious className={classes.icon}/>
           Previous
         </button>
         <button
@@ -65,6 +69,7 @@ const Asserts = () => {
           onClick={() => setCurrentPage(currentPage + 1)}
         >
           Next
+          <GrLinkNext className={classes.icon}/>
         </button>
       </div>
     </div>

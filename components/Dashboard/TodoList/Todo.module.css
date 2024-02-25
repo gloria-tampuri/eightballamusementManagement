@@ -23,18 +23,24 @@ border-radius: 0.2rem;
     border: 1px solid gray;
     border-radius: 0.3rem;
     overflow: hidden;
+    background-color: #202020;
 }
 
 .addTask input{
     width: 80%;
     padding: 0.3rem 0.5rem;
     outline: none;
+    background-color: #202020;
+    border: 1px solid rgb(187, 186, 186);
+    color: rgb(215, 212, 212);
+    border: none;
 }
 
 .addTask button{
     background-color: var(--blue);
     padding: 0.3rem 0.5rem;
     color: white;
+    border: none;
 
 }
 .listContainer{
@@ -46,13 +52,17 @@ border-radius: 0.2rem;
     display: flex;
     justify-content: space-between;
     list-style: none;
-    /* height: 64px; */
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid var(--gray-text);
     user-select: none;
     cursor: pointer;
     position: relative;
     display: flex;
     margin-bottom: 1rem;
+    color: white;
+}
+
+.listContainer li p{
+    color: rgb(211, 211, 211);
 }
 @media(max-width:640px){
     .todo{

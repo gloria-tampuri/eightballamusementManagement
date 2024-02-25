@@ -1,24 +1,21 @@
 .dashboard{
     display: flex;
-    padding: 2rem;
-    gap: 3rem;
 }
 
 .nav{
     width: 20%;
     height: 100vh;
     padding: 2rem;
-    background-color: var(--white);
-    color: var(--gunmetal);
-    /* background-color: teal; */
+    background-color: #202020;
+    color: var(--white);
     box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
     border-radius: 0.3rem;
     border-radius: 1px 0px 5px rgba(0,0, 0, 0.2);
+    border-right: 1px solid var(--gray-text);
 }
 
 .other{
     width: 80%;
-
 }
 
 .other header{
@@ -33,7 +30,6 @@
 }
 
 .main{
-    /* background-color: greenyellow; */
     width: 100%;
     border-radius: 0.3rem;
     box-shadow: 1px 0px 15px rgba(0,0, 0, 0.2);
@@ -47,15 +43,17 @@
         flex-direction: column;
     }
     .nav{
-        /* display: none; */
         width: 100%;
         height: fit-content;
         border-radius: 0;
+        box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
+        padding:1rem;
     }
 
     .main{
         border-radius: 0;
         box-shadow: none;
+        padding: 1rem;
     }
 
     .other{

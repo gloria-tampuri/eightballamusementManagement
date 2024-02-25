@@ -115,7 +115,6 @@ let totalSum =0
             ))}
           </tbody>
         </table>
-        <h2 className={classes.tabheader}>Performance of all assets for the previous week. Total Amount: {previousWeekTotalSum}</h2>
         <OperatorWeeklyCashups/>
       </div>:<OperatorWeeklyCashups/>
      }

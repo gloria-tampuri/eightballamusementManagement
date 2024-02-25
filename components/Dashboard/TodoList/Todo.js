@@ -78,7 +78,7 @@ const Todo = () => {
             <li key={tsk._id}>
               <p>{tsk.task}</p>
               <span >
-                <IoIosClose onClick={() => deleteTask(tsk._id)}/>
+                <IoIosClose onClick={() => deleteTask(tsk._id)} style={{fontSize:'1.2rem'}}/>
               </span>
             </li>
           ))}

@@ -1,18 +1,20 @@
 
 .navDisplay{
+    width: 100%;
     display: flex;
-    flex-direction: column;
     justify-content:space-between;
 }
 .header{
     width: 100%;
     display: flex;
-    gap: 2rem;
+    gap: 7rem;
     justify-content: space-between;
     align-items: center;
+    color: var(--white);
+    
 }
 .header h1{
-    color: var(--gunmetal);
+    color: var(--blue);
     font-weight: 700;
     font-size: 1.5rem;
 }
@@ -40,11 +42,11 @@
 
 .logout{
     margin-top: 2rem;
-    background-color: var(--blue);
     width: 100%;
-    border-radius: 0.3rem;
-    padding: 0.3rem 1rem;
-    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
 }
 
 .icons{
@@ -56,6 +58,9 @@
 }
 
 @media (max-width:640px){
+    .header{
+        width: 100%;
+    }
     .navDisplay{
         flex-direction: row;
     }
@@ -67,5 +72,8 @@
     }
     .phoneNav{
         display: block;
+    }
+    .menu{
+        align-self:right;
     }
 }
