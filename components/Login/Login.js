@@ -19,6 +19,7 @@ const Login = () => {
     } catch (error) {
       console.error("Sign-in failed", error);
       // Handle sign-in error (e.g., show error message to the user)
+      alert('Please enter the right credentials')
     }
   };
 

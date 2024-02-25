@@ -19,6 +19,7 @@ font-size: 2rem;
 .form label{
     display: block;
     margin-top:1rem;
+    color: rgb(215, 212, 212);
 }
 .form input{
     width: 100%;
@@ -27,15 +28,18 @@ font-size: 2rem;
     outline: none;
     margin-bottom: 0.5rem;
     border-radius: 0.3rem;
-    
+    background-color: #202020;
+    border: 1px solid rgb(187, 186, 186);
+    color: rgb(215, 212, 212);
+    outline: none;
 }
 
 .form button{
     display: block;
-    width: fit-content;
+    width: 100%;
     margin: 1.5rem auto;
-    padding: 0.8rem 2.5rem;
-    background-color: var(--dark-blue);
+    padding: 0.4rem 1rem;
+    background-color: var(--blue);
     font-weight: 700;
     font-size: 1.2rem;
     text-transform: uppercase;
