@@ -35,10 +35,8 @@
 }
 
 .table thead{
-    background:#E7F5FE;
-    /* background-color:rgb(60, 60, 60) ; */
+    color:#E7F5FE;
     padding: 1rem;
-    color: var(--electric-blue);
 }
 
 .table thead, .table tbody {
@@ -48,14 +46,10 @@
 }
 
 .table td, .table th{
-    /* width: 100%; */
     padding: 8px;
     text-align: center;
     border: 1px solid #D8E2E7; 
   }
 
-  .color{
-    background:#E7F5FE;
-    color: var(--electric-blue);
-  }
+
   

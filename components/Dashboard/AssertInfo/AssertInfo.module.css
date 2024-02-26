@@ -14,7 +14,7 @@
 
 .assert h2{
     text-align: center;
-    color: var(--gunmetal);
+    color: var(--white);
     font-size: 2rem;
     text-decoration: underline;
     font-weight: 700;
@@ -30,20 +30,24 @@
     /* background-color: var(--pale-red); */
     padding: 0.5rem 2rem;
     justify-content: space-between;
-    color: var(--electric-blue);
+    color: white;
     margin-right: 2rem;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
+    background-color: #202020;
 }
 
 .summary{
     margin: 3rem 0;
+    color: var(--white);
+
 }
 
 .emphasis{
-    color: var(--electric-blue);
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: white;
 }
 
 @media(max-width:640px){

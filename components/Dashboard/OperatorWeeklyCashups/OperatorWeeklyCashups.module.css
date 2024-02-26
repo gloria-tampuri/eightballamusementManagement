@@ -2,10 +2,11 @@
     font-size: 2rem;
     text-align: center;
     font-weight: 700;
+    color: var(--white);
 }
 
 .operator h1 span{
-    color: var(--blue);
+    color: var(--white);
 }
 .list{
     width: 100%;

@@ -11,34 +11,27 @@
 
 .list table{
   width: 100%;
-  
+  padding: 0;
+  color: rgb(215, 212, 212);
 }
 
 .list thead{
-  background:#E7F5FE;
-  /* background-color:rgb(60, 60, 60) ; */
-  padding: 1rem;
-  color: var(--electric-blue);
+  padding: 0.5rem;
+  color: var(--white);
 }
 
 .list thead, .list tbody {
   width: 100%;
-  padding: 1rem;
+  padding: 0.5rem;
 
 }
 
 .list td, .list th{
-  /* width: 100%; */
   padding: 8px;
   text-align: center;
-  border: 1px solid #D8E2E7; 
+  border: 1px solid var(--gray-text); 
 }
-
-.color{
-  background:#E7F5FE;
-  color: var(--electric-blue);
-}
-
+  
 .delete{
    color: red;
 }

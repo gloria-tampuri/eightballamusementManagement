@@ -28,7 +28,7 @@
 
 .form h2{
     font-size: 1rem;
-    color: var(--red);
+    color: var(--white);
 }
 
 .section{
@@ -85,8 +85,9 @@ color: rgb(215, 212, 212);
 }
 @media(max-width:640px){
     .form{
-        width: 90%;
+        width: 80%;
         grid-template-columns: 1fr;
+        margin: 0 auto;
 
     }
 }

@@ -11,7 +11,7 @@
 
 .location h2{
     text-align: center;
-    color: var(--gunmetal);
+    color: var(--white);
     font-size: 2rem;
     text-decoration: underline;
     font-weight: 700;
@@ -33,6 +33,7 @@
 .section label{
 display: block;
 margin-bottom: 0.3rem;
+color: rgb(215, 212, 212);
 }
 
 .section input{
@@ -45,6 +46,7 @@ margin-bottom: 0.3rem;
     background-color: #202020;
     border: 1px solid rgb(187, 186, 186);
     color: rgb(215, 212, 212);
+    outline: none;
 }
 
 .current{
