@@ -55,6 +55,8 @@ const ExpenditurePage = () => {
                     <input
                         placeholder='Date'
                         type='date'
+                        required
+
                         {...register("expenditureDate", { required: true })}
                     />
                     {errors.expenditureDate && <p className={classes.errors}>Date is required</p>}
@@ -65,6 +67,8 @@ const ExpenditurePage = () => {
                     <input
                         placeholder='Expenditure Type'
                         type='text'
+                        required
+
                         {...register("expenditureType", { required: true })}
                     />
                     {errors.expenditureType && <p className={classes.errors}>Expenditure Type is required</p>}
@@ -75,6 +79,7 @@ const ExpenditurePage = () => {
                     <input
                         placeholder='Amount'
                         type='number'
+                        required
                         {...register("amount", { required: true })}
                     />
                     {errors.amount && <p className={classes.errors}>Price is required</p>}

@@ -59,6 +59,7 @@ const AddAssertForm = () => {
                     <input
                         placeholder='Assert Number'
                         type='text'
+                        required
                         {...register("assertId", { required: true })}
                     />
                     {errors.assertId && <p className={classes.errors}>Assert ID is required</p>}
@@ -68,6 +69,8 @@ const AddAssertForm = () => {
                     <input
                         placeholder='Date Installed'
                         type='date'
+                        required
+
                         {...register("datePurchased", { required: true })}
                     />
                     {errors.datePurchased && <p className={classes.errors}>Date purchased is required</p>}

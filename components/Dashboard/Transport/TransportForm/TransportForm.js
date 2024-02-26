@@ -52,6 +52,8 @@ const TransportForm = () => {
                     <div className={classes.section}>
                         <label>Date </label>
                         <input
+                                                required
+
                             placeholder='Date'
                             type='date'
                             {...register("transportDate", { required: true })}
@@ -64,6 +66,8 @@ const TransportForm = () => {
                         <input
                             placeholder='From'
                             type='text'
+                            required
+
                             {...register("from", { required: true })}
                         />
                         {errors.from && <p className={classes.errors}>From</p>}
@@ -74,6 +78,8 @@ const TransportForm = () => {
                         <input
                             placeholder='Destination'
                             type='text'
+                            required
+
                             {...register("destination", { required: true })}
                         />
                         {errors.destination && <p className={classes.errors}>Destination</p>}
@@ -84,6 +90,7 @@ const TransportForm = () => {
                         <input
                             placeholder='Amount'
                             type='number'
+                            required
                             {...register("amount", { required: true })}
                         />
                         {errors.amount && <p className={classes.errors}>Price is required</p>}
