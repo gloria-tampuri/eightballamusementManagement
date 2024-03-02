@@ -11,7 +11,7 @@
 }
 
 .years{
-    color: rgb(215, 212, 212);
+    color: #23232f;
     padding: 0.5rem;
     font-size: 1.4rem;
     margin-bottom: 0.5rem;
@@ -19,7 +19,7 @@
     width: fit-content;
     border-radius: 0.3rem;
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
-  background-color: #202020;
+  background-color: #ffffff;
 }
 .amount{
     color: var(--electric-blue);
@@ -47,7 +47,7 @@
 .list table{
   width: 100%;
   padding: 0;
-  color: rgb(215, 212, 212);
+  color: #23232f;
 }
 
 .list thead{

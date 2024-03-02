@@ -14,18 +14,21 @@
 
 .info{
     display: flex;
-    /* gap:2rem */
 justify-content: space-between;
 }
 
 .info h4{
 width: fit-content;
 margin-right: 2rem;
-color: white;
+text-decoration: none;
 }
 
 .info p{
-    color: rgb(215, 212, 212);
+    color: #23232f;
+}
+
+.link{
+    text-decoration: none;
 }
 
 .edit{
@@ -60,14 +63,14 @@ color: white;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background-color:#202020;
+    background-color:#ffffff;
     padding: 0.5rem 1rem;
     border-radius: 0.2rem;
     margin-top: 1rem;
-    color: rgb(215, 212, 212);
+    color: #23232f;
 }
 .frontBack .icon{
-    color: rgb(215, 212, 212) important!;
+    color: #23232f important!;
 }
 
 @media(max-width:640px){

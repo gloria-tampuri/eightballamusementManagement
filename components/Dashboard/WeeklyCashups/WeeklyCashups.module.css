@@ -44,7 +44,7 @@ color: var(--gunmetal);
 .list table{
     width: 100%;
     padding: 0;
-    color: rgb(215, 212, 212);
+    color: #23232f;
 }
 
 .list thead{

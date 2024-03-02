@@ -17,7 +17,7 @@ text-align: center;
     border-radius: 0.3rem;
     height: 130px;
     box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
-    background-color: #202020;
+    background-color: #ffffff;
 }
 
 .box h1{
@@ -46,7 +46,7 @@ color: var(--white);
 .list table{
     width: 100%;
     padding: 0;
-    color: rgb(215, 212, 212);
+    color: #23232f;
 }
 
 .list thead{

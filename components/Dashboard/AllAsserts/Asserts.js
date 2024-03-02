@@ -37,7 +37,7 @@ const Asserts = () => {
       <h3>List of all Assets</h3>
 
       {sortedAsserts.slice(startIdx, endIdx).map((assert) => (
-        <Link href={`/dashboard/asserts/${assert._id}`} key={assert._id}>
+        <Link href={`/dashboard/asserts/${assert._id}`} key={assert._id} className={classes.link}>
           <div className={classes.item}>
             <div className={classes.info}>
               <h4>{assert.assertId}</h4>

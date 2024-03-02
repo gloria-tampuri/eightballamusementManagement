@@ -6,12 +6,12 @@
     padding: 0.3rem 2rem;
     border-radius: 0.3rem;
     color: white;
-    background-color: #202020;
+    background-color: #ffffff;
     margin: 1rem 0;
 }
 
 .back p{
-    color: rgb(215, 212, 212);
+    color: #23232f;
 }
 .yearExpen{
     width: 90%;
@@ -60,7 +60,7 @@
 .list table{
     width: 100%;
     padding: 0;
-    color: rgb(215, 212, 212);
+    color: #23232f;
 }
 
 .list thead{

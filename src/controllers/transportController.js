@@ -1,4 +1,6 @@
 import clientPromise from "library/mongodb";
+import { ObjectId } from 'mongodb';
+
 
 /*Connect to the database
 -------------------------------START----------------------------*/
@@ -42,21 +44,31 @@ const postTransportController = async (req, res) => {
     }
 }
 
-const deleteTransportController = async (req, res) => {
-    const { id } = req.params; // Assuming the id is passed as a route parameter
-
-    const transportCollection = await connectToDatabase();
-    try {
-        const result = await transportCollection.deleteOne({ _id: id });
-        if (result.deletedCount === 1) {
-            res.status(200).json({ status: 200, message: `Transport with id ${id} deleted successfully` });
-        } else {
-            res.status(404).json({ status: 404, message: `Transport with id ${id} not found` });
+const deleteTransportController=async(req,res)=>{
+    const transportId =req.params.id;
+    const transportCollection = await connectToDatabase()
+    try{
+        const result = await transportCollection.deleteOne({_id:ObjectId(transportId)});
+        if(result.deletedCount === 1){
+            res.status(200).json({
+                status:200,
+                message: `Transport with id ${transportId} deleted`,
+            })
+        }else{
+            res.status(404).json({
+                status: 404,
+                message: `Transport with id ${transportId} not found`,
+              });
         }
-    } catch (error) {
-        res.status(500).json({ status: 500, message: error });
+    }catch(error){
+        res.status(500).json({status:500, message:error})
     }
 }
+
+
+
+
+
 
 
 export {

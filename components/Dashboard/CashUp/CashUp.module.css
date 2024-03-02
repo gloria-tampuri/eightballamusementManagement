@@ -6,7 +6,7 @@
     padding: 0.3rem 2rem;
     border-radius: 0.3rem;
     color: white;
-    background-color: #202020;
+    background-color: var(--blue);
 }
 
 .infoAddition h2{
@@ -38,7 +38,7 @@
 .section label{
 display: flex;
 margin-bottom: 0.3rem;
-color: rgb(215, 212, 212);
+color: #23232f;
 }
 
 .section input{
@@ -47,9 +47,9 @@ color: rgb(215, 212, 212);
     padding: 0.5rem 1rem;
     border-radius: 0.3rem;
     border: 1px solid rgb(187, 186, 186);
-    background-color: #202020;
+    background-color: #ffffff;
     border: 1px solid rgb(187, 186, 186);
-    color: rgb(215, 212, 212);
+    color: #23232f;
     outline: 0;
 }
 

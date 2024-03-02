@@ -45,7 +45,6 @@ const Todo = () => {
       });
 
       if (res.ok) {
-        // Trigger a re-fetch after deleting a task to update the list
         mutate();
       } else {
         console.error('Error deleting task');
@@ -53,7 +52,6 @@ const Todo = () => {
     } catch (error) {
       console.error('Network error');
     }
-    console.log(taskId);
   };
 
   return (

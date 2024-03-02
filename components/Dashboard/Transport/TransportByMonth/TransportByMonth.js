@@ -42,22 +42,23 @@ const TransportByMonth = () => {
   };
 
   const deleteHandler = async (transportId) => {
-    console.log("clicked");
     try {
-      const response = await fetch(`/api/transport/${transportId}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete transport");
-      }
-      mutate();
+        const response = await fetch(`/api/transport/${transportId}`, {
+            method: "DELETE",
+        });
+        if (response.ok) {
+          mutate();
+        }else{
+          console.error('Error deleting task');
+          alert("Error deleting transport: " + error.message);
+        }
     } catch (error) {
-      console.error("Error deleting transport:", error);
-      alert("Error deleting transport: " + error.message);
+        console.error("Error deleting transport:", error);
+        alert("Error deleting transport: " + error.message);
     }
-  };
+};
 
-  // Grouping data by week and then by month
+
   const groupedDataByWeekAndMonth = data?.transport.reduce((result, expen) => {
     const date = new Date(expen.transportDate);
     const year = date.getFullYear();
@@ -88,7 +89,6 @@ const TransportByMonth = () => {
 
   let totalYearAmount = 0;
 
-  // Calculate total amount for the year
   if (groupedDataByWeekAndMonth) {
     totalYearAmount = Object.values(groupedDataByWeekAndMonth).reduce(
       (total, weeksData) => {
@@ -115,7 +115,6 @@ const TransportByMonth = () => {
         Total Amount for the Year: {totalYearAmount}
       </p>
 
-      {/* Display grouped transport data */}
       {groupedDataByWeekAndMonth &&
         Object.entries(groupedDataByWeekAndMonth)
           .sort(([monthA], [monthB]) => {

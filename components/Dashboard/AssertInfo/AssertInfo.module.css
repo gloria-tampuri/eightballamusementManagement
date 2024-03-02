@@ -30,11 +30,10 @@
     /* background-color: var(--pale-red); */
     padding: 0.5rem 2rem;
     justify-content: space-between;
-    color: white;
     margin-right: 2rem;
     box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
     border-radius: 0.3rem;
-    background-color: #202020;
+    background-color: #ffffff;
 }
 
 .summary{
@@ -45,9 +44,9 @@
 
 .emphasis{
     font-weight: 700;
-    font-size: 0.8rem;
-    font-style: italic;
-    color: white;
+    font-size: 1rem;
+    color: var(--gray-text);
+    padding-left: 0.5rem;
 }
 
 @media(max-width:640px){
