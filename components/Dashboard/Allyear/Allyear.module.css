@@ -5,14 +5,21 @@
     gap: 0.5rem;
     padding: 0.3rem 2rem;
     border-radius: 0.3rem;
-    color: var(--gray-text) ;
-    background-color: #ffffff;
+    color: white ;
+    background-color: var(--blue);
     margin-bottom: 2rem;
 
 }
 
-
-
+.backPrint{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+.backPrint button{
+    border: none;
+}
 
 .select{
     padding: 0.5rem 2rem;

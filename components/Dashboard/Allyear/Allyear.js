@@ -79,7 +79,7 @@ const Allyear = () => {
   return (
     <div>
       <div className={classes.backPrint}><div className={classes.back} onClick={() => router.back()}>       <BiArrowBack />Back</div>
-      <button className='printButton' onClick={() => window.print()}>Print</button></div>
+      <button className='printButton' onClick={() => window.print()}>Print Page</button></div>
       <div>
         <select className={classes.select} value={selectedYear} onChange={(e) => setSelectedYear(Number(e.target.value))}>
           {availableYears?.map((year) => (
