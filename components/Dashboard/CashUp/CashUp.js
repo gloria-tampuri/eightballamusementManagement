@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import classes from "./CashUp.module.css";
 import { BiArrowBack } from "react-icons/bi";
@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from "uuid";
 import useSWR from "swr";
 import CashUpList from "./CashUpList";
 import { getSignedInEmail } from "../../../auth";
+import { ReceiptContext } from "../../../Context/CashupReciept";
+import ReceiptModal from "../ReceiptModal/ReceiptModal";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -28,9 +30,11 @@ const CashUp = () => {
   const [tokensIssued, setTokensIssued] = useState(0);
   const [startFloat, setStartFloat] = useState(0);
   const [closeFloat, setCloseFloat] = useState(0);
+  const [receipt, setReceipt] =useState({})
 
+  const receiptContext=useContext(ReceiptContext)
+  const {receiptModal, showReceiptModal, hideReceiptModal }=receiptContext
   useEffect(() => {
-    // Check if the signed-in email is the admin email
     getSignedInEmail()
       .then((email) => {
         setPersonEmail(email);
@@ -135,6 +139,9 @@ const CashUp = () => {
       ...receivedInfo,
       updatedAt: new Date(),
     };
+    setReceipt(dataPush)
+
+    localStorage.setItem('receipt',receipt)
 
     const postData = {
       assertId: data?.assert?.assertId,
@@ -170,12 +177,13 @@ const CashUp = () => {
         setCloseFloat(0),
         setTokensIssued(0);
     }
+    showReceiptModal()
   };
 
   return (
     <div className={classes.infoAddition}>
       {/* <ToastContainer/> */}
-
+      {receiptModal && <ReceiptModal receiptInfo={receipt}/>}
       <div className={classes.back} onClick={() => router.back()}>
         {" "}
         <BiArrowBack />

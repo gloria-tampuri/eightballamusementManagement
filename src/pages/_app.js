@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import firebase from "../../firebase"
 import { MonthContextProvider, ShowMonthContextProvider } from '../../Context/ShowMonthContext';
 import { AssetDataContextProvider } from '../../Context/AssetDataContext';
+import { ReceiptContextProvider } from '../../Context/CashupReciept';
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -29,6 +30,7 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   return<DeleteContextProvider>
+    <ReceiptContextProvider>
     <ShowMonthContextProvider>
     <MonthContextProvider>
      <EditContextProvider>
@@ -38,5 +40,6 @@ export default function App({ Component, pageProps }) {
      </EditContextProvider>
      </MonthContextProvider>
      </ShowMonthContextProvider>
+     </ReceiptContextProvider>
   </DeleteContextProvider>
 }

@@ -1,0 +1,112 @@
+.close{
+    display: flex;
+   justify-content: right;
+
+}
+.closeIcon{
+    color: #ffffff;
+    font-size: 2rem;
+    background-color: var(--blue);
+    padding: 0.5rem;
+    border-radius: 50%;  
+}
+
+.receiptDets{
+margin: 1rem;
+/* border: 1px solid var(--blue); */
+border-radius: 0.5rem;
+padding: 1rem;
+}
+
+.receiptDets p{
+    font-size: 0.6rem;
+}
+
+/* .header div{
+    width: 35px;
+    height: 35px;
+} */
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.receiptDets .head{
+    text-align: center;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.dateId{
+    font-size: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
+.cashupDets{
+    background-color: rgb(225, 225, 225);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+}
+
+.section{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    margin-bottom: 0.2rem;
+}
+
+.footer{
+    color: rgb(182, 179, 179);
+    margin-top: 1rem;
+}
+
+.foot{
+    color: rgb(37, 37, 249);
+    text-align: center;
+    margin-top: 2rem;
+
+}
+
+.blue{
+    color: rgb(37, 37, 249);
+ 
+}
+.socials{
+display: flex;
+align-items: center;
+justify-content: flex-end;
+gap: 0.2rem;
+margin-top: 0.2rem;
+}
+
+.button{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    color: rgb(101, 100, 100);
+    display: flex;
+    align-items: center;
+}
+.button button{
+    border: none;
+    background-color: white;
+    display: block;
+    cursor: pointer;
+    color: rgb(101, 100, 100);
+}
+
+@media screen and (max-width:640px) {
+    .dateId{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+}

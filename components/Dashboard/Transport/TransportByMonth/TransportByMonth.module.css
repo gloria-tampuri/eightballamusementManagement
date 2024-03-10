@@ -6,12 +6,12 @@
     padding: 0.3rem 2rem;
     border-radius: 0.3rem;
     color: white;
-    background-color: #ffffff;
+    background-color: var(--blue);
     margin: 1rem 0;
 }
 
 .back p{
-    color: #23232f;
+    color:white;
 }
 .yearExpen{
     width: 90%;
@@ -26,8 +26,14 @@
     color: var(--gray-text);
     font-weight: 700;
     margin: 1rem 0;
+    margin-bottom: 0;
 }
 
+.yearExpen h2{
+    margin:1rem 0;
+    margin-bottom: 0.3rem;
+    font-size: 1rem;
+}
 
 
 .years{
@@ -37,6 +43,11 @@
     margin-top: 1rem;
     width: fit-content;
     border-radius: 0.3rem;
+}
+
+.week{
+    font-size: 0.8rem;
+    color: #46464f;
 }
 .amount{
     color: var(--blue);

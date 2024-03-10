@@ -127,7 +127,7 @@ const TransportByMonth = () => {
                 .sort(([weekA], [weekB]) => weekB - weekA)
                 .map(([weekKey, weekData]) => (
                   <div key={weekKey}>
-                    <h3 onClick={() => toggleWeekVisibility(weekKey)}>
+                    <h3 className={classes.week}onClick={() => toggleWeekVisibility(weekKey)}>
                       Week {weekKey} ({weekData.weekStart} - {weekData.weekEnd})
                     </h3>
                     {weekVisibility[weekKey] && (

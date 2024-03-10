@@ -9,7 +9,9 @@ import { DeleteContext } from '../../../Context/DeleteContext'
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range'
-
+import { FiPrinter } from "react-icons/fi";
+import { ReceiptContext } from '../../../Context/CashupReciept';
+import ReceiptModal from '../ReceiptModal/ReceiptModal';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -23,6 +25,8 @@ const CashUpList = () => {
     const [showCashupInMonth, setShowCashupInMonth] = useState(null)
     const [totalRevenue, setTotalRevenue] = useState(0)
     const [showTotalRevenue, setShowTotalRevenue] = useState(false);
+    const [receipt, setReceipt] =useState({})
+
 
   const handleToggleTotalRevenue = () => {
     setShowTotalRevenue(!showTotalRevenue);
@@ -131,7 +135,6 @@ const CashUpList = () => {
     const[admin, setAdmin]= useState(false)
 
     useEffect(() => {
-        // Check if the signed-in email is the admin email
         getSignedInEmail()
             .then((email) => {
                 if (email === 'richard.ababio@eightball.com') {
@@ -143,7 +146,13 @@ const CashUpList = () => {
             });
     }, []);
 
+    const receiptContext=useContext(ReceiptContext)
+    const {receiptModal, showReceiptModal, hideReceiptModal }=receiptContext
 
+    const handlePrintReceipt = (cash) => {
+        showReceiptModal(cash);
+        setReceipt(cash)
+      };
 
     return (
        <>{admin? <div>
@@ -177,6 +186,7 @@ Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
                                  <th>Cash Received</th>
                                  <th>Balance</th>
                                  <th>Delete</th>
+                                 <th>Print</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -190,6 +200,7 @@ Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
                                  <td>{cash.cashReceived}</td>
                                  <td className={classes.balance}>{cash.balance}</td>
                                  <td><AiOutlineDelete className={classes.delete} onClick={() => deleteHandler(cash.cashupId && cash.cashupId)} /></td>
+                                 <td><FiPrinter className={classes.printer} onClick={() => handlePrintReceipt(cash)}/></td>
                              </tr>)}
                          </tbody>
                      </table> : ''}
@@ -198,6 +209,7 @@ Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
      </div>)}
 
  </div>
+ {receiptModal && <ReceiptModal receiptInfo={receipt} />}
  {deleteModal && <Delete assertId={assert} routeUrl="cashup" selectedId={selectedCashupId} />}
 </div>:''}</>
     )

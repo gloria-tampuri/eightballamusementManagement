@@ -49,12 +49,13 @@ const patchTransportController = async (req, res) => {
     }
 };
 
+
 const deleteTransportController = async (req, res) => {
     try {
         const { transport } = req.query;
         const transportCollection = await connectToDatabase();
 
-        const result = await transportCollection.deleteOne({ _id: new ObjectId(transportsh) });
+        const result = await transportCollection.deleteOne({ _id: new ObjectId(transport) });
 
         if (result.deletedCount === 1) {
             res.status(200).json({ message: "Transport deleted successfully" });
@@ -62,9 +63,10 @@ const deleteTransportController = async (req, res) => {
             res.status(404).json({ message: "Transport not found" });
         }
     } catch (error) {
-        res.status(500).json({ status: 500, message: error });
+        res.status(500).json({ status: 500, message: error.message });
     }
 };
+
 
 
 export default async function handler(req, res) {
@@ -75,7 +77,6 @@ export default async function handler(req, res) {
         return patchTransportController(req, res);
     }
     if (req.method === 'DELETE') {
-        // Invoke the deleteTransportController function
         return deleteTransportController(req, res);
     }
 }
