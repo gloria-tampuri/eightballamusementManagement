@@ -30,10 +30,9 @@ const CashUp = () => {
   const [tokensIssued, setTokensIssued] = useState(0);
   const [startFloat, setStartFloat] = useState(0);
   const [closeFloat, setCloseFloat] = useState(0);
-  const [receipt, setReceipt] =useState({})
 
   const receiptContext=useContext(ReceiptContext)
-  const {receiptModal, showReceiptModal, hideReceiptModal }=receiptContext
+  const {receiptModal, showReceiptModal,receiptData,setReceiptData }=receiptContext
   useEffect(() => {
     getSignedInEmail()
       .then((email) => {
@@ -139,9 +138,7 @@ const CashUp = () => {
       ...receivedInfo,
       updatedAt: new Date(),
     };
-    setReceipt(dataPush)
-
-    localStorage.setItem('receipt',receipt)
+    // setReceiptData(receivedInfo);
 
     const postData = {
       assertId: data?.assert?.assertId,
@@ -154,7 +151,6 @@ const CashUp = () => {
       expenditure: [...data.assert.expenditure],
       location: [...data.assert.location],
     };
-    // Do you mean assert id or assert: yes   i got assert from router.query
     const response = await fetch(`/api/asserts/${assert}`, {
       method: "PATCH",
       headers: {
@@ -177,13 +173,14 @@ const CashUp = () => {
         setCloseFloat(0),
         setTokensIssued(0);
     }
-    showReceiptModal()
+    // showReceiptModal();
+    
   };
+  console.log(receiptData);
 
   return (
     <div className={classes.infoAddition}>
       {/* <ToastContainer/> */}
-      {receiptModal && <ReceiptModal receiptInfo={receipt}/>}
       <div className={classes.back} onClick={() => router.back()}>
         {" "}
         <BiArrowBack />
@@ -205,12 +202,10 @@ const CashUp = () => {
               type="date"
               value={cashupDate}
               required
-              // {...register("date", { required: true })}
               onChange={(e) => {
                 setCashupDate(e.target.value);
               }}
             />
-            {/* {errors.date && <p className={classes.errors}>Date needed</p>} */}
           </div>
 
           <div className={classes.section}>
@@ -220,27 +215,24 @@ const CashUp = () => {
               type="text"
               value={cashupTime}
               required
-              // {...register("Time", { required: true })}
               onChange={(e) => {
                 setCashupTime(e.target.value);
               }}
             />
-            {/* {errors.date && <p className={classes.errors}>Date needed</p>} */}
           </div>
           <div className={classes.section}>
             <label>Sold Tokens</label>
             <input
               placeholder="number of tokens Played"
               type="number"
+              required
               value={tokensSold}
               onChange={(e) => {
                 setTokensSold(e.target.value);
               }}
-              required
+              
 
-              // {...register("numberOfTokensPlayed", { required: true })}
             />
-            {/* {errors.numberOfTokensPlayed && <p className={classes.errors}>Number of tokens Played needed</p>} */}
           </div>
 
           <div className={classes.section}>
@@ -248,14 +240,12 @@ const CashUp = () => {
             <input
               placeholder="Token price"
               type="number"
-              // {...register("tokenPrice", { required: true })}
+              required
               value={tokenPrice}
               onChange={(e) => {
                 setTokenPrice(e.target.value);
               }}
-              required
             />
-            {/* {errors.tokenPrice && <p className={classes.errors}>Token Price needed</p>} */}
           </div>
 
           <div className={classes.section}>
@@ -263,15 +253,13 @@ const CashUp = () => {
             <input
               placeholder="Site Percentage"
               type="number"
+              required
               value={commission}
               onChange={(e) => {
                 setCommission(e.target.value);
               }}
-              required
 
-              // {...register("percentage", { required: true })}
             />
-            {/* {errors.percentage && <p className={classes.errors}>Percentage needed</p>} */}
           </div>
 
           <div className={classes.section}>
@@ -279,12 +267,10 @@ const CashUp = () => {
             <input
               placeholder="Total Amount"
               type="number"
-              value={totalSale}
-              // {...register("totalAmount", { required: true })}
-              onChange={CaltotalAmount}
               required
+              value={totalSale}
+              onChange={CaltotalAmount}
             />
-            {/* {errors.totalAmount && <p className={classes.errors}>Total Amount needed</p>} */}
           </div>
 
           <div className={classes.section}>
@@ -296,9 +282,7 @@ const CashUp = () => {
               onChange={siteShareHandler}
               required
 
-              // {...register("numberOfFreeTokens", { required: true })}
             />
-            {/* {errors.numberOfFreeTokens && <p className={classes.errors}>Number of free tokens needed</p>} */}
           </div>
 
           <div className={classes.section}>
@@ -311,7 +295,6 @@ const CashUp = () => {
               onChange={companySharehandler}
               required
             />
-            {/* {errors.companyAmount && <p className={classes.errors}>Company Amount needed</p>} */}
           </div>
           <div className={classes.section}>
             <label>Cash Received</label>
@@ -379,6 +362,7 @@ const CashUp = () => {
 
       <CashUpList assert={data && data.assert} />
       <ToastContainer />
+      {/* {receiptModal && <ReceiptModal/>} */}
     </div>
   );
 };

@@ -12,12 +12,12 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 
-const ReceiptModal = ({ receiptInfo }) => {
-  const receiptContext = useContext(ReceiptContext);
-  const { receiptModal, showReceiptModal, hideReceiptModal } = receiptContext;
-  console.log("Receipt Info:", receiptInfo);
 
-  console.log(receiptInfo);
+const ReceiptModal = () => {
+  const receiptContext = useContext(ReceiptContext);
+  const {  hideReceiptModal,receiptData } = receiptContext;
+
+  console.log(receiptData);
 
   const formatDateToWords = (dateString) => {
     if (!dateString || !Date.parse(dateString)) {
@@ -57,62 +57,62 @@ const ReceiptModal = ({ receiptInfo }) => {
         <p className={classes.head}>This is your cashup Receipt</p>
         <div className={classes.dateId}>
           <p>
-            {formatDateToWords(receiptInfo.cashupDate)} <span>  </span>
-            <span>Time:  {receiptInfo.cashupTime}</span>
+            {receiptData.cashupDate} <span>  </span>
+            <span>Time:  {receiptData.cashupTime}</span>
           </p>
-          <p>CashupId: {receiptInfo.cashupId}</p>
+          <p>CashupId: {receiptData.cashupId}</p>
         </div>
-        <p>Location: {receiptInfo.location}</p>
+        <p>Location: {receiptData.location}</p>
         <div className={classes.cashupDets}>
           <div className={classes.section}>
             <p>Token Sold</p>
-            <p>{receiptInfo.tokensSold}</p>
+            <p>{receiptData.tokensSold}</p>
           </div>
           <div className={classes.section}>
             <p>Token Price</p>
-            <p>GHC {receiptInfo.tokenPrice}</p>
+            <p>GHC {receiptData.tokenPrice}</p>
           </div>
           <div className={classes.section}>
             <p>Commission</p>
-            <p>{receiptInfo.commission}</p>
+            <p>{receiptData.commission}</p>
           </div>
           <div className={classes.section}>
             <p>Total Sale</p>
-            <p>{receiptInfo.totalSale}</p>
+            <p>{receiptData.totalSale}</p>
           </div>
           <div className={classes.section}>
             <p>Site Share</p>
-            <p>{receiptInfo.siteShare}</p>
+            <p>{receiptData.siteShare}</p>
           </div>
           <div className={classes.section}>
             <p>8Ball Share</p>
-            <p>GHC {receiptInfo.companyAmount}</p>
+            <p>GHC {receiptData.companyAmount}</p>
           </div>
           <div className={classes.section}>
             <p>Cash Recieved</p>
-            <p>GHC {receiptInfo.cashReceived}</p>
+            <p>GHC {receiptData.cashReceived}</p>
           </div>
           <div className={classes.section}>
             <p>Balance</p>
-            <p>GHC {receiptInfo.balance}</p>
+            <p>GHC {receiptData.balance}</p>
           </div>
           <div className={classes.section}>
             <p>Start Float</p>
-            <p>{receiptInfo.startFloat}</p>
+            <p>{receiptData.startFloat}</p>
           </div>
           <div className={classes.section}>
             <p>Close Float</p>
-            <p>{receiptInfo.closeFloat}</p>
+            <p>{receiptData.closeFloat}</p>
           </div>
           <div className={classes.section}>
             <p>Tokens Issued</p>
-            <p>{receiptInfo.tokensIssued}</p>
+            <p>{receiptData.tokensIssued}</p>
           </div>
         </div>
         <div className={classes.footer}>
           <div className={classes.section}>
             <p>Receipt Issued By:</p>
-            <p className={classes.blue}>{receiptInfo.enteredBy}</p>
+            <p className={classes.blue}>{receiptData.enteredBy}</p>
           </div>
           <div className={classes.section}>
             <p>Payment Method: </p>

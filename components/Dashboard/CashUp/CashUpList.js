@@ -25,7 +25,6 @@ const CashUpList = () => {
     const [showCashupInMonth, setShowCashupInMonth] = useState(null)
     const [totalRevenue, setTotalRevenue] = useState(0)
     const [showTotalRevenue, setShowTotalRevenue] = useState(false);
-    const [receipt, setReceipt] =useState({})
 
 
   const handleToggleTotalRevenue = () => {
@@ -147,12 +146,12 @@ const CashUpList = () => {
     }, []);
 
     const receiptContext=useContext(ReceiptContext)
-    const {receiptModal, showReceiptModal, hideReceiptModal }=receiptContext
+    const {receiptModal,setReceiptData, showReceiptModal, receiptData}=receiptContext
 
     const handlePrintReceipt = (cash) => {
         showReceiptModal(cash);
-        setReceipt(cash)
-      };
+        setReceiptData(cash)     
+     };
 
     return (
        <>{admin? <div>
@@ -209,7 +208,7 @@ Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
      </div>)}
 
  </div>
- {receiptModal && <ReceiptModal receiptInfo={receipt} />}
+ {receiptModal && <ReceiptModal receiptInfo={receiptData} />}
  {deleteModal && <Delete assertId={assert} routeUrl="cashup" selectedId={selectedCashupId} />}
 </div>:''}</>
     )

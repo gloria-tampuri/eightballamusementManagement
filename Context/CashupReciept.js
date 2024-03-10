@@ -19,7 +19,7 @@ export const ReceiptContextProvider=({children})=>{
         }
 
         return (
-            <ReceiptContext.Provider value={{ receiptModal, showReceiptModal, hideReceiptModal,receiptData}}>
+            <ReceiptContext.Provider value={{ receiptModal, showReceiptModal, hideReceiptModal,receiptData,setReceiptData}}>
                 {children}
             </ReceiptContext.Provider>
         )
