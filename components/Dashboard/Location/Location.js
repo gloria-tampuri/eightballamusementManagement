@@ -20,12 +20,40 @@ const Location = () => {
   const [telephoneNumber, setTelephoneNumber] = useState(0);
   const [physicalAddress, setphysicalAddress] = useState("");
   const [siteOwner, setSiteOwner] = useState("");
+  const[gpsAddress, setGpsAddress]=useState([])
   const [accessories, setAccessories] = useState("");
 
   const { data, error, isLoading } = useSWR(`/api/asserts/${assert}`, fetcher);
 
+  const getCurrentLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Retrieve latitude and longitude from the position object
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          // Use latitude and longitude to fetch address or other location details
+          console.log("Latitude:", latitude);
+          console.log("Longitude:", longitude);
+          setGpsAddress([latitude,longitude])
+          // Update locationName or any other relevant state with fetched location details
+          // setLocationName(fetchedLocationName);
+        },
+        (error) => {
+          console.error("Error getting location:", error.message);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+
+    if (gpsAddress.length === 0) {
+      alert("Please pick GPS location before submitting.");
+      return;
+    }
     const receivedInfo = {
       locationId: uuidv4(),
       locationName: locationName,
@@ -37,6 +65,7 @@ const Location = () => {
       siteOwner: siteOwner,
       currentLocation: currentLocation,
       accessories: accessories,
+      GPS:gpsAddress
     };
 
     const postData = {
@@ -66,6 +95,8 @@ const Location = () => {
       setTelephoneNumber(0);
       setSiteOwner("");
       setAccessories("");
+      setGpsAddress([]);
+
     }
   };
 
@@ -165,6 +196,7 @@ const Location = () => {
               onChange={() => setCurrentLocation(!currentLocation)}
             />
           </div>
+          <div className={classes.pickgps} onClick={getCurrentLocation}>Pick GPS of Site</div>
 
           {!currentLocation && (
             <div className={`${classes.section} ${classes.end}`}>
@@ -178,6 +210,7 @@ const Location = () => {
           )}
           <button>Submit</button>
         </form>
+
       </div>
       <LocationList />
     </div>

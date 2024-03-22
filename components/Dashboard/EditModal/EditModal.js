@@ -21,6 +21,7 @@ const EditModal = ({selectedId,routeUrl,assertId}) => {
   const[physicalAddress, setphysicalAddress]=useState('')
   const[siteOwner,setSiteOwner]=useState('')
 const[accessories, setAccessories]=useState('')
+const[gpsAddress, setGpsAddress]=useState([])
 
 
   const {assert}= router.query;
@@ -34,6 +35,28 @@ const[accessories, setAccessories]=useState('')
   const location=data?.assert?.location
   const current = location?.find((val)=>val.locationId===selectedId)
  
+  const getCurrentLocation = () => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // Retrieve latitude and longitude from the position object
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          // Use latitude and longitude to fetch address or other location details
+          console.log("Latitude:", latitude);
+          console.log("Longitude:", longitude);
+          setGpsAddress([latitude,longitude])
+          // Update locationName or any other relevant state with fetched location details
+          // setLocationName(fetchedLocationName);
+        },
+        (error) => {
+          console.error("Error getting location:", error.message);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
     
   useEffect(()=>{
     if(assert){
@@ -46,11 +69,16 @@ const[accessories, setAccessories]=useState('')
         setSiteOwner(current.siteOwner)
         setphysicalAddress(current.physicalAddress)
         setAccessories(current.accessories)
+        setGpsAddress(current.GPS)
     }
   },[assert])
 
   const onSubmitHandler=async(e)=>{
   e.preventDefault()
+  if (gpsAddress.length === 0) {
+    alert("Please pick GPS location before submitting.");
+    return;
+  }
 const data={
     locationId:selectedId,
     locationName,
@@ -61,7 +89,8 @@ const data={
     telephoneNumber,
     siteOwner,
     physicalAddress,
-    accessories
+    accessories,
+    gpsAddress
 }
 
  const response = await fetch(`/api/asserts/${assertId}/location/${selectedId}`,{
@@ -149,6 +178,7 @@ const data={
                         onChange={() => setCurrentLocation(!currentLocation)}
                     />
                 </div>
+                <div className={classes.pickgps} onClick={getCurrentLocation}>Pick GPS of Site</div>
 
                 {!currentLocation && <div className={classes.section}>
                     <label>End Date</label>

@@ -69,7 +69,15 @@ margin-bottom: 0.3rem;
 .end{
     display: none;
 }
-
+.pickgps{
+background-color: var(--blue);
+color: white;
+display:grid;
+place-content: center;
+border-radius: 0.5rem;
+cursor: pointer;
+padding: 0.5rem;
+}
 @media(max-width:640px){
     .location form{
         width: 90%;
