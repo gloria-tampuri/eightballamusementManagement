@@ -112,7 +112,7 @@ const ReceiptModal = () => {
         <div className={classes.footer}>
           <div className={classes.section}>
             <p>Receipt Issued By:</p>
-            <p className={classes.blue}>{receiptData.enteredBy}</p>
+            <p className={classes.blue}>{receiptData.enteredBy === 'richard.ababio@eightball.com'? "Richard Ababio" :"Samuel Bempong" }</p>
           </div>
           <div className={classes.section}>
             <p>Payment Method: </p>

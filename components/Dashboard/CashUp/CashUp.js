@@ -113,6 +113,28 @@ const CashUp = () => {
     toast.success("Cashup Added Successfully !", {
       position: "top-center",
     });
+
+    const fetchLastCashUp = async () => {
+      try {
+        const response = await fetch(`/api/asserts/${assert}`); // Assuming `assert` is defined somewhere
+        if (response.ok) {
+          const data = await response.json();
+          const lastCashUp = data.assert.cashup[data.assert.cashup.length - 1];
+          setReceiptData(lastCashUp);
+          showReceiptModal(lastCashUp);
+
+        } else {
+          throw new Error("Failed to fetch last cash-up");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+
+    };
+  
+
+
   const onSubmit = async () => {
     // e.preventDefault()
 
@@ -138,7 +160,6 @@ const CashUp = () => {
       ...receivedInfo,
       updatedAt: new Date(),
     };
-    // setReceiptData(receivedInfo);
 
     const postData = {
       assertId: data?.assert?.assertId,
@@ -146,11 +167,11 @@ const CashUp = () => {
       purchasedPrice: data?.assert?.purchasedPrice,
       assertState: data?.assert?.assertState,
       createdAt: data?.assert?.createdAt,
-
       cashup: [...data.assert.cashup, dataPush],
       expenditure: [...data.assert.expenditure],
       location: [...data.assert.location],
     };
+
     const response = await fetch(`/api/asserts/${assert}`, {
       method: "PATCH",
       headers: {
@@ -173,16 +194,15 @@ const CashUp = () => {
         setCloseFloat(0),
         setTokensIssued(0);
     }
-    // showReceiptModal();
-    
-  };
-  console.log(receiptData);
+     // Wait for the latest cash-up data to be fetched
+  await fetchLastCashUp();
+
+    };
 
   return (
     <div className={classes.infoAddition}>
       {/* <ToastContainer/> */}
       <div className={classes.back} onClick={() => router.back()}>
-        {" "}
         <BiArrowBack />
         Back
       </div>
@@ -362,7 +382,7 @@ const CashUp = () => {
 
       <CashUpList assert={data && data.assert} />
       <ToastContainer />
-      {/* {receiptModal && <ReceiptModal/>} */}
+      {receiptModal && <ReceiptModal/>}
     </div>
   );
 };

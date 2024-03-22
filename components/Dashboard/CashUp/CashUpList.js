@@ -114,9 +114,7 @@ const CashUpList = () => {
 
     }
     const handleCashupInMonth = (month) => {
-
         setShowCashupInMonth(showCashupInMonth === month ? undefined : month)
-
     }
     
     
@@ -208,7 +206,7 @@ Total Revenue of Table <span>{showTotalRevenue ? totalRevenue : ''}</span>
      </div>)}
 
  </div>
- {receiptModal && <ReceiptModal receiptInfo={receiptData} />}
+ {receiptModal && <ReceiptModal/>}
  {deleteModal && <Delete assertId={assert} routeUrl="cashup" selectedId={selectedCashupId} />}
 </div>:''}</>
     )
