@@ -23,6 +23,7 @@ const EditModal = ({selectedId,routeUrl,assertId}) => {
 const[accessories, setAccessories]=useState('')
 const[gpsAddress, setGpsAddress]=useState([])
 const [isPickingGPS, setIsPickingGPS] = useState(false); // New state variable
+const [isGpsPicked, setIsGpsPicked] = useState(false); // New state variable
 
 
 
@@ -184,7 +185,7 @@ const data={
             onClick={getCurrentLocation}
             style={{ cursor: isPickingGPS ? "not-allowed" : "pointer" }}
           >
-            {isPickingGPS ? "Picking GPS..." : "Pick GPS of Site"}
+            {isPickingGPS ? "Picking GPS..." : isGpsPicked ? "Picked" : "Pick GPS of Site"}
           </div>
                 {!currentLocation && <div className={classes.section}>
                     <label>End Date</label>

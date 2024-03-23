@@ -23,6 +23,7 @@ const Location = () => {
   const[gpsAddress, setGpsAddress]=useState([])
   const [accessories, setAccessories] = useState("");
   const [isPickingGPS, setIsPickingGPS] = useState(false); // New state variable
+  const [isGpsPicked, setIsGpsPicked] = useState(false); // New state variable
 
 
   const { data, error, isLoading } = useSWR(`/api/asserts/${assert}`, fetcher);
@@ -40,6 +41,8 @@ const Location = () => {
           console.log("Longitude:", longitude);
           setGpsAddress([latitude, longitude]);
           setIsPickingGPS(false); // Hide spinner after picking GPS
+          setIsGpsPicked(true); // Set GPS as picked
+
         },
         (error) => {
           setIsPickingGPS(false); // Hide spinner if there's an error
@@ -67,7 +70,7 @@ const Location = () => {
       siteOwner: siteOwner,
       currentLocation: currentLocation,
       accessories: accessories,
-      GPS:gpsAddress
+      gpsAddress:gpsAddress
     };
 
     const postData = {
@@ -98,8 +101,9 @@ const Location = () => {
       setSiteOwner("");
       setAccessories("");
       setGpsAddress([]);
-
     }
+    setIsGpsPicked(false); // Set GPS as picked
+
   };
 
   return (
@@ -203,7 +207,7 @@ const Location = () => {
             onClick={getCurrentLocation}
             style={{ cursor: isPickingGPS ? "not-allowed" : "pointer" }}
           >
-            {isPickingGPS ? "Picking GPS..." : "Pick GPS of Site"}
+            {isPickingGPS ? "Picking GPS..." : isGpsPicked ? "Picked" : "Pick GPS of Site"}
           </div>
           {!currentLocation && (
             <div className={`${classes.section} ${classes.end}`}>
