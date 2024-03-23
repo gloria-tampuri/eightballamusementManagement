@@ -22,6 +22,8 @@ const EditModal = ({selectedId,routeUrl,assertId}) => {
   const[siteOwner,setSiteOwner]=useState('')
 const[accessories, setAccessories]=useState('')
 const[gpsAddress, setGpsAddress]=useState([])
+const [isPickingGPS, setIsPickingGPS] = useState(false); // New state variable
+
 
 
   const {assert}= router.query;
@@ -36,6 +38,7 @@ const[gpsAddress, setGpsAddress]=useState([])
   const current = location?.find((val)=>val.locationId===selectedId)
  
   const getCurrentLocation = () => {
+    setIsPickingGPS(true); // Show spinner when picking GPS
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -45,15 +48,16 @@ const[gpsAddress, setGpsAddress]=useState([])
           // Use latitude and longitude to fetch address or other location details
           console.log("Latitude:", latitude);
           console.log("Longitude:", longitude);
-          setGpsAddress([latitude,longitude])
-          // Update locationName or any other relevant state with fetched location details
-          // setLocationName(fetchedLocationName);
+          setGpsAddress([latitude, longitude]);
+          setIsPickingGPS(false); // Hide spinner after picking GPS
         },
         (error) => {
+          setIsPickingGPS(false); // Hide spinner if there's an error
           console.error("Error getting location:", error.message);
         }
       );
     } else {
+      setIsPickingGPS(false); // Hide spinner if geolocation is not supported
       console.log("Geolocation is not supported by this browser.");
     }
   };
@@ -69,16 +73,13 @@ const[gpsAddress, setGpsAddress]=useState([])
         setSiteOwner(current.siteOwner)
         setphysicalAddress(current.physicalAddress)
         setAccessories(current.accessories)
-        setGpsAddress(current.GPS)
+        setGpsAddress(current.gpsAddress)
     }
   },[assert])
 
   const onSubmitHandler=async(e)=>{
   e.preventDefault()
-  if (gpsAddress.length === 0) {
-    alert("Please pick GPS location before submitting.");
-    return;
-  }
+ 
 const data={
     locationId:selectedId,
     locationName,
@@ -178,8 +179,13 @@ const data={
                         onChange={() => setCurrentLocation(!currentLocation)}
                     />
                 </div>
-                <div className={classes.pickgps} onClick={getCurrentLocation}>Pick GPS of Site</div>
-
+                <div
+            className={classes.pickgps}
+            onClick={getCurrentLocation}
+            style={{ cursor: isPickingGPS ? "not-allowed" : "pointer" }}
+          >
+            {isPickingGPS ? "Picking GPS..." : "Pick GPS of Site"}
+          </div>
                 {!currentLocation && <div className={classes.section}>
                     <label>End Date</label>
                     <input type='date'

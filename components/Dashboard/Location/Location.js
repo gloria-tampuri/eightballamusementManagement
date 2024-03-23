@@ -22,10 +22,13 @@ const Location = () => {
   const [siteOwner, setSiteOwner] = useState("");
   const[gpsAddress, setGpsAddress]=useState([])
   const [accessories, setAccessories] = useState("");
+  const [isPickingGPS, setIsPickingGPS] = useState(false); // New state variable
+
 
   const { data, error, isLoading } = useSWR(`/api/asserts/${assert}`, fetcher);
 
   const getCurrentLocation = () => {
+    setIsPickingGPS(true); // Show spinner when picking GPS
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -35,25 +38,24 @@ const Location = () => {
           // Use latitude and longitude to fetch address or other location details
           console.log("Latitude:", latitude);
           console.log("Longitude:", longitude);
-          setGpsAddress([latitude,longitude])
-          // Update locationName or any other relevant state with fetched location details
-          // setLocationName(fetchedLocationName);
+          setGpsAddress([latitude, longitude]);
+          setIsPickingGPS(false); // Hide spinner after picking GPS
         },
         (error) => {
+          setIsPickingGPS(false); // Hide spinner if there's an error
           console.error("Error getting location:", error.message);
         }
       );
     } else {
+      setIsPickingGPS(false); // Hide spinner if geolocation is not supported
       console.log("Geolocation is not supported by this browser.");
     }
   };
+
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    if (gpsAddress.length === 0) {
-      alert("Please pick GPS location before submitting.");
-      return;
-    }
+   
     const receivedInfo = {
       locationId: uuidv4(),
       locationName: locationName,
@@ -196,8 +198,13 @@ const Location = () => {
               onChange={() => setCurrentLocation(!currentLocation)}
             />
           </div>
-          <div className={classes.pickgps} onClick={getCurrentLocation}>Pick GPS of Site</div>
-
+          <div
+            className={classes.pickgps}
+            onClick={getCurrentLocation}
+            style={{ cursor: isPickingGPS ? "not-allowed" : "pointer" }}
+          >
+            {isPickingGPS ? "Picking GPS..." : "Pick GPS of Site"}
+          </div>
           {!currentLocation && (
             <div className={`${classes.section} ${classes.end}`}>
               <label>End Date</label>
