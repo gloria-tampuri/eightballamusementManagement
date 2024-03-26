@@ -84,8 +84,13 @@ const Month = () => {
                 }
               </td>
               <td>{assert.assertId}</td>
-              <td className={classes.color}>{calculateTotalCashup(assert)}</td>
-            </tr>
+              <td
+                className={`${classes.color} ${
+                  calculateTotalCashup(assert) < 1200 ? classes.redBackground : ""
+                }`}
+              >
+                {calculateTotalCashup(assert)}
+              </td>            </tr>
           ))}
         </tbody>
       </table>
@@ -94,3 +99,5 @@ const Month = () => {
 };
 
 export default Month;
+
+

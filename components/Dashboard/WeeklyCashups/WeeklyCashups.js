@@ -4,6 +4,7 @@ import classes from './WeeklyCashups.module.css';
 import { useRouter } from 'next/router';
 import { getSignedInEmail } from '../../../auth';
 import OperatorWeeklyCashups from '../OperatorWeeklyCashups/OperatorWeeklyCashups';
+import AdminWeeklyCashup from '../OperatorWeeklyCashups/AdminWeekely';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
@@ -115,6 +116,7 @@ let totalSum =0
             ))}
           </tbody>
         </table>
+        <AdminWeeklyCashup/>
         <OperatorWeeklyCashups/>
       </div>:<OperatorWeeklyCashups/>
      }

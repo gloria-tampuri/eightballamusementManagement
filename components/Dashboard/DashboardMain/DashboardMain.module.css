@@ -54,7 +54,10 @@ color: var(--white);
     color: var(--white);
 }
 
-
+.redBackground{
+    background-color:tomato;
+    color: white;
+  }
 .list thead, .list tbody {
     width: 100%;
     padding: 0.5rem;

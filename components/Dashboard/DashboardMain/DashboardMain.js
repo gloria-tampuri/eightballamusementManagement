@@ -217,7 +217,11 @@ const currentWeekData = data?.asserts.map(assert => {
             <td className={classes.color}>{arranged?.location.find((val) => val?.currentLocation === true)?.locationName}</td>
             <td>{arranged?.assertId}</td>
 
-            <td className={classes.color}>{arranged?.totalSalesCurrentMonth}</td>
+            <td
+                className={`${classes.color} ${
+                  arranged?.totalSalesCurrentMonth < 1200 ? classes.redBackground : ""
+                }`}
+              >{arranged?.totalSalesCurrentMonth}</td>
            
           </tr>
          )}

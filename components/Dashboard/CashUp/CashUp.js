@@ -30,6 +30,8 @@ const CashUp = () => {
   const [tokensIssued, setTokensIssued] = useState(0);
   const [startFloat, setStartFloat] = useState(0);
   const [closeFloat, setCloseFloat] = useState(0);
+  const [cashuplocation, setCashupLocation] = useState("");
+
 
   const receiptContext=useContext(ReceiptContext)
   const {receiptModal, showReceiptModal,receiptData,setReceiptData }=receiptContext
