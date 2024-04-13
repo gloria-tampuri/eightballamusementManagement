@@ -110,6 +110,9 @@
   .green{
     color: green;
   }
+  .green table, .green table thead{
+    color: green;
+  }
   .greenButton{
     background-color: green;
   }

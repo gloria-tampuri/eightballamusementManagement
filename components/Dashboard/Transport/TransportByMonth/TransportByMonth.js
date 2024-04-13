@@ -277,7 +277,7 @@ const TransportByMonth = () => {
       [weekKey]: !prevState[weekKey],
     }));
   };
-
+console.log(data);
   const deleteHandler = async (transportId) => {
     try {
       const response = await fetch(`/api/transport/${transportId}`, {
@@ -295,41 +295,49 @@ const TransportByMonth = () => {
     }
   };
 
-  const markWeekAsPaid = async (weekKey) => {
+const markWeekAsPaid = async (weekKey, data) => {
     try {
-      const transportsToUpdate = Object.values(groupedDataByWeekAndMonth)
-        .map((monthData) => monthData[weekKey]?.transports)
-        .filter((transports) => transports)
-        .flat();
-  
-      for (const transport of transportsToUpdate) {
-        const response = await fetch(`/api/transport/${transport._id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ paid: true }), // Set the 'paid' field to true
-        });
-  
-        if (!response.ok) {
-          console.error("Error marking transport as paid:", response.statusText);
-          alert("Error marking transport as paid");
+        const transportsToUpdate = Object.values(groupedDataByWeekAndMonth)
+            .map((monthData) => monthData[weekKey]?.transports)
+            .filter((transports) => transports)
+            .flat();
+
+        const updateFields = {
+            paid: true
+        };
+
+        for (const transport of transportsToUpdate) {
+            const response = await fetch(`/api/transport/${transport._id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ _id: transport._id, update: updateFields })
+              });
+
+            if (!response.ok) {
+                console.error("Error marking transport as paid:", response.statusText);
+                alert("Error marking transport as paid");
+            }
         }
-      }
-  
-      setPaidWeeks([...paidWeeks, weekKey]);
+
+        setPaidWeeks([...paidWeeks, weekKey]);
     } catch (error) {
-      console.error("Error marking week as paid:", error);
-      alert("Error marking week as paid: " + error.message);
+        console.error("Error marking week as paid:", error);
+        alert("Error marking week as paid: " + error.message);
     }
-  };
+};
+
   
+
   
 
   const renderWeekData = (weekData, weekKey) => {
+    const allPaid = weekData.transports.every((expen) => expen.paid);
+
     return (
-      <div className={`${classes.list} ${isWeekPaid(weekKey) ? classes.green : ""}`}>
-        <p className={`${classes.table} ${isWeekPaid(weekKey) ? classes.green : ""}`}>
+      <div className={`${classes.list} ${allPaid ? classes.green : ""}`}>
+        <p className={`${classes.table} ${allPaid ? classes.green : ""}`}>
           Total Amount for Week {weekKey}: {weekData.totalAmount}
         </p>
         <table>
@@ -349,7 +357,7 @@ const TransportByMonth = () => {
                 <td>{expen.transportDate}</td>
                 <td>{expen.from}</td>
                 <td>{expen.destination}</td>
-                <td className={`${classes.color} ${isWeekPaid(weekKey) ? classes.green : ""}`}>
+                <td className={`${classes.color} ${allPaid ? classes.green : ""}`}>
                   {expen.amount}
                 </td>
                 <td>{expen?.paid?.toString()}</td>
@@ -365,12 +373,10 @@ const TransportByMonth = () => {
         </table>
         <button
           onClick={() => markWeekAsPaid(weekKey)}
-          className={`${classes.button} ${
-            isWeekPaid(weekKey) ? classes.greenButton : ""
-          }`}
-          disabled={isWeekPaid(weekKey)}
+          className={`${classes.button} ${allPaid ? classes.greenButton : ""}`}
+          disabled={allPaid}
         >
-          {isWeekPaid(weekKey) ? "Transport paid" : "Pay Transport for this week"}
+          {allPaid ? "Transport paid" : "Pay Transport for this week"}
         </button>
       </div>
     );
@@ -383,7 +389,7 @@ const TransportByMonth = () => {
   if (!data) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  const groupedDataByWeekAndMonth = data.transport.reduce((result, expen) => {
+  const groupedDataByWeekAndMonth = data?.transport?.reduce((result, expen) => {
     const date = new Date(expen.transportDate);
     const monthIndex = date.getMonth();
     const monthName = monthNames[monthIndex];
@@ -412,7 +418,7 @@ const TransportByMonth = () => {
         <p>Back</p>
       </div>
       <h1 className={classes.header}>List of transport for {year}</h1>
-      {Object.entries(groupedDataByWeekAndMonth).map(([monthKey, monthData]) => (
+      {Object?.entries(groupedDataByWeekAndMonth)?.map(([monthKey, monthData]) => (
         <div key={monthKey}>
           <h2>{monthKey}</h2>
           {Object.entries(monthData).map(([weekKey, weekData]) => (

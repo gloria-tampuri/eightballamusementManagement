@@ -34,20 +34,30 @@ const getTransportController = async (req, res) => {
     }
 };
 
+
+
+
 const patchTransportController = async (req, res) => {
     try {
-        const { transportId } = req.query;
-        const transport = req.body;
+        const { _id, update } = req.body; // Assuming your request body contains the _id of the document and the update object
         const transportCollection = await connectToDatabase();
 
-        await transportCollection.updateOne({ _id: new ObjectId(transportId) }, {
-            $set: { ...transport },
-        });
-        res.status(200).json({ message: "Transport updated successfully" });
+        const result = await transportCollection.updateOne(
+            { _id: new ObjectId(_id) }, // Filter by _id
+            { $set: update } // Update the document with the fields/values in the update object
+        );
+
+        if (result.matchedCount === 1) {
+            res.status(200).json({ message: "Transport updated successfully" });
+        } else {
+            res.status(404).json({ message: "Transport not found" });
+        }
     } catch (error) {
-        res.status(500).json({ status: 500, message: error });
+        res.status(500).json({ status: 500, message: error.message });
     }
 };
+
+
 
 
 const deleteTransportController = async (req, res) => {
