@@ -67,6 +67,24 @@ const deleteTransportController = async (req, res) => {
     }
 };
 
+const patchWeekPaidController = async (req, res) => {
+    try {
+      const { week } = req.query;
+      const { paid } = req.body;
+      const transportCollection = await connectToDatabase();
+  
+      // Update all documents in the specified week to set their 'paid' field to the provided value
+      await transportCollection.updateMany({ week: week }, {
+        $set: { paid: paid },
+      });
+  
+      res.status(200).json({ message: "Week updated successfully" });
+    } catch (error) {
+      res.status(500).json({ status: 500, message: error });
+    }
+  };
+  
+
 
 
 export default async function handler(req, res) {
@@ -79,4 +97,21 @@ export default async function handler(req, res) {
     if (req.method === 'DELETE') {
         return deleteTransportController(req, res);
     }
+    if (req.method === 'PATCH' && req.query.week) { // Add this condition for handling PATCH request for updating week paid status
+        return patchWeekPaidController(req, res);
+      }
 }
+// export default async function handler(req, res) {
+//     if (req.method === 'GET') {
+//       return getTransportController(req, res);
+//     } else if (req.method === 'PATCH' && req.query.week) { // Check if it's a PATCH request and the 'week' query parameter is present
+//       return patchWeekPaidController(req, res); // Route to the patchWeekPaidController function
+//     } else if (req.method === 'PATCH') { // Handle the PATCH request for individual transport update
+//       return patchTransportController(req, res);
+//     } else if (req.method === 'DELETE') {
+//       return deleteTransportController(req, res);
+//     } else {
+//       res.status(405).json({ message: 'Method Not Allowed' }); // Return 405 Method Not Allowed for unsupported methods
+//     }
+//   }
+  

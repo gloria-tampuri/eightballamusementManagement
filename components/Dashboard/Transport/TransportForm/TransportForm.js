@@ -1,108 +1,115 @@
-import React from 'react'
+import React from "react";
 import { useForm } from "react-hook-form";
-import classes from './Transport.module.css'
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import classes from "./Transport.module.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 // import ExpenYears from './ExpenYears/ExpenYears';
-import moment from 'moment'
+import moment from "moment";
 
 const TransportForm = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const notify = () => toast.success("Transport Added!",  {
-        position: 'top-center',
-      });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const notify = () =>
+    toast.success("Transport Added!", {
+      position: "top-center",
+    });
 
-      const onSubmit = async data=>{
-        const pushdata ={
-            ...data,
-            amount:Number(data.amount),
-      year: moment(data.transportDate).format('YYYY'),
-
-        }
-
-        const info={
-            ...pushdata,
-        
-        }
-        notify()
-
-
-        const res = await fetch('/api/transport', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(info)
-          })
-          if (res.status === 201) {
-            reset()
-          } else {
-          }
-
+  const onSubmit = async (data) => {
+    const pushdata = {
+      ...data,
+      amount: Number(data.amount),
+      year: moment(data.transportDate).format("YYYY"),
+      paid:false
     };
 
-    return (
-        <div>
-                <div className={classes.form}>
-                  <ToastContainer/>
-    
-                <form className={classes.forms} onSubmit={handleSubmit(onSubmit)}>
-                    <h2>Add Transport</h2>
-                
-                    <div className={classes.section}>
-                        <label>Date </label>
-                        <input
-                                                required
+    const info = {
+      ...pushdata,
+    };
+    notify();
 
-                            placeholder='Date'
-                            type='date'
-                            {...register("transportDate", { required: true })}
-                        />
-                        {errors.transportDate && <p className={classes.errors}>Date is required</p>}
-                    </div>
-    
-                    <div className={classes.section}>
-                        <label>From</label>
-                        <input
-                            placeholder='From'
-                            type='text'
-                            required
+    const res = await fetch("/api/transport", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(info),
+    });
+    if (res.status === 201) {
+      reset();
+    } else {
+    }
+  };
 
-                            {...register("from", { required: true })}
-                        />
-                        {errors.from && <p className={classes.errors}>From</p>}
-                    </div>
+  return (
+    <div>
+      <div className={classes.form}>
+        <ToastContainer />
 
-                    <div className={classes.section}>
-                        <label>Destination</label>
-                        <input
-                            placeholder='Destination'
-                            type='text'
-                            required
+        <form className={classes.forms} onSubmit={handleSubmit(onSubmit)}>
+          <h2>Add Transport</h2>
 
-                            {...register("destination", { required: true })}
-                        />
-                        {errors.destination && <p className={classes.errors}>Destination</p>}
-                    </div>
-    
-                    <div className={classes.section}>
-                        <label>Amount</label>
-                        <input
-                            placeholder='Amount'
-                            type='number'
-                            required
-                            {...register("amount", { required: true })}
-                        />
-                        {errors.amount && <p className={classes.errors}>Price is required</p>}
-                    </div>
-    
-                    
-                  <div className={classes.button}>  <button>Add Transport</button></div>
-    
-                </form>
-            </div>
-        </div>
-      )
-}
+          <div className={classes.section}>
+            <label>Date </label>
+            <input
+              required
+              placeholder="Date"
+              type="date"
+              {...register("transportDate", { required: true })}
+            />
+            {errors.transportDate && (
+              <p className={classes.errors}>Date is required</p>
+            )}
+          </div>
 
-export default TransportForm
+          <div className={classes.section}>
+            <label>From</label>
+            <input
+              placeholder="From"
+              type="text"
+              required
+              {...register("from", { required: true })}
+            />
+            {errors.from && <p className={classes.errors}>From</p>}
+          </div>
+
+          <div className={classes.section}>
+            <label>Destination</label>
+            <input
+              placeholder="Destination"
+              type="text"
+              required
+              {...register("destination", { required: true })}
+            />
+            {errors.destination && (
+              <p className={classes.errors}>Destination</p>
+            )}
+          </div>
+
+          <div className={classes.section}>
+            <label>Amount</label>
+            <input
+              placeholder="Amount"
+              type="number"
+              required
+              {...register("amount", { required: true })}
+            />
+            {errors.amount && (
+              <p className={classes.errors}>Price is required</p>
+            )}
+          </div>
+
+          <div className={classes.button}>
+            {" "}
+            <button>Add Transport</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default TransportForm;

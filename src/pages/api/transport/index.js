@@ -1,4 +1,4 @@
-import { getTransportController, postTransportController } from "@/controllers/transportController";
+import { getTransportController, postTransportController,patchTransportPaidController } from "@/controllers/transportController";
 
 const deleteTransport = async (transportId) => {
     const transportCollection = await connectToDatabase();
@@ -25,6 +25,7 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
         return await getTransportController(req, res);
     }
+
 
     if (req.method === 'DELETE') {
         const { transportId } = req.query;

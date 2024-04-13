@@ -44,6 +44,27 @@ const postTransportController = async (req, res) => {
     }
 }
 
+
+const patchTransportController = async (req, res) => {
+    try {
+      const { transportIds, updates } = req.body;
+  
+      const transportCollection = await connectToDatabase();
+      const result = await transportCollection.updateMany(
+        { _id: { $in: transportIds.map(id => new ObjectId(id)) } },
+        { $set: updates },
+        { upsert: false, multi: true }
+      );
+  
+      res.status(200).json({
+        status: 200,
+        message: `Updated ${result.modifiedCount} documents.`,
+      });
+    } catch (error) {
+      res.status(500).json({ status: 500, message: error.message });
+    }
+  };
+
 const deleteTransportController=async(req,res)=>{
     const transportId =req.params.id;
     const transportCollection = await connectToDatabase()
@@ -65,7 +86,32 @@ const deleteTransportController=async(req,res)=>{
     }
 }
 
-
+const patchTransportPaidController = async (req, res) => {
+    try {
+      const { weekKey } = req.params;
+      const transportCollection = await connectToDatabase();
+  
+      // Find all the transport documents for the given week
+      const weekTransports = await transportCollection.find({
+        weekKey: parseInt(weekKey),
+        paid: false,
+      }).toArray();
+  
+      // Update the 'paid' field to true for all the documents
+      const result = await transportCollection.updateMany(
+        { _id: { $in: weekTransports.map(t => t._id) } },
+        { $set: { paid: true } },
+        { upsert: false, multi: true }
+      );
+  
+      res.status(200).json({
+        status: 200,
+        message: `Updated ${result.modifiedCount} transport documents.`,
+      });
+    } catch (error) {
+      res.status(500).json({ status: 500, message: error.message });
+    }
+  };
 
 
 
@@ -74,5 +120,7 @@ const deleteTransportController=async(req,res)=>{
 export {
     getTransportController,
     postTransportController,
-    deleteTransportController
+    deleteTransportController,
+    patchTransportController,
+    patchTransportPaidController
 }

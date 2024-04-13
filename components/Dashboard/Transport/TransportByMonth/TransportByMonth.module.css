@@ -95,4 +95,21 @@
   .delete{
     color: red;
   }
-  
+
+  .button{
+    border: none;
+    padding: 0.3rem 1rem;
+    display: block;
+    align-items: center;
+    margin: 2rem auto;
+    border-radius: 0.5rem;
+    background-color: var(--blue);
+    color: white;
+    font-weight: 700;
+  }
+  .green{
+    color: green;
+  }
+  .greenButton{
+    background-color: green;
+  }
