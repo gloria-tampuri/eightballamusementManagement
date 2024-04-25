@@ -167,7 +167,7 @@ const currentWeekData = data?.asserts.map(assert => {
     <div className={classes.highlights}>
       <Link href='/dashboard/asserts' className={`${classes.box} ${classes.first}`}>
         <h1>{totalAssets}</h1>
-        <p>Total Number of Tables</p>
+        <p>Total Number of Assets</p>
 
       </Link>
 
@@ -177,27 +177,24 @@ const currentWeekData = data?.asserts.map(assert => {
           {/* {totalSalesYear} */}
           0000
           </h1>
-        <p>Total Income This Year</p>
+        <p>Total CashUp This Year</p>
 
       </div>
      </Link>
 
       <div className={`${classes.box} ${classes.third}`}>
         <h1>{totalSalesMonth}</h1>
-        <p>Income This Month</p>
+        <p>CashUp This Month</p>
 
       </div>
 
       <Link href='/dashboard/weeklycashups'><div className={`${classes.box} ${classes.third}`}>
         <h1>{totalSum}</h1>
-        <p>Income This Week</p>
+        <p>CashUp This Week</p>
 
       </div>
-</Link>
-      
+</Link>    
     </div>
-
-  
     <div className={classes.list}>
       <h2 className={classes.tabheader}>Performance of all assets this month of {monthName}</h2>
       <table>
@@ -222,7 +219,6 @@ const currentWeekData = data?.asserts.map(assert => {
                   arranged?.totalSalesCurrentMonth < 1200 ? classes.redBackground : ""
                 }`}
               >{arranged?.totalSalesCurrentMonth}</td>
-           
           </tr>
          )}
         </tbody>
