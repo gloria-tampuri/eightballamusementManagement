@@ -61,7 +61,6 @@ const AdminWeeklyCashup = () => {
       totalSum += totalAmount
       return { ...assert, totalAmount };
   })
-console.log(currentOperatorCashupData);
 currentOperatorCashupData?.sort((a, b) => b.totalAmount - a.totalAmount);
 
 const currentDate = new Date(); // Current date and time

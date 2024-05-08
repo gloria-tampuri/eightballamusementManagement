@@ -1,6 +1,9 @@
+
+
+
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
-import classes from './WeeklyCashups.module.css';
+import classes from './PreviousWeek.module.css';
 import { useRouter } from 'next/router';
 import { getSignedInEmail } from '../../../auth';
 import OperatorWeeklyCashups from '../OperatorWeeklyCashups/OperatorWeeklyCashups';
@@ -8,7 +11,7 @@ import AdminWeeklyCashup from '../OperatorWeeklyCashups/AdminWeekely';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
-const WeeklyCashups = () => {
+const PreviousWeek = () => {
   const { data, error } = useSWR('/api/asserts', fetcher);
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
@@ -77,10 +80,9 @@ const WeeklyCashups = () => {
           <button className="printButton" onClick={() => window.print()}>
             Print
           </button>
-         
           <h2 className={classes.tabheader}>
-            Performance of all assets for the current week. Total Amount:{' '}
-            {currentWeekTotalSum}
+            Performance of all assets for the previous week. Total Amount:{' '}
+            {previousWeekTotalSum}
           </h2>
           <table>
             <thead>
@@ -92,7 +94,7 @@ const WeeklyCashups = () => {
               </tr>
             </thead>
             <tbody>
-              {currentWeekData?.map((assert, index) => (
+              {previousWeekData?.map((assert, index) => (
                 <tr
                   onClick={() =>
                     router.push(`/dashboard/asserts/${assert?._id}/cashup`)
@@ -110,10 +112,6 @@ const WeeklyCashups = () => {
               ))}
             </tbody>
           </table>
-
-
-          <AdminWeeklyCashup />
-          <OperatorWeeklyCashups />
         </div>
       ) : (
         <OperatorWeeklyCashups />
@@ -122,5 +120,5 @@ const WeeklyCashups = () => {
   );
 };
 
-export default WeeklyCashups;
+export default PreviousWeek;
 

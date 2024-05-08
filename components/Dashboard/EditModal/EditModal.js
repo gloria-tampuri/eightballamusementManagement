@@ -47,8 +47,7 @@ const [isGpsPicked, setIsGpsPicked] = useState(false); // New state variable
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           // Use latitude and longitude to fetch address or other location details
-          console.log("Latitude:", latitude);
-          console.log("Longitude:", longitude);
+
           setGpsAddress([latitude, longitude]);
           setIsPickingGPS(false); // Hide spinner after picking GPS
         },
@@ -59,7 +58,6 @@ const [isGpsPicked, setIsGpsPicked] = useState(false); // New state variable
       );
     } else {
       setIsPickingGPS(false); // Hide spinner if geolocation is not supported
-      console.log("Geolocation is not supported by this browser.");
     }
   };
     

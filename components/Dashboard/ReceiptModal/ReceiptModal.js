@@ -17,7 +17,6 @@ const ReceiptModal = () => {
   const receiptContext = useContext(ReceiptContext);
   const {  hideReceiptModal,receiptData } = receiptContext;
 
-  console.log(receiptData);
 
   const formatDateToWords = (dateString) => {
     if (!dateString || !Date.parse(dateString)) {
@@ -28,7 +27,6 @@ const ReceiptModal = () => {
   };
   const downloadReceipt = () => {
     const element = document.querySelector("#receiptDets");
-    console.log(element);
     html2canvas(element).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const link = document.createElement("a");
