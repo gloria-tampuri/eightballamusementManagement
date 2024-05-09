@@ -73,6 +73,8 @@ const PreviousWeek = () => {
       });
   }, []);
 
+
+
   return (
     <div>
       {admin ? (
@@ -81,7 +83,7 @@ const PreviousWeek = () => {
             Print
           </button>
           <h2 className={classes.tabheader}>
-            Performance of all assets for the previous week. Total Amount:{' '}
+            Performance of all assets for the previous week. Total Amount:
             {previousWeekTotalSum}
           </h2>
           <table>

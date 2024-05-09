@@ -1,6 +1,7 @@
 
+import { getSignedInEmail } from '../../../../auth';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { BiArrowBack } from "react-icons/bi";
@@ -32,6 +33,7 @@ const TransportByMonth = () => {
     "November",
     "December",
   ];
+  const[admin, setAdmin]= useState(false)
 
   const [weekVisibility, setWeekVisibility] = useState({});
   const [paidWeeks, setPaidWeeks] = useState([]);
@@ -42,6 +44,19 @@ const TransportByMonth = () => {
       [weekKey]: !prevState[weekKey],
     }));
   };
+
+  useEffect(() => {
+    // Check if the signed-in email is the admin email
+    getSignedInEmail()
+        .then((email) => {
+            if (email === 'richard.ababio@eightball.com') {
+                setAdmin(true);
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}, []);
 
   const deleteHandler = async (transportId) => {
     try {
@@ -99,6 +114,8 @@ const TransportByMonth = () => {
   const renderWeekData = (weekData, weekKey) => {
     const allPaid = weekData.transports.every((expen) => expen.paid);
 
+
+ 
     return (
       <div className={`${classes.list} ${allPaid ? classes.green : ""}`}>
         <p className={`${classes.table} ${allPaid ? classes.green : ""}`}>
@@ -111,7 +128,7 @@ const TransportByMonth = () => {
               <td>From</td>
               <td>Destination</td>
               <td>Amount</td>
-              <td>Paid</td>
+              {/* <td>Paid</td> */}
               <th>Delete</th>
             </tr>
           </thead>
@@ -126,7 +143,7 @@ const TransportByMonth = () => {
                 >
                   {expen.amount}
                 </td>
-                <td>{expen?.paid?.toString()}</td>
+                {/* <td>{expen?.paid?.toString()}</td> */}
                 <td>
                   <AiOutlineDelete
                     className={classes.delete}
@@ -137,13 +154,13 @@ const TransportByMonth = () => {
             ))}
           </tbody>
         </table>
-        <button
+       {admin &&  <button
           onClick={() => markWeekAsPaid(weekKey)}
           className={`${classes.button} ${allPaid ? classes.greenButton : ""}`}
           disabled={allPaid}
         >
           {allPaid ? "Transport paid" : "Pay Transport for this week"}
-        </button>
+        </button>}
       </div>
     );
   };
