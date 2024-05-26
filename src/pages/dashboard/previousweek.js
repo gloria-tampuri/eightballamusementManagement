@@ -8,8 +8,6 @@ const Previousweek = () => {
   return (
     <DashLayout>
       <PreviousWeek />
-      <AdminPrevious/>
-      <OperatorPrevious/>
     </DashLayout>
   );
 };

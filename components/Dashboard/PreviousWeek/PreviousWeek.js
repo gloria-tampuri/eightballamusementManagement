@@ -6,8 +6,8 @@ import useSWR from 'swr';
 import classes from './PreviousWeek.module.css';
 import { useRouter } from 'next/router';
 import { getSignedInEmail } from '../../../auth';
-import OperatorWeeklyCashups from '../OperatorWeeklyCashups/OperatorWeeklyCashups';
-import AdminWeeklyCashup from '../OperatorWeeklyCashups/AdminWeekely';
+import OperatorPrevious from '../OperatorWeeklyCashups/OperatorPrevious';
+import AdminPrevious from '../OperatorWeeklyCashups/AdminPrevious';
 
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
@@ -114,9 +114,11 @@ const PreviousWeek = () => {
               ))}
             </tbody>
           </table>
+          <AdminPrevious/>
+          <OperatorPrevious/>
         </div>
       ) : (
-        <OperatorWeeklyCashups />
+        <OperatorPrevious/>
       )}
     </div>
   );

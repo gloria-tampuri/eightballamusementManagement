@@ -117,6 +117,12 @@ const Navigation = () => {
                 <span>Weekly Cashups</span>
             </div>
             </Link>
+            <Link  className={classes.link} href='/dashboard/previousweek'>
+            <div className={classes.section}>
+                <FaCalendarWeek className={classes.icons}/>
+                <span>Previousweek</span>
+            </div>
+            </Link>
             <Link  className={classes.link} href='/dashboard/transport'>
             <div className={classes.section}>
                 <MdEmojiTransportation className={classes.icons}/>
@@ -195,6 +201,12 @@ const Navigation = () => {
             <div className={classes.section}>
                 <FaCalendarWeek className={classes.icons}/>
                 <span>Weekly Cashups</span>
+            </div>
+            </Link>
+            <Link  className={classes.link} href='/dashboard/previousweek'>
+            <div className={classes.section}>
+                <FaCalendarWeek className={classes.icons}/>
+                <span>Previousweek</span>
             </div>
             </Link>
             <Link  className={classes.link} href='/dashboard/transport'>
