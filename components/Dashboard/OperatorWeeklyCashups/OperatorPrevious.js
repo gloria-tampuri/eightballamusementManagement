@@ -101,7 +101,7 @@ previousWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
       {/* <h1>WeeklyCashups of <span> {operatorName}</span></h1> */}
     <div className={classes.list}>
     <h2 className={classes.tabheader}>
-            Previous week cashup by Operator. Total Amount:
+            Previous week cashup by Samuel Bempong. Total Amount:
             {previousWeekTotalSum}
           </h2>
           <table>
