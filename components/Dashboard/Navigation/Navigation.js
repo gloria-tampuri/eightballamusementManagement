@@ -4,7 +4,7 @@ import classes from './Navigation.module.css'
 import {MdOutlineDashboard,MdAssignmentAdd,MdOutlineWallet,MdClose} from 'react-icons/md'
 import { getSignedInEmail } from '../../../auth';
 import { MdEmojiTransportation } from "react-icons/md";
-
+import { TbTools } from "react-icons/tb";
 import{FaCalendarWeek} from 'react-icons/fa'
 import{GrClose}from 'react-icons/gr'
 import{GiCardboardBoxClosed, GiExpense, GiHamburgerMenu} from 'react-icons/gi'
@@ -95,6 +95,12 @@ const Navigation = () => {
                 <span>Todo List</span>
             </div>
             </Link>
+            <Link  className={classes.link} href='/dashboard/accessories'>
+            <div className={classes.section}>
+                <TbTools className={classes.icons}/>
+                <span>Accessories</span>
+            </div>
+            </Link>
             <Link  className={classes.link} href='/dashboard/transport'>
             <div className={classes.section}>
                 <MdEmojiTransportation className={classes.icons}/>
@@ -121,6 +127,12 @@ const Navigation = () => {
             <div className={classes.section}>
                 <FaCalendarWeek className={classes.icons}/>
                 <span>Previousweek</span>
+            </div>
+            </Link>
+            <Link  className={classes.link} href='/dashboard/accessories'>
+            <div className={classes.section}>
+                <TbTools className={classes.icons}/>
+                <span>Accessories</span>
             </div>
             </Link>
             <Link  className={classes.link} href='/dashboard/transport'>
@@ -181,6 +193,12 @@ const Navigation = () => {
                 <span>Todo List</span>
             </div>
             </Link>
+            <Link  className={classes.link} href='/dashboard/accessories'>
+            <div className={classes.section}>
+                <TbTools className={classes.icons}/>
+                <span>Accessories</span>
+            </div>
+            </Link>
             <Link  className={classes.link} href='/dashboard/transport'>
             <div className={classes.section}>
                 <MdEmojiTransportation className={classes.icons}/>
@@ -207,6 +225,12 @@ const Navigation = () => {
             <div className={classes.section}>
                 <FaCalendarWeek className={classes.icons}/>
                 <span>Previousweek</span>
+            </div>
+            </Link>
+            <Link  className={classes.link} href='/dashboard/accessories'>
+            <div className={classes.section}>
+                <TbTools className={classes.icons}/>
+                <span>Accessories</span>
             </div>
             </Link>
             <Link  className={classes.link} href='/dashboard/transport'>

@@ -2,7 +2,6 @@ import React from 'react'
 import classes from './DashLayout.module.css'
 import DashHeader from '../DashHeader/DashHeader'
 import Navigation from '../Navigation/Navigation'
-// import '../print.css'
 
 const DashLayout = ({children}) => {
   return (
