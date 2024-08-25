@@ -145,7 +145,7 @@ const CashUp = () => {
 
   const onSubmit = async () => {
     // e.preventDefault()
-
+  
     const receivedInfo = {
       cashupDate: cashupDate,
       cashupTime: cashupTime,
@@ -162,6 +162,9 @@ const CashUp = () => {
       tokensIssued: Number(tokensIssued),
       enteredBy: personEmail,
     };
+    if(companyAmount<=0){
+      alert("Cash recieved cant be 0")
+    }
     const dataPush = {
       location: current?.locationName,
       cashupId: uuidv4(),
@@ -331,7 +334,7 @@ const CashUp = () => {
             <input
               placeholder="cash recieved"
               type="number"
-              required
+              min="1"              required
               value={cashReceived}
               onChange={(e) => {
                 setCashReceived(e.target.value);
