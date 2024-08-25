@@ -35,6 +35,7 @@ const CashUp = () => {
 
   const receiptContext=useContext(ReceiptContext)
   const {receiptModal, showReceiptModal,receiptData,setReceiptData }=receiptContext
+
   useEffect(() => {
     getSignedInEmail()
       .then((email) => {
@@ -47,12 +48,14 @@ const CashUp = () => {
         console.error(error);
       });
         // Set current date
-        const currentDate = new Date();
-        const formattedDate = currentDate.toISOString().split('T')[0];
-        const formattedTime = currentDate.toTimeString().split(' ')[0].slice(0, 5); // HH:MM format
-        setCashupDate(formattedDate);
-        setCashupTime(formattedTime);
+       
   }, []);
+
+  useEffect(()=>{const currentDate = new Date();
+    const formattedDate = currentDate.toISOString().split('T')[0];
+    const formattedTime = currentDate.toTimeString().split(' ')[0].slice(0, 5); // HH:MM format
+    setCashupDate(formattedDate);
+    setCashupTime(formattedTime);},[])
 
   const CaltotalAmount = () => {
     const total = tokenPrice * tokensSold;
@@ -234,9 +237,6 @@ const CashUp = () => {
               value={cashupDate}
               required
               readOnly
-              onChange={(e) => {
-                setCashupDate(e.target.value);
-              }}
             />
           </div>
 
@@ -248,9 +248,7 @@ const CashUp = () => {
               value={cashupTime}
               readOnly
               required
-              onChange={(e) => {
-                setCashupTime(e.target.value);
-              }}
+              
             />
           </div>
           <div className={classes.section}>
