@@ -13,4 +13,7 @@ const AddButton = forwardRef(({ type, text, className, ...props }, ref) => {
   );
 });
 
+// Add this line to fix the error
+AddButton.displayName = "AddButton";
+
 export default AddButton;
