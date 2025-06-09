@@ -5,8 +5,6 @@
   overflow: hidden;
   color: var(--electric-blue);
   overflow-x: scroll;
-
-  /* background-color:rgb(245, 245, 245) ; */
 }
 
 .list table{
@@ -33,21 +31,20 @@
 }
   
 .delete{
-   color: red;
+  color:var(--orange-normal);
+  background-color: var(--orange-light);
 }
 
 .action{
   display: flex;
+  gap: 0.5rem;
 }
 .edit{
-  color: blue;
+  color:var(--orange-normal);
+  background-color: var(--orange-light);
 }
 
-/* .list tbody tr:nth-child(odd){
-   background-color: var(--blue);
-   color: white;
 
-} */
 .tabheader{
   padding: 1rem 2rem;
   color: var(--gunmetal);

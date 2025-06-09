@@ -1,0 +1,15 @@
+
+
+.dialogTrigger {
+    padding: 10px 15px;
+    background-color:var(--orange-normal);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }

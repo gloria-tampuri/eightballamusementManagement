@@ -39,27 +39,6 @@ const postAccessoryController = async (req, res) => {
   } catch (error) {}
 };
 
-// const patchAccessoryController = async (req, res) => {
-//   try {
-//     const accessory = req.body;
-
-//     const { accessoryId } = req.body;
-
-//     const accessoriesCollection = await connectToDatabase();
-
-//     await accessoriesCollection.updateOne(
-//       { _id: new ObjectId(accessoryId) },
-//       { $set: { ...accessory } }
-//     );
-//     res.status(200).json({ message: "Accessory updated successfully" });
-//   } catch (error) {
-//     res.status(500).json({ status: 500, message: error.message });
-//   }
-// };
-
-
-
-
 const patchAccessoryController = async (req, res) => {
   try {
     const accessoryId = req.params.id; // Get the ID from URL params

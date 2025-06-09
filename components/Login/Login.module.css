@@ -1,59 +1,66 @@
 .wrapper{
     height: 100vh;
-    padding-top: 4rem;
+    margin: 1rem;
+}
+.logo{
+    display: flex;
+    justify-content: left;
+    height: 4rem;
 }
 
-.tgap{
-    padding-top: 4rem;
+.content{
+    height:70vh;
+    display: grid;
+    place-content: center;
+    text-align: center;
 }
 
-.formContainer{
-    margin: 0 auto;
-    width: 30%;
+.content p{
+    color: var(--gray-text);
+    margin: 0.5rem 0;
 }
-.formContainer h2{
-text-align: center;
-font-weight: 700;
-font-size: 2rem;
+
+.form{
+    width: 100%;
+    margin-top: 1rem;
 }
-.form label{
-    display: block;
-    margin-top:1rem;
-    color: #23232f;
-}
+
 .form input{
     width: 100%;
-    border: 1px solid gray;
-    padding: 0.5rem 1rem;
-    outline: none;
-    margin-bottom: 0.5rem;
-    border-radius: 0.3rem;
-    background-color: #ffffff;
-    border: 1px solid rgb(187, 186, 186);
-    color: #23232f;
-    outline: none;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border: 1px solid var(--gray-text);
+    border-radius: 4px;
+}
+
+.form label{
+    width: 100%;
+    text-align: left;
+    display: inline-block;
 }
 
 .form button{
-    display: block;
     width: 100%;
-    margin: 1.5rem auto;
-    padding: 0.4rem 1rem;
-    background-color: var(--blue);
-    font-weight: 700;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    border-radius: 0.3rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    background-color: var(--orange-normal);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     color: white;
+    font-weight: 600;
 }
+
 
 @media (max-width:640px) {
     .wrapper{
         padding: 0;
     }
     .formContainer{
-        width: 90%;
+        width: 100%;
         margin: 0 auto;
+        background:yellow;
         /* margin-top: 4rem; */
     }
 }

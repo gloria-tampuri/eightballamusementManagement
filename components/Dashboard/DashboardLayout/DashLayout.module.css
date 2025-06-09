@@ -1,5 +1,6 @@
 .dashboard{
     display: flex;
+    height: 100vh;
 }
 
 .nav{
@@ -9,19 +10,18 @@
     background-color: #ffffff;
     color: var(--white);
     box-shadow: 1px 1px 15px rgba(0,0, 0, 0.2);
-    border-radius: 0.3rem;
-    border-radius: 1px 0px 5px rgba(0,0, 0, 0.2);
-    border-right: 1px solid var(--gray-text);
+    position: sticky;
+    z-index: 100;
 }
 
 .other{
     width: 80%;
+    overflow: scroll;
 }
 
 .other header{
     
     width: 100%;
-    /* background-color: yellowgreen; */
     border-radius: 1rem;
     margin-bottom: 5vh;
     padding: 1.5rem 2rem;

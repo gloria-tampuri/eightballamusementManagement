@@ -1,5 +1,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *, *::before, *::after {
 box-sizing: border-box;
 }
@@ -10,10 +16,30 @@ box-sizing: border-box;
 --gray-text:#23232f;
 --dark-gray:#433d3d;
 --background:#ffffff;
+   --orange-normal: #DD5928;
+   --orange-light: #FCEEEA;
+   --orange-light-hover: #FAE6DF;
+   --orange-light-active: #F4CCBC;
+   --orange-normal-hover: #C75025;
+   --orange-normal-active: #b14720;
+   --orange-dark:#a6431e;
+   --orange-dark-hover:#853518;
+   --orange-dark-active:#632812;
+   --orange-darker:#4d1f0e;
+   --paragraph-text: #444444;
+   --grey-normal: #6E6F71;
+   --grey-normal-hover: #636466;
+   --grey-normal-active: #58595a;
+   --light-grey:#f1f1f1;
+   --light-grey-hover:rgb(210, 210, 211);
+   --radius: 10px;
+   --darker-grey: #272728;
+   --dark-grey: #535355;
+   --light-grey-active:#D2D2D3;
 }
 html, body {
 height: 100%;
-font-family: 'Open Sans', sans-serif;
+font-family: "Satoshi", sans-serif !important;
 background-color:var(--background);
 color: rgb(27, 27, 27);
 }
@@ -62,10 +88,21 @@ td,  th{
   border: 1px solid var(--gray-text); 
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
 
 
-/* print.css */
+
+/* print.css  */
 
 @media print {
     body {
@@ -88,25 +125,21 @@ td,  th{
       background-color: #f2f2f2;
     }
   
-    /* Hide all elements with the class 'no-print' when printing */
+    /* Hide all elements with the class 'no-print' when printing  */
     .no-print {
       display: none;
     }
   }
   .printButton{
-    color: rgb(180, 178, 178);
-    /* padding: 1rem 0; */
-    /* margin-top: 1rem; */
-    /* padding:0.5rem 2rem ;
-    border-radius: 0.2rem;
-    background-color: #345FF6;
-    color: white;
+    margin-top: 1rem; 
+    background-color:#DD5928 ;
     font-weight: 700;
     padding: 0.3rem 2rem;
     border-radius: 0.3rem;
     color: white;
-    background-color: var(--blue);
-    margin-bottom: 2rem; */
+    margin-bottom: 2rem; 
+    outline: none;
+     border: none;
   }
 
   @media(max-width:750px){
@@ -114,3 +147,4 @@ td,  th{
     font-size: 0.8rem;
    }
   }
+

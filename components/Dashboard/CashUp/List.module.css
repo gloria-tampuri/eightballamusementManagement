@@ -1,106 +1,503 @@
-.list{
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
-    overflow: hidden;
-    color: #343A46;
-    padding: 0rem;
-    width: 100%;
+/* List.module.css */
+
+/* Container and Layout */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--background);
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  background: white;
+  border-radius: var(--radius);
+}
+
+/* Revenue Header */
+.revenueHeader {
+  width: 100%;
+}
+
+.revenueContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.revenueContent:hover {
+  background: var(--orange-light-hover);
+}
+
+.revenueIcon {
+  font-size: 1.5rem;
+  color: var(--orange-normal);
+  background: var(--orange-light);
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.revenueTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--darker-grey);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.revenueAmount {
+  font-size: 1rem;
+  color: var(--orange-normal);
+  background: var(--orange-light);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Print Button */
+.printButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--orange-normal);
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.printButton:hover {
+  background: var(--orange-normal-hover);
+  transform: translateY(-1px);
+}
+
+.printButton:active {
+  transform: translateY(0);
+  background: var(--orange-normal-active);
+}
+
+/* Year Section */
+.yearSection {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.yearHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  cursor: pointer;
+  background: var(--light-grey);
+  transition: all 0.2s ease;
+}
+
+.yearHeader:hover {
+  background: var(--light-grey-hover);
+}
+
+.yearContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.yearIcon {
+  font-size: 1.25rem;
+  color: var(--orange-normal);
+  background: var(--orange-light);
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
+.yearTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--darker-grey);
+  margin: 0;
+}
+
+.yearStats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.yearAmount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--orange-normal);
+  background: var(--orange-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.yearCount {
+  font-size: 0.75rem;
+  color: var(--grey-normal);
+  background: var(--light-grey);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Month Section */
+.monthsContainer {
+  padding: 0.5rem;
+  background: var(--background);
+}
+
+.monthSection {
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--light-grey);
+}
+
+.monthSection:last-child {
+  margin-bottom: 0;
+}
+
+.monthHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  background: var(--light-grey);
+  transition: all 0.2s ease;
+}
+
+.monthHeader:hover {
+  background: var(--light-grey-hover);
+}
+
+.monthContent {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.monthTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--darker-grey);
+}
+
+.monthStats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.monthAmount {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--orange-normal);
+  background: var(--orange-light);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.monthCount {
+  font-size: 0.7rem;
+  color: var(--grey-normal);
+  background: var(--light-grey);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Table Styles */
+.tableContainer {
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch
+  border-radius: 6px;
+  margin: 0.5rem 0;
+  -webkit-overflow-scrolling: touch;
 }
 
-.years{
-    color: #23232f;
-    padding: 0.5rem;
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-    margin-top: 1rem;
-    width: fit-content;
-    border-radius: 0.3rem;
-  box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
-  background-color: #ffffff;
-}
-.amount{
-    color: var(--electric-blue);
-    font-weight: 700;
-
-}
-
-.month{
-    padding: 1rem 0;
-}
-
-.list{
+.cashupTable {
   width: 100%;
   border-collapse: collapse;
-  border-radius: 0.4rem;
-  overflow: hidden;
-  overflow-x: scroll;
+  background: white;
+  font-size: 0.75rem;
+  min-width: 600px;
 }
 
-.list .tabheader{
-  color: var(--white);
-  padding: 2rem 0;
+.cashupTable thead {
+  background: var(--light-grey);
 }
 
-.list table{
-  width: 100%;
-  padding: 0;
-  color: #23232f;
+.cashupTable th {
+  padding: 0.75rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--darker-grey);
+  border-bottom: 1px solid var(--light-grey-active);
+  white-space: nowrap;
 }
 
-.list thead{
-  padding: 0.5rem;
-  color: var(--white);
+.cashupRow {
+  transition: all 0.1s ease;
+  border-bottom: 1px solid var(--orange-light);
 }
 
-
-.list thead, .list tbody {
-  width: 100%;
-  padding: 0.5rem;
-
+.cashupRow:hover {
+  background: var(--orange-light-hover);
 }
 
-.list td, .list th{
-  padding: 8px;
-  text-align: center;
-  border: 1px solid var(--gray-text); 
-}
-  
-  .seeAllDiv{
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-  .seeAllDiv p{
-    color: var(--blue);
-    font-size: 0.8rem;
-    cursor: pointer;
-  }
-  
-
-  .balance{
-    color: var(--red);
-  }
-
-  .list{
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
-    overflow-x: scroll;
-    color: var(--electric-blue);
+.cashupRow:last-child {
+  border-bottom: none;
 }
 
-.printer{
+.cashupTable td {
+  padding: 0.75rem 0.5rem;
+  color: var(--grey-normal);
+  border-bottom: 1px solid var(--light-grey);
+}
+
+/* Specific Cell Styles */
+.dateCell {
+  font-weight: 500;
+  color: var(--darker-grey);
+}
+
+.locationCell {
+  font-weight: 500;
   color: var(--blue);
+  background: rgba(63, 74, 243, 0.05);
 }
 
-  .delete{
-    color: red;
+.numberCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.companyShareCell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: var(--blue);
+  background: rgba(63, 74, 243, 0.05);
+}
+
+.positiveBalance {
+  color: var(--orange-normal) !important;
+  background: var(--orange-light);
+}
+
+.negativeBalance {
+  color: #dc2626 !important;
+  background: rgba(220, 38, 38, 0.05);
+}
+
+/* Actions */
+.actionsCell {
+  text-align: center;
+  width: 80px;
+}
+
+.actionButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  margin: 0 0.125rem;
+  background: var(--light-grey);
+  color: var(--grey-normal);
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+}
+
+.actionButton:first-child {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+.actionButton:first-child:hover {
+  background: rgba(220, 38, 38, 0.2);
+}
+
+.actionButton:last-child {
+  background: var(--orange-light);
+  color: var(--orange-normal);
+}
+
+.actionButton:last-child:hover {
+  background: var(--orange-light-hover);
+}
+
+/* Loading and Error States */
+.loadingContainer,
+.errorContainer,
+.unauthorizedContainer,
+.emptyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  background: white;
+  border-radius: var(--radius);
+  margin: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid var(--light-grey);
+  border-top: 3px solid var(--orange-normal);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorMessage {
+  color: #dc2626;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.unauthorizedMessage {
+  color: var(--orange-normal);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.emptyMessage {
+  color: var(--grey-normal);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (min-width: 640px) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
   }
   
-.tabheader{
-    padding: 1rem 2rem;
-    color: var(--gunmetal);
+  .printButton {
+    width: auto;
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .cashupTable {
+    font-size: 0.8rem;
+  }
+  
+  .yearTitle {
+    font-size: 1.2rem;
+  }
+  
+  .revenueTitle {
+    font-size: 1.3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 2rem;
+  }
+  
+  .cashupTable {
+    font-size: 0.85rem;
+  }
+  
+  .cashupTable th,
+  .cashupTable td {
+    padding: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cashupTable {
+    font-size: 0.875rem;
+  }
+  
+  .yearContent,
+  .monthContent {
+    flex-wrap: nowrap;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .container {
+    background: white;
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .printButton {
+    display: none;
+  }
+  
+  .actionButton {
+    display: none;
+  }
+  
+  .yearSection,
+  .monthSection {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .cashupTable {
+    border: 1px solid #000;
+  }
+  
+  .cashupTable th,
+  .cashupTable td {
+    border: 1px solid #000;
+  }
 }

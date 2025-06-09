@@ -1,80 +1,174 @@
-.list h3{
-    color: white;
+/* Asserts.module.css */
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--gray-light);
+  border-radius: 0.375rem;
+}
+.icon{
+  width: 4rem;
+  font-weight: 700;
+  color:var(--orange-normal) ;
+}
+.list {
+    padding: 1rem;
+  }
+  
+  .title {
     font-size: 1.2rem;
-}
-.item{
-    margin-top: 0.5rem;
+    font-weight: bold;
+    margin: 1.5rem 0;
+  }
+  
+  .loading,
+  .error {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 0.5rem 2rem;
-    border-radius: 0.3rem;
-    box-shadow: 1px 1px 15px rgba(0, 0, 0, 0.2);
-}
-
-.info{
+    padding: 2rem;
+    font-size: 1rem;
+  }
+  
+  .error {
+    color: #dc2626;
+  }
+  
+  .tableContainer {
+    border-radius: 0.375rem;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 1rem;
+  }
+  
+  /* Header styles */
+  .header,
+  .sortableHeader {
+    font-weight: 600;
+    color: var(--gray-text);
+  }
+  
+  .sortableHeader {
+    cursor: pointer;
+    user-select: none;
     display: flex;
-justify-content: space-between;
-}
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .sortableHeader:hover {
+    background-color: rgba(156, 163, 175, 0.1);
+  }
+  
+  .sortIcon {
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Cell content styles */
+  .assetId {
+    font-weight: 500;
+  }
+  
 
-.info h4{
-width: fit-content;
-margin-right: 2rem;
-text-decoration: none;
-}
-
-.info p{
-    color: #23232f;
-}
-
-.link{
-    text-decoration: none;
-}
-
-.edit{
-    background-color: #478c28;
-    padding: 0.3rem 2rem;
-    border-radius: 0.3rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: white;
-}
-
-.action{
-    display: flex;
-    gap: 1rem;
-    color: white;
-}
-
-.delete{
-     background-color: #d93250;
-    padding: 0.3rem 2rem;
-    text-transform: uppercase;
-    border-radius: 0.3rem;
-    display: none;
-}
-
-.pagination{
-    display: flex;
-    justify-content: space-between;
-}
-
-.frontBack{
+  
+  .actions {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background-color:#ffffff;
-    padding: 0.5rem 1rem;
-    border-radius: 0.2rem;
-    margin-top: 1rem;
-    color: #23232f;
-}
-.frontBack .icon{
-    color: #23232f important!;
-}
+    color: var(--dark-gray);
+  }
+  
+  .viewLink {
+    text-decoration: underline;
+    font-size: 0.875rem;
+    transition: color 0.15s ease-in-out;
+  }
 
-@media(max-width:640px){
-    .item{
-    padding: 0.5rem;
+  
+  .emptyState {
+    height: 6rem;
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+  }
+  
+  /* Pagination styles */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    gap: 0.5rem;
+  }
+  
+  .paginationInfo {
+    font-size: 0.875rem;
+    color: #6b7280;
+  }
+  
+  .paginationControls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .paginationButton {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+  }
+  
+  .paginationButton:hover:not(:disabled) {
+    background-color: #f9fafb;
+    color: #1f2937;
+  }
+  
+  .paginationButton:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .pageIndicator {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .pagination {
+      flex-direction: column;
+      gap: 1rem;
     }
-}
+    
+    .paginationControls {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .paginationInfo {
+      text-align: center;
+    }
+    
+    .actions {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }

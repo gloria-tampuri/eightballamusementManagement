@@ -1,226 +1,189 @@
 import React, { useState } from "react";
-import classes from "./Location.module.css";
 import { useRouter } from "next/router";
 import { v4 as uuidv4 } from "uuid";
 import useSWR from "swr";
+import {
+  Form,
+  Input,
+  Button,
+  DatePicker,
+  Checkbox,
+  Spin,
+  Card,
+  Typography,
+  message,
+  Row,
+  Col,
+  Space,
+} from "antd";
+import { FaMapMarkerAlt } from "react-icons/fa";
 import LocationList from "./LocationList";
-import { BiArrowBack } from "react-icons/bi";
+import LocationDialog from "./LocationDialog";
+import styles from "./Location.module.css";
+import Back from "components/ui/back/back";
+
+const { Text, Title } = Typography;
+const { TextArea } = Input;
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Location = () => {
   const router = useRouter();
   const { assert } = router.query;
-
-  const [locationName, setLocationName] = useState("");
-  const [numberofTokens, setNumberOfTokens] = useState(0);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [currentLocation, setCurrentLocation] = useState(false);
-  const [telephoneNumber, setTelephoneNumber] = useState(0);
-  const [physicalAddress, setphysicalAddress] = useState("");
-  const [siteOwner, setSiteOwner] = useState("");
-  const[gpsAddress, setGpsAddress]=useState([])
-  const [accessories, setAccessories] = useState("");
-  const [isPickingGPS, setIsPickingGPS] = useState(false); // New state variable
-  const [isGpsPicked, setIsGpsPicked] = useState(false); // New state variable
-
+  const [form] = Form.useForm();
+  const [isPickingGPS, setIsPickingGPS] = useState(false);
+  const [isGpsPicked, setIsGpsPicked] = useState(false);
+  const [gpsAddress, setGpsAddress] = useState([]);
+  const [isCurrentLocation, setIsCurrentLocation] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data, error, isLoading } = useSWR(`/api/asserts/${assert}`, fetcher);
 
   const getCurrentLocation = () => {
-    setIsPickingGPS(true); // Show spinner when picking GPS
+    if (isPickingGPS) return;
+
+    setIsPickingGPS(true);
+    message.loading({ content: "Getting your location...", key: "gps" });
+
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          // Retrieve latitude and longitude from the position object
-          const latitude = position.coords.latitude;
-          const longitude = position.coords.longitude;
-          // Use latitude and longitude to fetch address or other location details
-         
+          const { latitude, longitude } = position.coords;
           setGpsAddress([latitude, longitude]);
-          setIsPickingGPS(false); // Hide spinner after picking GPS
-          setIsGpsPicked(true); // Set GPS as picked
-
+          setIsGpsPicked(true);
+          setIsPickingGPS(false);
+          message.success({
+            content: "Location captured!",
+            key: "gps",
+            duration: 2,
+          });
         },
         (error) => {
-          setIsPickingGPS(false); // Hide spinner if there's an error
-          console.error("Error getting location:", error.message);
+          console.error("Error getting location:", error);
+          setIsPickingGPS(false);
+          message.error({
+            content: `Failed to get location: ${error.message}`,
+            key: "gps",
+            duration: 3,
+          });
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 60000,
         }
       );
     } else {
-      setIsPickingGPS(false); // Hide spinner if geolocation is not supported
+      message.error({
+        content: "Geolocation is not supported by your browser",
+        key: "gps",
+        duration: 3,
+      });
+      setIsPickingGPS(false);
     }
   };
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-
-   
-    const receivedInfo = {
-      locationId: uuidv4(),
-      locationName: locationName,
-      numberofTokens: Number(numberofTokens),
-      startDate: startDate,
-      endDate: endDate,
-      telephoneNumber: telephoneNumber,
-      physicalAddress: physicalAddress,
-      siteOwner: siteOwner,
-      currentLocation: currentLocation,
-      accessories: accessories,
-      gpsAddress:gpsAddress
-    };
-
-    const postData = {
-      assertId: data?.assert?.assertId,
-      datePurchased: data?.assert?.datePurchased,
-      purchasedPrice: data?.assert?.purchasedPrice,
-      assertState: data?.assert?.assertState,
-      createdAt: data?.assert?.createdAt,
-
-      cashup: [...data.assert.cashup],
-      expenditure: [...data.assert.expenditure],
-      location: [...data.assert.location, receivedInfo],
-    };
-
-    const response = await fetch(`/api/asserts/${assert}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(postData),
-    });
-    if (response.ok) {
-      setCurrentLocation(currentLocation), setLocationName("");
-      setNumberOfTokens(0), setStartDate("");
-      setEndDate("");
-      setphysicalAddress("");
-      setTelephoneNumber(0);
-      setSiteOwner("");
-      setAccessories("");
-      setGpsAddress([]);
+  const onFinish = async (values) => {
+    if (!isGpsPicked) {
+      message.warning("Please capture GPS coordinates before submitting");
+      return;
     }
-    setIsGpsPicked(false); // Set GPS as picked
 
+    setIsSubmitting(true);
+    try {
+      const locationData = {
+        locationId: uuidv4(),
+        ...values,
+        numberofTokens: Number(values.numberofTokens),
+        telephoneNumber: Number(values.telephoneNumber),
+        currentLocation: isCurrentLocation,
+        gpsAddress,
+        createdAt: new Date().toISOString(),
+      };
+
+      const postData = {
+        ...data.assert,
+        location: [...(data.assert.location || []), locationData],
+      };
+
+      const response = await fetch(`/api/asserts/${assert}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(postData),
+      });
+
+      if (response.ok) {
+        message.success("Location added successfully!");
+        resetForm();
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to save location");
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      message.error(
+        error.message || "Failed to save location. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  const resetForm = () => {
+    form.resetFields();
+    setGpsAddress([]);
+    setIsGpsPicked(false);
+    setIsCurrentLocation(false);
+  };
+
+  const handleCurrentLocationChange = (e) => {
+    setIsCurrentLocation(e.target.checked);
+    if (e.target.checked) {
+      form.setFieldsValue({ endDate: null });
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.container}>
+        <Text type="danger" className={styles.errorText}>
+          Error loading asset data. Please try again.
+        </Text>
+      </div>
+    );
+  }
 
   return (
-    <div className={classes.location}>
-      <div className={classes.back} onClick={() => router.back()}>
-        {" "}
-        <BiArrowBack />
-        Back
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div>
+          {" "}
+          <Back />
+        </div>
+        <div>
+          {" "}
+          <LocationDialog />
+        </div>
       </div>
-      <h2> Locations for {data?.assert?.assertId}</h2>
-      <div className="no-print">
-        <form onSubmit={onSubmitHandler}>
-          <div className={classes.section}>
-            <label>Site Name</label>
-            <input
-              type="text"
-              placeholder="Site Name"
-              value={locationName}
-              required
-              onChange={(e) => setLocationName(e.target.value)}
-            />
-          </div>
+      <Title level={2} className={styles.title}>
+        Location Management
+      </Title>
 
-          <div className={classes.section}>
-            <label>Telephone Number</label>
-            <input
-              type="number"
-              placeholder="Tel Number"
-              value={telephoneNumber}
-              required
-              onChange={(e) => setTelephoneNumber(e.target.value)}
-            />
-          </div>
-
-          <div className={classes.section}>
-            <label>Physical Address</label>
-            <input
-              type="text"
-              placeholder="Physical Address"
-              value={physicalAddress}
-              required
-              onChange={(e) => setphysicalAddress(e.target.value)}
-            />
-          </div>
-
-          <div className={classes.section}>
-            <label>Name of Site Owner</label>
-            <input
-              type="text"
-              placeholder="Name of Site Owner"
-              value={siteOwner}
-              onChange={(e) => setSiteOwner(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className={classes.section}>
-            <label>Number of Tokens</label>
-            <input
-              type="number"
-              placeholder="Number of Tokens given to site"
-              value={numberofTokens}
-              required
-              onChange={(e) => {
-                setNumberOfTokens(e.target.value);
-              }}
-            />
-          </div>
-          <div className={classes.section}>
-            <label>Table Accessories </label>
-            <input
-              type="text"
-              placeholder="Input all accessories"
-              value={accessories}
-              onChange={(e) => {
-                setAccessories(e.target.value);
-              }}
-              required
-            />
-          </div>
-          <div className={classes.section}>
-            <label>Commence Date</label>
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className={classes.current}>
-            <label>This is the current Location</label>
-            <input
-              type="checkbox"
-              value={currentLocation}
-              onChange={() => setCurrentLocation(!currentLocation)}
-            />
-          </div>
-          <div
-            className={classes.pickgps}
-            onClick={getCurrentLocation}
-            style={{ cursor: isPickingGPS ? "not-allowed" : "pointer" }}
-          >
-            {isPickingGPS ? "Picking GPS..." : isGpsPicked ? "Picked" : "Pick GPS of Site"}
-          </div>
-          {!currentLocation && (
-            <div className={`${classes.section} ${classes.end}`}>
-              <label>End Date</label>
-              <input
-                type="date"
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-              />
-            </div>
-          )}
-          <button>Submit</button>
-        </form>
-
-      </div>
+      <Text
+        type="secondary"
+        style={{ textAlign: "center", display: "block", marginBottom: "32px" }}
+      >
+        Managing locations for Asset ID:{" "}
+        <strong>{data?.assert?.assertId}</strong>
+      </Text>
       <LocationList />
     </div>
   );
