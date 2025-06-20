@@ -7,7 +7,7 @@
 .closeIcon{
     color: #ffffff;
     font-size: 3rem;
-    background-color: var(--blue);
+    background-color: var(--orange-normal);
     padding: 0.8rem;
     border-radius: 50%;  
 }
@@ -28,14 +28,14 @@
 }
 
 .actions2{
-    background-color:var(--blue);
-    color: white;
+    color:#4c4b4b;
     padding: 0.5rem 2rem;
+    border: 1px solid #8b8b8b;
     border-radius: 5px;
 }
 
 .actions1{
-    background-color: #FF0000;
+    background-color: var(--orange-normal);
     color: white;
     padding: 0.5rem 2rem;
     border-radius: 5px;

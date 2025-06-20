@@ -1,37 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { 
-  Table, 
-  Button, 
-  Typography, 
-  Card, 
-  Collapse, 
-  Tag,
-  Space,
-  Row,
-  Col,
-  Statistic,
-  Spin,
-  Alert,
-  Popconfirm,
-  message,
-  List,
-  Divider
-} from "antd";
-import { 
-  BiArrowBack, 
-  BiShow, 
-  BiHide,
-  BiCheckCircle,
-  BiMoney
-} from "react-icons/bi";
-import { AiOutlineDelete } from "react-icons/ai";
-import useSWR from "swr";
 import { useRouter } from "next/router";
 import { getSignedInEmail } from '../../../../auth';
 import Back from "components/ui/back/back";
-
-const { Title, Text } = Typography;
-const { Panel } = Collapse;
+import styles from './TransportByMonth.module.css';
+import useSWR from "swr";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -85,14 +57,14 @@ const TransportByMonth = () => {
       });
       
       if (response.ok) {
-        message.success("Transport record deleted successfully");
+        alert("Transport record deleted successfully");
         mutate();
       } else {
         throw new Error("Failed to delete transport record");
       }
     } catch (error) {
       console.error("Error deleting transport:", error);
-      message.error(error.message);
+      alert(error.message);
     } finally {
       setLoading(false);
     }
@@ -116,11 +88,11 @@ const TransportByMonth = () => {
 
       await Promise.all(updatePromises);
       setPaidWeeks([...paidWeeks, weekKey]);
-      message.success(`Week ${weekKey} marked as paid`);
+      alert(`Week ${weekKey} marked as paid`);
       mutate();
     } catch (error) {
       console.error("Error marking week as paid:", error);
-      message.error("Failed to mark week as paid");
+      alert("Failed to mark week as paid");
     } finally {
       setLoading(false);
     }
@@ -194,254 +166,159 @@ const TransportByMonth = () => {
       }));
   }, [data, isMobile]);
 
-  const columns = [
-    {
-      title: 'Date',
-      dataIndex: 'transportDate',
-      key: 'date',
-      render: date => new Date(date).toLocaleDateString(),
-      width: isMobile ? 80 : 120
-    },
-    {
-      title: 'Route',
-      key: 'route',
-      render: (_, record) => (
-        <div>
-          <div style={{ fontSize: isMobile ? '12px' : '14px' }}>
-            <Text strong>{record.from}</Text>
-          </div>
-          <div style={{ fontSize: isMobile ? '11px' : '12px', color: '#666' }}>
-            to {record.destination}
-          </div>
-        </div>
-      ),
-      width: isMobile ? 120 : 200
-    },
-    {
-      title: 'Amount',
-      dataIndex: 'amount',
-      key: 'amount',
-      render: amount => (
-        <Text strong style={{ fontSize: isMobile ? '12px' : '14px' }}>
-          ${amount.toLocaleString()}
-        </Text>
-      ),
-      align: 'right',
-      width: isMobile ? 70 : 100
-    },
-    {
-      title: 'Status',
-      key: 'paid',
-      render: (_, record) => (
-        <Tag 
-          color={record.paid ? "green" : "orange"}
-          style={{ fontSize: isMobile ? '10px' : '12px' }}
-        >
-          {record.paid ? "Paid" : "Pending"}
-        </Tag>
-      ),
-      width: isMobile ? 60 : 80
-    },
-    ...(admin ? [{
-      title: '',
-      key: 'action',
-      render: (_, record) => (
-        <Popconfirm
-          title="Delete this record?"
-          onConfirm={() => deleteHandler(record._id)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button 
-            type="text" 
-            icon={<AiOutlineDelete />} 
-            danger
-            size={isMobile ? "small" : "middle"}
-          />
-        </Popconfirm>
-      ),
-      width: isMobile ? 40 : 60
-    }] : [])
-  ];
-
-  // Mobile card view for transport items
-  const MobileTransportList = ({ transports }) => (
-    <List
-      dataSource={transports}
-      renderItem={(transport) => (
-        <List.Item style={{ padding: '12px 0' }}>
-          <Card 
-            size="small" 
-            style={{ width: '100%' }}
-            bodyStyle={{ padding: '12px' }}
-          >
-            <Row justify="space-between" align="top">
-              <Col span={16}>
-                <div style={{ marginBottom: '4px' }}>
-                  <Text style={{ fontSize: '12px', color: '#666' }}>
-                    {new Date(transport.transportDate).toLocaleDateString()}
-                  </Text>
-                </div>
-                <div style={{ marginBottom: '4px' }}>
-                  <Text strong style={{ fontSize: '13px' }}>{transport.from}</Text>
-                  <Text style={{ fontSize: '12px', color: '#666' }}> → {transport.destination}</Text>
-                </div>
-                <Tag 
-                  color={transport.paid ? "green" : "orange"}
-                  style={{ fontSize: '10px' }}
-                >
-                  {transport.paid ? "Paid" : "Pending"}
-                </Tag>
-              </Col>
-              <Col span={8} style={{ textAlign: 'right' }}>
-                <div style={{ marginBottom: '8px' }}>
-                  <Text strong style={{ fontSize: '14px' }}>
-                    ${transport.amount.toLocaleString()}
-                  </Text>
-                </div>
-                {admin && (
-                  <Popconfirm
-                    title="Delete this record?"
-                    onConfirm={() => deleteHandler(transport._id)}
-                    okText="Yes"
-                    cancelText="No"
-                  >
-                    <Button 
-                      type="text" 
-                      icon={<AiOutlineDelete />} 
-                      danger
-                      size="small"
-                    />
-                  </Popconfirm>
-                )}
-              </Col>
-            </Row>
-          </Card>
-        </List.Item>
-      )}
-    />
-  );
+  const confirmDelete = (transportId) => {
+    if (window.confirm("Delete this record?")) {
+      deleteHandler(transportId);
+    }
+  };
 
   if (error) return (
-    <Alert 
-      message="Error Loading Data" 
-      description={error.message} 
-      type="error" 
-      showIcon
-      style={{ margin: 16 }}
-    />
+    <div className={styles.errorAlert}>
+      <div className={styles.alertIcon}>!</div>
+      <div>
+        <h4>Error Loading Data</h4>
+        <p>{error.message}</p>
+      </div>
+    </div>
   );
 
   if (!data) return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: 48 }}>
-      <Spin size="large" />
+    <div className={styles.spinnerContainer}>
+      <div className={styles.spinner}></div>
     </div>
   );
 
   return (
-    <div style={{ padding: isMobile ? 12 : 24 }}>
-      <Row justify="space-between" align="middle" style={{ marginBottom: isMobile ? 16 : 24 }}>
-        <Col>
-         <Back/>
-        </Col>
-        <Col>
-          <Title 
-            level={isMobile ? 4 : 3} 
-            style={{ margin: 0, textAlign: 'center' }}
-          >
-            Transport {year}
-          </Title>
-        </Col>
-      </Row>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <Back/>
+        <h1 className={styles.title}>Transport {year}</h1>
+      </div>
 
       {groupedData.map(({ month, weeks }) => (
-        <Card 
-          key={month} 
-          title={<Text strong style={{ fontSize: isMobile ? '16px' : '18px' }}>{month}</Text>}
-          style={{ marginBottom: isMobile ? 16 : 24 }}
-          headStyle={{ 
-            backgroundColor: '#f0f2f5',
-            padding: isMobile ? '8px 16px' : '16px 24px'
-          }}
-          bodyStyle={{ padding: isMobile ? '8px' : '24px' }}
-        >
-          <Collapse accordion size={isMobile ? "small" : "middle"}>
+        <div key={month} className={styles.monthCard}>
+          <div className={styles.monthHeader}>
+            <h2 className={styles.monthTitle}>{month}</h2>
+          </div>
+          
+          <div className={styles.weeksContainer}>
             {weeks.map(week => (
-              <Panel
-                key={week.key}
-                header={
-                  <div>
-                    <Row justify="space-between" align="middle">
-                      <Col span={isMobile ? 24 : 16}>
-                        <Space 
-                          size={isMobile ? "small" : "middle"} 
-                          direction={isMobile ? "vertical" : "horizontal"}
-                          style={{ width: '100%' }}
-                        >
-                          <Space size="small">
-                            <Text strong style={{ fontSize: isMobile ? '13px' : '14px' }}>
-                              Week {week.weekNumber}
-                            </Text>
-                            <Text 
-                              type="secondary" 
-                              style={{ fontSize: isMobile ? '11px' : '12px' }}
-                            >
-                              {week.dateRange}
-                            </Text>
-                          </Space>
-                          <Space size="small">
-                            <Tag 
-                              color={week.allPaid ? "green" : "orange"}
-                              style={{ fontSize: isMobile ? '10px' : '11px' }}
-                            >
-                              {week.allPaid ? "All Paid" : "Pending"}
-                            </Tag>
-                            <Text strong style={{ fontSize: isMobile ? '13px' : '14px' }}>
-                              ${week.totalAmount.toLocaleString()}
-                            </Text>
-                          </Space>
-                        </Space>
-                      </Col>
-                    </Row>
+              <div key={week.key} className={styles.weekPanel}>
+                <div 
+                  className={styles.weekHeader}
+                  onClick={() => togglePanel(week.key)}
+                >
+                  <div className={styles.weekInfo}>
+                    <div className={styles.weekMainInfo}>
+                      <span className={styles.weekNumber}>Week {week.weekNumber}</span>
+                      <span className={styles.weekDates}>{week.dateRange}</span>
+                    </div>
+                    <div className={styles.weekStatus}>
+                      <span className={`${styles.statusTag} ${week.allPaid ? styles.paid : styles.pending}`}>
+                        {week.allPaid ? "All Paid" : "Pending"}
+                      </span>
+                      <span className={styles.weekTotal}>₵{week.totalAmount.toLocaleString()}</span>
+                    </div>
                   </div>
-                }
-              >
-                {isMobile ? (
-                  <MobileTransportList transports={week.transports} />
-                ) : (
-                  <Table
-                    columns={columns}
-                    dataSource={week.transports}
-                    rowKey="_id"
-                    pagination={false}
-                    size="small"
-                    scroll={{ x: 400 }}
-                  />
-                )}
+                  <div className={styles.weekToggle}>
+                    {activePanels[week.key] ? '−' : '+'}
+                  </div>
+                </div>
                 
-                {admin && (
-                  <div style={{ 
-                    marginTop: 16, 
-                    textAlign: isMobile ? 'center' : 'right' 
-                  }}>
-                    <Button
-                      type="primary"
-                      icon={week.allPaid ? <BiCheckCircle /> : <BiMoney />}
-                      onClick={() => markWeekAsPaid(week.key)}
-                      disabled={week.allPaid}
-                      loading={loading}
-                      size={isMobile ? "middle" : "large"}
-                      block={isMobile}
-                      className="printButton"
-                    >
-                      {week.allPaid ? "All Paid" : "Mark Week as Paid"}
-                    </Button>
+                {activePanels[week.key] && (
+                  <div className={styles.weekContent}>
+                    {isMobile ? (
+                      <div className={styles.mobileList}>
+                        {week.transports.map(transport => (
+                          <div key={transport._id} className={styles.mobileItem}>
+                            <div className={styles.mobileItemMain}>
+                              <div className={styles.mobileDate}>
+                                {new Date(transport.transportDate).toLocaleDateString()}
+                              </div>
+                              <div className={styles.mobileRoute}>
+                                <strong>{transport.from}</strong>
+                                <span> → {transport.destination}</span>
+                              </div>
+                              <span className={`${styles.mobileStatus} ${transport.paid ? styles.paid : styles.pending}`}>
+                                {transport.paid ? "Paid" : "Pending"}
+                              </span>
+                            </div>
+                            <div className={styles.mobileItemSide}>
+                              <div className={styles.mobileAmount}>
+                               ₵{transport.amount.toLocaleString()}
+                              </div>
+                              {admin && (
+                                <button 
+                                  className={styles.deleteButton}
+                                  onClick={() => confirmDelete(transport._id)}
+                                >
+                                  Delete
+                                </button>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <table className={styles.transportTable}>
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Route</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            {admin && <th>Actions</th>}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {week.transports.map(transport => (
+                            <tr key={transport._id}>
+                              <td>{new Date(transport.transportDate).toLocaleDateString()}</td>
+                              <td>
+                                <div>
+                                  <strong>{transport.from}</strong>
+                                  <div className={styles.routeDestination}>to {transport.destination}</div>
+                                </div>
+                              </td>
+                              <td className={styles.amountCell}>₵{transport.amount.toLocaleString()}</td>
+                              <td>
+                                <span className={`${styles.statusTag} ${transport.paid ? styles.paid : styles.pending}`}>
+                                  {transport.paid ? "Paid" : "Pending"}
+                                </span>
+                              </td>
+                              {admin && (
+                                <td>
+                                  <button 
+                                    className={styles.deleteButton}
+                                    onClick={() => confirmDelete(transport._id)}
+                                  >
+                                    Delete
+                                  </button>
+                                </td>
+                              )}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                    
+                    {admin && (
+                      <div className={styles.weekActions}>
+                        <button
+                          className={`${styles.payButton} ${week.allPaid ? styles.paid : ''}`}
+                          onClick={() => markWeekAsPaid(week.key)}
+                          disabled={week.allPaid || loading}
+                        >
+                          {loading ? 'Processing...' : week.allPaid ? '✓ All Paid' : 'Mark Week as Paid'}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 )}
-              </Panel>
+              </div>
             ))}
-          </Collapse>
-        </Card>
+          </div>
+        </div>
       ))}
     </div>
   );

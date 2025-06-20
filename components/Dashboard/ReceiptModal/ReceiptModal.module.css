@@ -6,7 +6,7 @@
 .closeIcon{
     color: #ffffff;
     font-size: 2rem;
-    background-color: var(--blue);
+    background-color: var(--orange-normal);
     padding: 0.5rem;
     border-radius: 50%;  
 }
@@ -32,7 +32,7 @@ padding: 1rem;
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    color: var(--blue);
+    /* color: var(--orange); */
     font-weight: 700;
 }
 
@@ -50,7 +50,7 @@ padding: 1rem;
     margin: 0.5rem 0;
 }
 .cashupDets{
-    background-color: rgb(225, 225, 225);
+    background-color: rgb(248, 243, 243);
     border-radius: 0.5rem;
     padding: 0.5rem;
     margin-top: 1rem;
@@ -69,14 +69,14 @@ padding: 1rem;
 }
 
 .foot{
-    color: rgb(37, 37, 249);
+    color: var(--orange-normal);
     text-align: center;
     margin-top: 2rem;
 
 }
 
 .blue{
-    color: rgb(37, 37, 249);
+    color: var(--orange-normal)
  
 }
 .socials{

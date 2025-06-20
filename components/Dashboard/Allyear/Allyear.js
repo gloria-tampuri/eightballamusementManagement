@@ -1,16 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import { useRouter } from "next/router";
-import {
-  Table,
-  Select,
-  Button,
-  Typography,
-  Card,
-  Statistic,
-  Row,
-  Col,
-  Space,
-} from "antd";
 import { BiArrowBack, BiPrinter, BiCalendar } from "react-icons/bi";
 import useSWR from "swr";
 import {
@@ -18,9 +7,7 @@ import {
   useMonthContext,
 } from "../../../Context/ShowMonthContext";
 import Back from "components/ui/back/back";
-
-const { Title, Text } = Typography;
-const { Option } = Select;
+import classes from './Allyear.module.css';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -94,116 +81,107 @@ const Allyear = () => {
     router.push(`/dashboard/${selectedYear}/${month + 1}`);
   };
 
-  const columns = [
-    {
-      title: "Month",
-      dataIndex: "month",
-      key: "month",
-      render: (_, record) => <Text strong>{monthNames[record.month]}</Text>,
-    },
-    {
-      title: "Total Cashup",
-      dataIndex: "total",
-      key: "total",
-      render: (total) => <Text>${total.toLocaleString()}</Text>,
-    },
-  ];
-
-  const tableData = monthlyCashupData.map((total, month) => ({
-    key: month,
-    month,
-    total,
-  }));
-
   if (isLoading) {
     return (
-      <div style={{ padding: 24, textAlign: "center" }}>
-        <Title level={4}>Loading data...</Title>
+      <div className={classes.loadingContainer}>
+        <h4>Loading data...</h4>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div style={{ padding: 24, textAlign: "center" }}>
-        <Title level={4} type="danger">
-          Error loading data
-        </Title>
-        <Text type="secondary">Please try again later</Text>
+      <div className={classes.errorContainer}>
+        <h4 className={classes.errorTitle}>Error loading data</h4>
+        <p className={classes.errorText}>Please try again later</p>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: 24 }}>
-      <Row justify="space-between" align="middle" style={{ marginBottom: 24 }}>
-        <Col>
+    <div className={classes.container}>
+      {/* Header Row */}
+      <div className={classes.headerRow}>
           <Back />
-        </Col>
-        <Col>
-          <Button
-            type="primary"
-            icon={<BiPrinter />}
+        <div className={classes.printButtonContainer}>
+          <button
+            className={classes.printButton}
             onClick={() => window.print()}
-            className="printButton"
           >
+            <BiPrinter className={classes.buttonIcon} />
             Print Report
-          </Button>
-        </Col>
-      </Row>
+          </button>
+        </div>
+      </div>
 
-      <Card bordered={false} style={{ marginBottom: 24 }}>
-        <Row gutter={16} align="middle">
-          <Col flex="auto">
-            <Title level={4} style={{ marginBottom: 0 }}>
-              <Space>
-                <BiCalendar />
-                Yearly Cashup Summary
-              </Space>
-            </Title>
-          </Col>
-          <Col>
-            <Select
-              style={{ width: 120 }}
+      {/* Title and Year Selection Card */}
+      <div className={classes.card}>
+        <div className={classes.cardHeader}>
+          <div className={classes.titleContainer}>
+            <h4 className={classes.title}>
+              <BiCalendar className={classes.titleIcon} />
+              Yearly Cashup Summary
+            </h4>
+          </div>
+          <div className={classes.selectContainer}>
+            <BiCalendar className={classes.selectIcon} />
+            <select
+              className={classes.yearSelect}
               value={selectedYear}
-              onChange={setSelectedYear}
-              suffixIcon={<BiCalendar />}
+              onChange={(e) => setSelectedYear(parseInt(e.target.value))}
             >
               {availableYears.map((year) => (
-                <Option key={year} value={year}>
+                <option key={year} value={year}>
                   {year}
-                </Option>
+                </option>
               ))}
-            </Select>
-          </Col>
-        </Row>
-      </Card>
+            </select>
+          </div>
+        </div>
+      </div>
 
-      <Card bordered={false} style={{ marginBottom: 24 }}>
-        <Statistic
-          title={`Total Company Amount for ${selectedYear}`}
-          value={totalCompanyAmount}
-          precision={2}
-          valueStyle={{ color: "#3f8600" }}
-          prefix="$"
-        />
-      </Card>
+      {/* Total Amount Card */}
+      <div className={classes.card}>
+        <div className={classes.statisticContainer}>
+          <h5 className={classes.statisticTitle}>
+            Total Company Amount for {selectedYear}
+          </h5>
+          <div className={classes.statisticValue}>
+            ₵{totalCompanyAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+        </div>
+      </div>
 
-      <Table
-        columns={columns}
-        dataSource={tableData}
-        pagination={false}
-        onRow={(record) => ({
-          onClick: () => handleRowClick(record.month),
-          style: { cursor: "pointer" },
-        })}
-        rowClassName={() => "hover-row"}
-        bordered={false}
-        style={{
-          borderRadius: 8,
-          boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.03)",
-        }}
-      />
+      {/* Table */}
+      <div className={classes.tableContainer}>
+        <div className={classes.tableWrapper}>
+          <table className={classes.table}>
+            <thead>
+              <tr>
+                <th className={classes.tableHeader}>Month</th>
+                <th className={`${classes.tableHeader} ${classes.alignRight}`}>Total Cashup</th>
+              </tr>
+            </thead>
+            <tbody>
+              {monthlyCashupData.map((total, month) => (
+                <tr
+                  key={month}
+                  className={classes.tableRow}
+                  onClick={() => handleRowClick(month)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <td className={classes.tableCell}>
+                    <strong>{monthNames[month]}</strong>
+                  </td>
+                  <td className={`${classes.tableCell} ${classes.alignRight} ${classes.companyShareCell}`}>
+                    ₵{total.toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

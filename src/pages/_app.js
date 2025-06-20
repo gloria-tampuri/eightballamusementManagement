@@ -4,7 +4,7 @@ import { EditContextProvider } from "../../Context/EditContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import firebase from "../../firebase";
-import 'antd/dist/reset.css'; 
+// import 'antd/dist/reset.css'; 
 import {
   MonthContextProvider,
   ShowMonthContextProvider,

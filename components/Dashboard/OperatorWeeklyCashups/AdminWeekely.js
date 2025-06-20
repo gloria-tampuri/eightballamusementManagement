@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 import CashUp from '../CashUp/CashUp';
 import { format, startOfWeek, endOfWeek } from 'date-fns';
 
-
 const AdminWeeklyCashup = () => {
   const router = useRouter();
 
@@ -28,7 +27,6 @@ const AdminWeeklyCashup = () => {
       .catch((error) => {
         console.error(error);
       });
-
   }, []);
 
   const startOfCurrentWeek = startOfWeek(new Date());
@@ -36,8 +34,7 @@ const AdminWeeklyCashup = () => {
 
   const getAllWithRichard = assetsData?.asserts?.reduce((result, asset) => {
     // Check if 'cashup' is an array and has entries with 'enteredBy' equal to the desired email
-    const cashupsWithRichard = asset?.cashup?.filter((cashup) => cashup?.enteredBy === 'richard.ababio@eightball.com' )
-    
+    const cashupsWithRichard = asset?.cashup?.filter((cashup) => cashup?.enteredBy === 'richard.ababio@eightball.com')
     
     if (cashupsWithRichard && cashupsWithRichard.length > 0) {
       // If there are matching entries, add them to the result
@@ -47,68 +44,72 @@ const AdminWeeklyCashup = () => {
     return result;
   }, []);
 
+  let totalSum = 0
 
-  let totalSum =0
-
-  const currentOperatorCashupData = getAllWithRichard?.map(assert=>{
+  const currentOperatorCashupData = getAllWithRichard?.map(assert => {
     const totalAmount = assert.cashup.reduce((total, sale) => {
-        const saleDate = new Date(sale.cashupDate);
-        if (saleDate >= startOfCurrentWeek && saleDate <= endOfCurrentWeek) {
-          total += sale.cashReceived;
-        }
-        return total;
-      }, 0);
-      totalSum += totalAmount
-      return { ...assert, totalAmount };
+      const saleDate = new Date(sale.cashupDate);
+      if (saleDate >= startOfCurrentWeek && saleDate <= endOfCurrentWeek) {
+        total += sale.cashReceived;
+      }
+      return total;
+    }, 0);
+    totalSum += totalAmount
+    return { ...assert, totalAmount };
   })
-currentOperatorCashupData?.sort((a, b) => b.totalAmount - a.totalAmount);
-
-const currentDate = new Date(); // Current date and time
+  
+  currentOperatorCashupData?.sort((a, b) => b.totalAmount - a.totalAmount);
+  
+  const currentDate = new Date(); // Current date and time
   const currentWeekStart = new Date(currentDate); // Start of the current week
   currentWeekStart.setDate(currentDate.getDate() - currentDate.getDay()); // Set to the most recent Sunday
   currentWeekStart.setHours(0, 0, 0, 0); // Set to midnight
 
   const currentWeekEnd = new Date(currentWeekStart); // End of the current week
   currentWeekEnd.setDate(currentWeekEnd.getDate() + 6); // Add 7 days for a week
-  currentWeekEnd.setHours(23, 59, 59, 999); 
-  
-
-
+  currentWeekEnd.setHours(23, 59, 59, 999);
 
   return (
     <div className={classes.operator}>
-      {/* <h1>WeeklyCashups of <span> {operatorName}</span></h1> */}
-      <h2 className={classes.tabheader}>Cash up entered by Admin {operatorName} for the week. Total Amount: {totalSum}</h2>
-    <div className={classes.list}>
-    <table>
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Location</th>
-            <th>AssetID</th>
-            <th>Cashup Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentOperatorCashupData?.map((assert, index) => (
-            <tr onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup `)} key={assert?._id}>
-              <td>{index + 1}</td>
-              <td className={classes.color}>
-                {assert?.location.find(val => val?.currentLocation === true)?.locationName}
-              </td>
-              <td>{assert?.assertId}</td>
-              <td className={classes.color}>
-                {assert?.totalAmount}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      <h2 className={classes.tabheader}>
+        Cash up entered by Admin {operatorName} for the week. Total Amount: {totalSum}
+      </h2>
+      
+      <div className={classes.tableContainer}>
+        <div className={classes.tableWrapper}>
+          <table className={classes.table}>
+            <thead>
+              <tr>
+                <th className={classes.tableHeader}>Position</th>
+                <th className={classes.tableHeader}>Location</th>
+                {/* <th className={classes.tableHeader}>AssetID</th> */}
+                <th className={`${classes.tableHeader} ${classes.alignRight}`}>Cashup Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentOperatorCashupData?.map((assert, index) => (
+                <tr 
+                  className={classes.tableRow} 
+                  onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup`)} 
+                  key={assert?._id}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <td className={`${classes.tableCell} ${classes.numberCell}`}>{index + 1}</td>
+                  <td className={classes.tableCell}>
+                    {assert?.location.find(val => val?.currentLocation === true)?.locationName}
+                  </td>
+                  {/* <td className={classes.tableCell}>{assert?.assertId}</td> */}
+                  <td className={`${classes.tableCell} ${classes.alignRight} ${classes.numberCell} ${classes.companyShareCell}`}>
+                    {assert?.totalAmount}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default AdminWeeklyCashup;
-
-

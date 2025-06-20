@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import classes from "./Asserts.module.css";
 import Link from "next/link";
 import useSWR from "swr";
-import { Table } from 'antd';
 import { GrLinkPrevious, GrLinkNext } from "react-icons/gr";
 import { IoMdEye } from "react-icons/io";
 import AddAssertForm from "../AddAssertForm/AddAssertForm";
@@ -36,44 +35,6 @@ const Asserts = () => {
     );
   }, [sortedData, currentPage]);
 
-  // Column definitions for Ant Design Table
-  const columns = [
-    {
-      title: "Asset ID",
-      dataIndex: "assertId",
-      key: "assertId",
-      render: (text) => <div className={classes.assetId}>{text}</div>,
-    },
-    {
-      title: "Current Location",
-      key: "location",
-      render: (_, record) => {
-        const currentLocation = record.location?.find(
-          (loc) => loc.currentLocation === true
-        );
-        return (
-          <div className={classes.location}>
-            {currentLocation ? currentLocation.locationName : "N/A"}
-          </div>
-        );
-      },
-    },
-    {
-      title: "Actions",
-      key: "actions",
-      render: (_, record) => (
-        <div className={classes.actions}>
-          <Link
-            className={classes.actions}
-            href={`/dashboard/asserts/${record._id}`}
-          >
-            <IoMdEye />
-          </Link>
-        </div>
-      ),
-    },
-  ];
-
   // Handle loading and error states
   if (isLoading) {
     return <Spinner overlay size="large" color="white" text="Loading assets..." />;
@@ -94,15 +55,55 @@ const Asserts = () => {
 
       <h3 className={classes.title}>List of all Assets</h3>
 
-      {/* Table using Ant Design */}
+      {/* Custom HTML Table */}
       <div className={classes.tableContainer}>
-        <Table
-          columns={columns}
-          dataSource={currentPageData}
-          rowKey="_id"
-          className={classes.table}
-          pagination={false} // We're using custom pagination
-        />
+        <table className={classes.table}>
+          <thead className={classes.tableHead}>
+            <tr>
+              <th className={classes.tableHeader}>Asset ID</th>
+              <th className={classes.tableHeader}>Current Location</th>
+              <th className={classes.tableHeader}>Actions</th>
+            </tr>
+          </thead>
+          <tbody className={classes.tableBody}>
+            {currentPageData.length > 0 ? (
+              currentPageData.map((record) => {
+                const currentLocation = record.location?.find(
+                  (loc) => loc.currentLocation === true
+                );
+                
+                return (
+                  <tr key={record._id} className={classes.tableRow}>
+                    <td className={classes.tableCell}>
+                      <div className={classes.assetId}>{record.assertId}</div>
+                    </td>
+                    <td className={classes.tableCell}>
+                      <div className={classes.location}>
+                        {currentLocation ? currentLocation.locationName : "N/A"}
+                      </div>
+                    </td>
+                    <td className={classes.tableCell}>
+                      <div className={classes.actions}>
+                        <Link
+                          className={classes.actionLink}
+                          href={`/dashboard/asserts/${record._id}`}
+                        >
+                          <IoMdEye className={classes.actionIcon} />
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan="3" className={classes.emptyState}>
+                  No assets found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       {/* Custom Pagination */}

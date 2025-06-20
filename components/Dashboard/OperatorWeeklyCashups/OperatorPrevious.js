@@ -98,41 +98,41 @@ previousWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
 
   return (
     <div className={classes.operator}>
-      {/* <h1>WeeklyCashups of <span> {operatorName}</span></h1> */}
-    <div className={classes.list}>
-    <h2 className={classes.tabheader}>
-            Previous week cashup by Samuel Bempong. Total Amount:
-            {previousWeekTotalSum}
-          </h2>
-          <table>
+      <h2>WeeklyCashups of <span> Samuel</span></h2>
+     
+      <div className={classes.tableContainer}>
+        <div className={classes.tableWrapper}>
+          <table className={classes.table}>
             <thead>
               <tr>
-                <th>Position</th>
-                <th>Location</th>
-                <th>AssetID</th>
-                <th>Cashup Amount</th>
+                <th className={classes.tableHeader}>Position</th>
+                <th className={classes.tableHeader}>Location</th>
+                {/* <th className={classes.tableHeader}>AssetID</th> */}
+                <th className={`${classes.tableHeader} ${classes.alignRight}`}>Cashup Amount</th>
               </tr>
             </thead>
             <tbody>
               {previousWeekData?.map((assert, index) => (
-                <tr
-                  onClick={() =>
-                    router.push(`/dashboard/asserts/${assert?._id}/cashup`)
-                  }
-                  key={assert._id}
+                <tr 
+                  className={classes.tableRow} 
+                  onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup`)} 
+                  key={assert?._id}
+                  style={{ cursor: 'pointer' }}
                 >
-                  <td>{index + 1}</td>
-                  <td className={classes.color}>
-                    {assert.location.find((val) => val.currentLocation === true)
-                      ?.locationName}
+                  <td className={`${classes.tableCell} ${classes.numberCell}`}>{index + 1}</td>
+                  <td className={classes.tableCell}>
+                    {assert?.location.find(val => val?.currentLocation === true)?.locationName}
                   </td>
-                  <td>{assert.assertId}</td>
-                  <td className={classes.color}>{assert.totalAmount}</td>
+                  {/* <td className={classes.tableCell}>{assert?.assertId}</td> */}
+                  <td className={`${classes.tableCell} ${classes.alignRight} ${classes.numberCell} ${classes.companyShareCell}`}>
+                    {assert?.totalAmount}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-    </div>
+        </div>
+      </div>
     </div>
   );
 }

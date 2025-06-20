@@ -111,14 +111,15 @@
   .paginationControls {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
   }
   
   .paginationButton {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    padding: 0.5rem 0.75rem;
+    gap: 5px;
+    background-color: turquoise;
+    padding: 0.3rem;
     font-size: 0.875rem;
     font-weight: 500;
     border-radius: 0.375rem;
@@ -146,11 +147,7 @@
     color: #374151;
   }
   
-  .icon {
-    width: 16px;
-    height: 16px;
-  }
-
+ 
   /* Responsive design */
   @media (max-width: 768px) {
     .pagination {
@@ -172,3 +169,325 @@
       gap: 0.25rem;
     }
   }
+
+  /* Asserts.module.css */
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--gray-light);
+  border-radius: 0.375rem;
+}
+.icon{
+  width: 4rem;
+  font-weight: 700;
+  color:var(--orange-normal) ;
+}
+.list {
+    padding: 1rem;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 1.5rem 0;
+  }
+  
+  .loading,
+  .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    font-size: 1rem;
+  }
+  
+  /* Add these styles to your existing Asserts.module.css */
+
+/* Table Container */
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tableHead {
+  background-color: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tableHeader {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #262626;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  background-color: #fafafa;
+}
+
+.tableBody {
+  background: white;
+}
+
+.tableRow {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: #f5f5f5;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableCell {
+  padding: 16px;
+  color: #262626;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* Asset ID Styling */
+.assetId {
+  font-weight: 500;
+}
+
+/* Location Styling */
+.location {
+  color: #595959;
+}
+
+/* Actions Styling */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.actionLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  color: var(--orange-normal);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.actionLink:hover {
+  background-color: #e6f7ff;
+  color: var(--orange-normal);
+}
+
+.actionIcon {
+  font-size: 16px;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 40px 16px;
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tableContainer {
+    overflow-x: auto;
+  }
+  
+  
+  .tableHeader,
+  .tableCell {
+    padding: 12px 8px;
+    font-size: 12px;
+  }
+  
+  .actionLink {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .actionIcon {
+    font-size: 14px;
+  }
+}
+
+/* Loading and Error States */
+.error {
+  padding: 20px;
+  text-align: center;
+  color: #ff4d4f;
+  background-color: #fff2f0;
+  border: 1px solid #ffccc7;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+  
+  .pageNumbers {
+    order: -1;
+    width: 100%;
+    justify-content: center;
+  }
+
+
+/* Table Styles */
+.tableWrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.tableHeader {
+  background-color: #f9fafb;
+  border-bottom: 2px solid #e5e7eb;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+}
+
+.tableHeader.alignRight {
+  text-align: right;
+}
+
+.tableRow {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.15s ease;
+}
+
+.tableRow:hover {
+  background-color: #f9fafb;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableCell {
+  padding: 12px 16px;
+  color: #374151;
+  vertical-align: middle;
+  border-right: 1px solid #f3f4f6;
+  white-space: nowrap;
+}
+
+.tableCell:last-child {
+  border-right: none;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.numberCell {
+  font-weight: 500;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.companyShareCell {
+  font-weight: 600;
+  color: #059669;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.positiveBalance {
+  color: #059669;
+}
+
+.negativeBalance {
+  color: #dc2626;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionButton {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f3f4f6;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.actionButton:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+  transform: translateY(-1px);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .tableContainer {
+    margin: 0 -16px;
+  }
+  
+  .tableWrapper {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .table {
+    font-size: 12px;
+  }
+  
+  .tableHeader,
+  .tableCell {
+    padding: 8px 12px;
+  }
+  
+  .tableHeader {
+    font-size: 11px;
+  }
+  
+  .actionButton {
+    padding: 4px;
+    font-size: 14px;
+  }
+}

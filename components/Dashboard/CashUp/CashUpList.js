@@ -18,7 +18,6 @@ import { ReceiptContext } from "../../../Context/CashupReciept";
 import ReceiptModal from "../ReceiptModal/ReceiptModal";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import {Table} from "antd";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -194,122 +193,91 @@ const MonthHeader = ({
     {isExpanded ? <MdExpandLess /> : <MdExpandMore />}
   </div>
 );
-const CashupTable = ({ items, onDelete, onPrintReceipt }) => {
-  const columns = [
-    {
-      title: "Date",
-      dataIndex: "cashupDate",
-      key: "cashupDate",
-      render: (date) => formatDate(date),
-      className: classes.tableCell,
-    },
-    {
-      title: "Time",
-      dataIndex: "cashupTime",
-      key: "cashupTime",
-      className: classes.tableCell,
-    },
-    {
-      title: "Location",
-      dataIndex: "location",
-      key: "location",
-      className: classes.tableCell,
-    },
-    {
-      title: "Tokens Sold",
-      dataIndex: "tokensSold",
-      key: "tokensSold",
-      className: classes.numberCell,
-      align: "right",
-    },
-    {
-      title: "Total Sale",
-      dataIndex: "totalSale",
-      key: "totalSale",
-      render: (amount) => (
-        <span className={classes.numberCell}>{formatCurrency(amount)}</span>
-      ),
-      className: classes.tableCell,
-      align: "right",
-    },
-    {
-      title: "Company Share",
-      dataIndex: "companyAmount",
-      key: "companyAmount",
-      render: (amount) => (
-        <span className={classes.companyShareCell}>
-          {formatCurrency(amount)}
-        </span>
-      ),
-      className: classes.tableCell,
-      align: "right",
-    },
-    {
-      title: "Cash Received",
-      dataIndex: "cashReceived",
-      key: "cashReceived",
-      render: (amount) => (
-        <span className={classes.numberCell}>{formatCurrency(amount)}</span>
-      ),
-      className: classes.tableCell,
-      align: "right",
-    },
-    {
-      title: "Balance",
-      dataIndex: "balance",
-      key: "balance",
-      render: (balance) => {
-        const numBalance = parseFloat(balance);
-        return (
-          <span
-            className={`${classes.numberCell} ${
-              numBalance < 0 ? classes.negativeBalance : classes.positiveBalance
-            }`}
-          >
-            {formatCurrency(balance)}
-          </span>
-        );
-      },
-      className: classes.tableCell,
-      align: "right",
-    },
-    {
-      title: "Actions",
-      key: "actions",
-      render: (_, record) => (
-        <div className={classes.actionsCell}>
-          <button
-            className={classes.actionButton}
-            onClick={() => onDelete(record.cashupId)}
-            title="Delete entry"
-            aria-label="Delete cashup entry"
-          >
-            <AiOutlineDelete />
-          </button>
-          <button
-            className={classes.actionButton}
-            onClick={() => onPrintReceipt(record)}
-            title="Print receipt"
-            aria-label="Print receipt"
-          >
-            <FiPrinter />
-          </button>
-        </div>
-      ),
-      className: classes.tableCell,
-    },
-  ];
 
+const CashupTable = ({ items, onDelete, onPrintReceipt }) => {
   return (
     <div className={classes.tableContainer}>
-      <Table
-        columns={columns}
-        dataSource={items}
-        rowKey="cashupId"
-        className={classes.table}
-        pagination={false}
-        scroll={{ x: true }}
-      />
+      <div className={classes.tableWrapper}>
+        <table className={classes.table}>
+          <thead>
+            <tr>
+              <th className={classes.tableHeader}>Date</th>
+              <th className={classes.tableHeader}>Time</th>
+              <th className={classes.tableHeader}>Location</th>
+              <th className={`${classes.tableHeader} ${classes.alignRight}`}>Tokens Sold</th>
+              <th className={`${classes.tableHeader} ${classes.alignRight}`}>Total Sale</th>
+              <th className={`${classes.tableHeader} ${classes.alignRight}`}>Company Share</th>
+              <th className={`${classes.tableHeader} ${classes.alignRight}`}>Cash Received</th>
+              <th className={`${classes.tableHeader} ${classes.alignRight}`}>Balance</th>
+              <th className={classes.tableHeader}>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => (
+              <tr key={item.cashupId} className={classes.tableRow}>
+                <td className={classes.tableCell}>
+                  {formatDate(item.cashupDate)}
+                </td>
+                <td className={classes.tableCell}>
+                  {item.cashupTime}
+                </td>
+                <td className={classes.tableCell}>
+                  {item.location}
+                </td>
+                <td className={`${classes.tableCell} ${classes.numberCell} ${classes.alignRight}`}>
+                  {item.tokensSold}
+                </td>
+                <td className={`${classes.tableCell} ${classes.alignRight}`}>
+                  <span className={classes.numberCell}>
+                    {formatCurrency(item.totalSale)}
+                  </span>
+                </td>
+                <td className={`${classes.tableCell} ${classes.alignRight}`}>
+                  <span className={classes.companyShareCell}>
+                    {formatCurrency(item.companyAmount)}
+                  </span>
+                </td>
+                <td className={`${classes.tableCell} ${classes.alignRight}`}>
+                  <span className={classes.numberCell}>
+                    {formatCurrency(item.cashReceived)}
+                  </span>
+                </td>
+                <td className={`${classes.tableCell} ${classes.alignRight}`}>
+                  <span
+                    className={`${classes.numberCell} ${
+                      parseFloat(item.balance) < 0 
+                        ? classes.negativeBalance 
+                        : classes.positiveBalance
+                    }`}
+                  >
+                    {formatCurrency(item.balance)}
+                  </span>
+                </td>
+                <td className={classes.tableCell}>
+                  <div className={classes.actionsCell}>
+                    <button
+                      className={classes.actionButton}
+                      onClick={() => onDelete(item.cashupId)}
+                      title="Delete entry"
+                      aria-label="Delete cashup entry"
+                    >
+                      <AiOutlineDelete />
+                    </button>
+                    <button
+                      className={classes.actionButton}
+                      onClick={() => onPrintReceipt(item)}
+                      title="Print receipt"
+                      aria-label="Print receipt"
+                    >
+                      <FiPrinter />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

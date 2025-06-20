@@ -82,34 +82,41 @@ const WeeklyCashups = () => {
             Performance of all assets for the current week. Total Amount:{' '}
             {currentWeekTotalSum}
           </h2>
-          <table>
+
+           <div className={classes.tableContainer}>
+        <div className={classes.tableWrapper}>
+          <table className={classes.table}>
             <thead>
               <tr>
-                <th>Position</th>
-                <th>Location</th>
-                <th>AssetID</th>
-                <th>Cashup Amount</th>
+                <th className={classes.tableHeader}>Position</th>
+                <th className={classes.tableHeader}>Location</th>
+                {/* <th className={classes.tableHeader}>AssetID</th> */}
+                <th className={`${classes.tableHeader} ${classes.alignRight}`}>Cashup Amount</th>
               </tr>
             </thead>
             <tbody>
               {currentWeekData?.map((assert, index) => (
-                <tr
-                  onClick={() =>
-                    router.push(`/dashboard/asserts/${assert?._id}/cashup`)
-                  }
-                  key={assert._id}
+                <tr 
+                  className={classes.tableRow} 
+                  onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup`)} 
+                  key={assert?._id}
+                  style={{ cursor: 'pointer' }}
                 >
-                  <td>{index + 1}</td>
-                  <td className={classes.color}>
-                    {assert.location.find((val) => val.currentLocation === true)
-                      ?.locationName}
+                  <td className={`${classes.tableCell} ${classes.numberCell}`}>{index + 1}</td>
+                  <td className={classes.tableCell}>
+                    {assert?.location.find(val => val?.currentLocation === true)?.locationName}
                   </td>
-                  <td>{assert.assertId}</td>
-                  <td className={classes.color}>{assert.totalAmount}</td>
+                  {/* <td className={classes.tableCell}>{assert?.assertId}</td> */}
+                  <td className={`${classes.tableCell} ${classes.alignRight} ${classes.numberCell} ${classes.companyShareCell}`}>
+                    {assert?.totalAmount}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+          
 
 
           <AdminWeeklyCashup />

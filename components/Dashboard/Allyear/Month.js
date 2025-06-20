@@ -1,22 +1,10 @@
 import React, { useContext, useMemo } from "react";
-import {
-  Table,
-  Button,
-  Typography,
-  Card,
-  Row,
-  Col,
-  Statistic,
-  Space,
-  Tag,
-} from "antd";
-import { BiArrowBack, BiPrinter, AiOutlineClose } from "react-icons/all";
+import { BiArrowBack, BiPrinter } from "react-icons/bi";
 import useSWR from "swr";
 import { ShowMonthContext } from "../../../Context/ShowMonthContext";
 import { useRouter } from "next/router";
 import Back from "components/ui/back/back";
-
-const { Title, Text } = Typography;
+import classes from './Month.module.css';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -63,117 +51,104 @@ const Month = () => {
     return [...assetData].sort((a, b) => b.totalCashup - a.totalCashup);
   }, [assetData]);
 
-  const columns = [
-    {
-      title: "Position",
-      dataIndex: "position",
-      key: "position",
-      render: (_, __, index) => index + 1,
-      width: 80,
-    },
-    {
-      title: "Location",
-      dataIndex: "currentLocation",
-      key: "location",
-      render: (location) => <Text strong>{location}</Text>,
-    },
-    {
-      title: "Asset ID",
-      dataIndex: "assertId",
-      key: "assetId",
-    },
-    {
-      title: "Cashup Amount",
-      dataIndex: "totalCashup",
-      key: "cashup",
-      render: (amount, record) => (
-        <Tag color={record.isLowPerformance ? "red" : "green"}>
-          ${amount.toLocaleString()}
-        </Tag>
-      ),
-      align: "right",
-    },
-  ];
-
   const totalRevenue = useMemo(() => {
     return sortedData.reduce((sum, asset) => sum + asset.totalCashup, 0);
   }, [sortedData]);
 
   if (isLoading) {
     return (
-      <div style={{ padding: 24, textAlign: "center" }}>
-        <Title level={4}>Loading monthly data...</Title>
+      <div className={classes.loadingContainer}>
+        <h4>Loading monthly data...</h4>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div style={{ padding: 24, textAlign: "center" }}>
-        <Title level={4} type="danger">
-          Error loading data
-        </Title>
-        <Text type="secondary">Please try again later</Text>
+      <div className={classes.errorContainer}>
+        <h4 className={classes.errorTitle}>Error loading data</h4>
+        <p className={classes.errorText}>Please try again later</p>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: 24 }}>
-      <Row justify="space-between" align="middle" style={{ marginBottom: 24 }}>
-        <Col>
+    <div className={classes.container}>
+      {/* Header Row */}
+      <div className={classes.headerRow}>
           <Back />
-        </Col>
-        <Col>
-          <Button
-            type="primary"
-            icon={<BiPrinter />}
+        <div className={classes.printButtonContainer}>
+          <button
+            className={classes.printButton}
             onClick={() => window.print()}
-            className="printButton"
           >
+            <BiPrinter className={classes.buttonIcon} />
             Print Report
-          </Button>
-        </Col>
-      </Row>
+          </button>
+        </div>
+      </div>
 
-      <Card bordered={false} style={{ marginBottom: 24 }}>
-        <Title level={3}>
+      {/* Title Card */}
+      <div className={classes.card}>
+        <h3 className={classes.monthTitle}>
           Monthly Performance:{" "}
           {new Date(year, month).toLocaleString("default", {
             month: "long",
             year: "numeric",
           })}
-        </Title>
-      </Card>
+        </h3>
+      </div>
 
-      <Card bordered={false} style={{ marginBottom: 24 }}>
-        <Statistic
-          title="Total Revenue"
-          value={totalRevenue}
-          precision={2}
-          valueStyle={{ color: "#3f8600" }}
-          prefix="$"
-        />
-      </Card>
+      {/* Total Revenue Card */}
+      <div className={classes.card}>
+        <div className={classes.statisticContainer}>
+          <h5 className={classes.statisticTitle}>Total Revenue</h5>
+          <div className={classes.statisticValue}>
+            ₵{totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          </div>
+        </div>
+      </div>
 
-      <Table
-        columns={columns}
-        dataSource={sortedData}
-        rowKey="_id"
-        onRow={(record) => ({
-          onClick: () => router.push(`/dashboard/asserts/${record._id}/cashup`),
-          style: { cursor: "pointer" },
-        })}
-        pagination={false}
-        bordered={false}
-        style={{
-          borderRadius: 8,
-          boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.03)",
-        }}
-        rowClassName={(record) =>
-          record.isLowPerformance ? "warning-row" : ""
-        }
-      />
+      {/* Table */}
+      <div className={classes.tableContainer}>
+        <div className={classes.tableWrapper}>
+          <table className={classes.table}>
+            <thead>
+              <tr>
+                <th className={classes.tableHeader}>Position</th>
+                <th className={classes.tableHeader}>Location</th>
+                <th className={classes.tableHeader}>Asset ID</th>
+                <th className={`${classes.tableHeader} ${classes.alignRight}`}>Cashup Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedData.map((asset, index) => (
+                <tr
+                  key={asset._id}
+                  className={`${classes.tableRow} ${asset.isLowPerformance ? classes.warningRow : ''}`}
+                  onClick={() => router.push(`/dashboard/asserts/${asset._id}/cashup`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  <td className={`${classes.tableCell} ${classes.numberCell}`}>
+                    {index + 1}
+                  </td>
+                  <td className={classes.tableCell}>
+                    <strong>{asset.currentLocation}</strong>
+                  </td>
+                  <td className={classes.tableCell}>
+                    {asset.assertId}
+                  </td>
+                  <td className={`${classes.tableCell} ${classes.alignRight}`}>
+                    <span className={`${classes.tag} ${asset.isLowPerformance ? classes.tagRed : classes.tagGreen}`}>
+                      ₵{asset.totalCashup.toLocaleString()}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 };

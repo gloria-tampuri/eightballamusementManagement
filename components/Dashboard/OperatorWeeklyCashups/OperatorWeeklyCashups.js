@@ -79,32 +79,40 @@ const currentDate = new Date(); // Current date and time
     <div className={classes.operator}>
       {/* <h1>WeeklyCashups of <span> {operatorName}</span></h1> */}
       <h2 className={classes.tabheader}>Cash up entered by Operator{operatorName} for the week. Total Amount: {totalSum}</h2>
-    <div className={classes.list}>
-    <table>
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th>Location</th>
-            <th>AssetID</th>
-            <th>Cashup Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentOperatorCashupData?.map((assert, index) => (
-            <tr onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup `)} key={assert?._id}>
-              <td>{index + 1}</td>
-              <td className={classes.color}>
-                {assert?.location.find(val => val?.currentLocation === true)?.locationName}
-              </td>
-              <td>{assert?.assertId}</td>
-              <td className={classes.color}>
-                {assert?.totalAmount}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+     
+      <div className={classes.tableContainer}>
+        <div className={classes.tableWrapper}>
+          <table className={classes.table}>
+            <thead>
+              <tr>
+                <th className={classes.tableHeader}>Position</th>
+                <th className={classes.tableHeader}>Location</th>
+                {/* <th className={classes.tableHeader}>AssetID</th> */}
+                <th className={`${classes.tableHeader} ${classes.alignRight}`}>Cashup Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentOperatorCashupData?.map((assert, index) => (
+                <tr 
+                  className={classes.tableRow} 
+                  onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup`)} 
+                  key={assert?._id}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <td className={`${classes.tableCell} ${classes.numberCell}`}>{index + 1}</td>
+                  <td className={classes.tableCell}>
+                    {assert?.location.find(val => val?.currentLocation === true)?.locationName}
+                  </td>
+                  {/* <td className={classes.tableCell}>{assert?.assertId}</td> */}
+                  <td className={`${classes.tableCell} ${classes.alignRight} ${classes.numberCell} ${classes.companyShareCell}`}>
+                    {assert?.totalAmount}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
