@@ -152,8 +152,14 @@ const LocationDialog = () => {
       };
 
       const postData = {
-        ...data.assert,
-        location: [...(data.assert.location || []), locationData],
+         assertId: data?.assert?.assertId,
+        datePurchased: data?.assert?.datePurchased,
+        purchasedPrice: data?.assert?.purchasedPrice,
+        assertState: data?.assert?.assertState,
+        createdAt: data?.assert?.createdAt,
+        cashup: [...data.assert.cashup],
+        expenditure: [...data.assert.expenditure],
+        location: [...data.assert.location, locationData],
       };
 
       const response = await fetch(`/api/asserts/${assert}`, {

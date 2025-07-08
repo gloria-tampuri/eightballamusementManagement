@@ -98,7 +98,7 @@ previousWeekData?.sort((a, b) => b.totalAmount - a.totalAmount);
 
   return (
     <div className={classes.operator}>
-      <h2>WeeklyCashups of <span> Samuel</span></h2>
+      <h2>WeeklyCashups of <span> Samuel</span>  {previousWeekTotalSum}</h2>
      
       <div className={classes.tableContainer}>
         <div className={classes.tableWrapper}>
