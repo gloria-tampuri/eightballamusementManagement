@@ -16,7 +16,8 @@ box-sizing: border-box;
 --gray-text:#23232f;
 --dark-gray:#433d3d;
 --background:#ffffff;
-   --orange-normal: #DD5928;
+   /* --orange-normal: #DD5928; */
+      --orange-normal: #0D5B10;
    --orange-light: #FCEEEA;
    --orange-light-hover: #FAE6DF;
    --orange-light-active: #F4CCBC;
