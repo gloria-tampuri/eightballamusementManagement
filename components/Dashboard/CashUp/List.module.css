@@ -151,7 +151,8 @@
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--orange-normal);
-  background: var(--orange-light);
+  /* background: var(--orange-light); */
+  background: #e7f0d7;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
 }
@@ -222,7 +223,8 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--orange-normal);
-  background: var(--orange-light);
+  /* background: var(--orange-light); */
+  background: #e7f0d7;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
 }
