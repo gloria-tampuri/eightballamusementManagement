@@ -7,9 +7,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       await signInWithEmailAndPassword(email, password);
       // If sign-in is successful, the useEffect in _app.js will redirect to /dashboard
@@ -17,6 +19,7 @@ const Login = () => {
       console.error("Sign-in failed", error);
       // Handle sign-in error (e.g., show error message to the user)
       alert("Please enter the right credentials");
+      setLoading(false);
     }
   };
 
@@ -59,8 +62,16 @@ const Login = () => {
             type="submit"
             onClick={handleSignIn}
             className={classes.submitButton}
+            disabled={loading}
           >
-            Sign In
+            {loading ? (
+              <span className={classes.spinnerContainer}>
+                <span className={classes.spinner}></span>
+                Signing in...
+              </span>
+            ) : (
+              "Sign In"
+            )}
           </button>
         </form>
       </div>
