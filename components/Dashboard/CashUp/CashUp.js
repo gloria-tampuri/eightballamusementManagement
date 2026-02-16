@@ -70,6 +70,8 @@ const CashUp = () => {
           cashupDate: formattedDate,
           cashupTime: formattedTime
         }));
+            console.log(email);
+
       } catch (error) {
         console.error("Initialization error:", error);
         toast.error("Failed to initialize component");
@@ -77,6 +79,7 @@ const CashUp = () => {
     };
 
     initializeComponent();
+    
   }, []);
 
   // Calculation functions

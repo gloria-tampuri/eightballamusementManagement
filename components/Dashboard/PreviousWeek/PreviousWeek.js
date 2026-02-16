@@ -1,20 +1,18 @@
+import React, { useState, useEffect } from "react";
+import useSWR from "swr";
+import classes from "./PreviousWeek.module.css";
+import { useRouter } from "next/router";
+import { getSignedInEmail } from "../../../auth";
+import OperatorPrevious from "../OperatorWeeklyCashups/OperatorPrevious";
+import AdminPrevious from "../OperatorWeeklyCashups/AdminPrevious";
 
-
-
-import React, { useState, useEffect } from 'react';
-import useSWR from 'swr';
-import classes from './PreviousWeek.module.css';
-import { useRouter } from 'next/router';
-import { getSignedInEmail } from '../../../auth';
-import OperatorPrevious from '../OperatorWeeklyCashups/OperatorPrevious';
-import AdminPrevious from '../OperatorWeeklyCashups/AdminPrevious';
-
-const fetcher = (...args) => fetch(...args).then(res => res.json());
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const PreviousWeek = () => {
-  const { data, error } = useSWR('/api/asserts', fetcher);
+  const { data, error } = useSWR("/api/asserts", fetcher);
   const router = useRouter();
   const [admin, setAdmin] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
 
   const currentDate = new Date();
   const currentWeekStart = new Date(currentDate);
@@ -64,7 +62,8 @@ const PreviousWeek = () => {
   useEffect(() => {
     getSignedInEmail()
       .then((email) => {
-        if (email === 'richard.ababio@eightball.com') {
+        setUserEmail(email);
+        if (email === "richard.ababio@eightball.com") {
           setAdmin(true);
         }
       })
@@ -72,8 +71,6 @@ const PreviousWeek = () => {
         console.error(error);
       });
   }, []);
-
-
 
   return (
     <div>
@@ -86,49 +83,71 @@ const PreviousWeek = () => {
             Performance of all assets for the previous week. Total Amount:
             {previousWeekTotalSum}
           </h2>
-             
-      <div className={classes.tableContainer}>
-        <div className={classes.tableWrapper}>
-          <table className={classes.table}>
-            <thead>
-              <tr>
-                <th className={classes.tableHeader}>Position</th>
-                <th className={classes.tableHeader}>Location</th>
-                {/* <th className={classes.tableHeader}>AssetID</th> */}
-                <th className={`${classes.tableHeader} ${classes.alignRight}`}>Cashup Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              {previousWeekData?.map((assert, index) => (
-                <tr 
-                  className={classes.tableRow} 
-                  onClick={() => router.push(`/dashboard/asserts/${assert?._id}/cashup`)} 
-                  key={assert?._id}
-                  style={{ cursor: 'pointer' }}
-                >
-                  <td className={`${classes.tableCell} ${classes.numberCell}`}>{index + 1}</td>
-                  <td className={classes.tableCell}>
-                    {assert?.location.find(val => val?.currentLocation === true)?.locationName}
-                  </td>
-                  {/* <td className={classes.tableCell}>{assert?.assertId}</td> */}
-                  <td className={`${classes.tableCell} ${classes.alignRight} ${classes.numberCell} ${classes.companyShareCell}`}>
-                    {assert?.totalAmount}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-          <AdminPrevious/>
-          <OperatorPrevious/>
+
+          <div className={classes.tableContainer}>
+            <div className={classes.tableWrapper}>
+              <table className={classes.table}>
+                <thead>
+                  <tr>
+                    <th className={classes.tableHeader}>Position</th>
+                    <th className={classes.tableHeader}>Location</th>
+                    {/* <th className={classes.tableHeader}>AssetID</th> */}
+                    <th
+                      className={`${classes.tableHeader} ${classes.alignRight}`}
+                    >
+                      Cashup Amount
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {previousWeekData?.map((assert, index) => (
+                    <tr
+                      className={classes.tableRow}
+                      onClick={() =>
+                        router.push(`/dashboard/asserts/${assert?._id}/cashup`)
+                      }
+                      key={assert?._id}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <td
+                        className={`${classes.tableCell} ${classes.numberCell}`}
+                      >
+                        {index + 1}
+                      </td>
+                      <td className={classes.tableCell}>
+                        {
+                          assert?.location.find(
+                            (val) => val?.currentLocation === true,
+                          )?.locationName
+                        }
+                      </td>
+                      {/* <td className={classes.tableCell}>{assert?.assertId}</td> */}
+                      <td
+                        className={`${classes.tableCell} ${classes.alignRight} ${classes.numberCell} ${classes.companyShareCell}`}
+                      >
+                        {assert?.totalAmount}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <AdminPrevious />
+          <OperatorPrevious
+            filterEmail="samuel.bempong@eightball.com"
+            operatorNameProp="Samuel Bempong"
+          />
+          <OperatorPrevious
+            filterEmail="gideon.ababio@eightball.com"
+            operatorNameProp="Gideon Ababio"
+          />
         </div>
       ) : (
-        <OperatorPrevious/>
+        <OperatorPrevious />
       )}
     </div>
   );
 };
 
 export default PreviousWeek;
-

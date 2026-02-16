@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -35,16 +36,32 @@ const Login = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your email"
           />
           <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {/* <button onClick={handleSignUp}>Sign Up</button> */}
-          <button onClick={handleSignIn}>Sign In</button>
-          {/* <button onClick={handleSignOut}>Sign Out</button> */}
+          <div className={classes.passwordContainer}>
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              className={classes.togglePassword}
+              onClick={() => setShowPassword(!showPassword)}
+              title={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? "👁️" : "👁️‍🗨️"}
+            </button>
+          </div>
+          <button
+            type="submit"
+            onClick={handleSignIn}
+            className={classes.submitButton}
+          >
+            Sign In
+          </button>
         </form>
       </div>
     </div>

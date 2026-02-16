@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { getSignedInEmail } from "../../../auth";
 import OperatorDashboard from "../OperatordashBoard/OperatorDashboard";
+import QandA from "../QandA/QandA";
 import "react-toastify/dist/ReactToastify.css";
 import classes from "./DashboardMain.module.css";
 
@@ -34,15 +35,21 @@ const CustomSpinner = ({ className }) => (
 
 // Custom Alert Component
 const CustomAlert = ({ message, type }) => (
-  <div className={`${classes.alert} ${classes[`alert${type.charAt(0).toUpperCase() + type.slice(1)}`]}`}>
+  <div
+    className={`${classes.alert} ${
+      classes[`alert${type.charAt(0).toUpperCase() + type.slice(1)}`]
+    }`}
+  >
     {message}
   </div>
 );
 
 // Custom Card Component
 const CustomCard = ({ children, className, hoverable, onClick }) => (
-  <div 
-    className={`${classes.card} ${className} ${hoverable ? classes.cardHoverable : ''}`}
+  <div
+    className={`${classes.card} ${className} ${
+      hoverable ? classes.cardHoverable : ""
+    }`}
     onClick={onClick}
   >
     {children}
@@ -51,7 +58,11 @@ const CustomCard = ({ children, className, hoverable, onClick }) => (
 
 // Custom Tag Component
 const CustomTag = ({ color, children }) => (
-  <span className={`${classes.tag} ${classes[`tag${color.charAt(0).toUpperCase() + color.slice(1)}`]}`}>
+  <span
+    className={`${classes.tag} ${
+      classes[`tag${color.charAt(0).toUpperCase() + color.slice(1)}`]
+    }`}
+  >
     {children}
   </span>
 );
@@ -148,7 +159,9 @@ const DashboardMain = () => {
     return dashboardData.monthlyPerformance.slice(startIndex, endIndex);
   }, [dashboardData, currentPage]);
 
-  const totalPages = Math.ceil((dashboardData?.monthlyPerformance?.length || 0) / pageSize);
+  const totalPages = Math.ceil(
+    (dashboardData?.monthlyPerformance?.length || 0) / pageSize
+  );
 
   // Check admin status
   useEffect(() => {
@@ -202,9 +215,10 @@ const DashboardMain = () => {
 
   return (
     <div className={classes.dashboardContainer}>
-      <h2 className={classes.dashboardTitle}>
-        Dashboard Overview
-      </h2>
+      <h2 className={classes.dashboardTitle}>Dashboard Overview</h2>
+
+      {/* Q&A Section */}
+      <QandA />
 
       {/* Highlights Section */}
       <div className={classes.highlights}>
@@ -215,9 +229,7 @@ const DashboardMain = () => {
               hoverable
               key={index}
             >
-              <h3 className={classes.cardValue}>
-                {card.value}
-              </h3>
+              <h3 className={classes.cardValue}>{card.value}</h3>
               <p className={classes.cardTitle}>{card.title}</p>
             </CustomCard>
           );
@@ -252,12 +264,14 @@ const DashboardMain = () => {
             <tbody className={classes.tableBody}>
               {paginatedData.length > 0 ? (
                 paginatedData.map((record, index) => {
-                  const currentLocation = record.location?.find((loc) => loc?.currentLocation);
+                  const currentLocation = record.location?.find(
+                    (loc) => loc?.currentLocation
+                  );
                   const globalIndex = (currentPage - 1) * pageSize + index + 1;
-                  
+
                   return (
-                    <tr 
-                      key={record._id} 
+                    <tr
+                      key={record._id}
                       className={classes.tableRow}
                       onClick={() => handleRowClick(record)}
                     >
@@ -267,12 +281,12 @@ const DashboardMain = () => {
                       </td>
                       <td className={classes.tableCell}>{record.assertId}</td>
                       <td className={classes.tableCell}>
-                        <CustomTag 
+                        <CustomTag
                           color={
-                            record.totalSalesCurrentMonth < 1200 
-                              ? "red" 
-                              : record.totalSalesCurrentMonth < 2000 
-                              ? "orange" 
+                            record.totalSalesCurrentMonth < 1200
+                              ? "red"
+                              : record.totalSalesCurrentMonth < 2000
+                              ? "orange"
                               : "green"
                           }
                         >
@@ -296,27 +310,31 @@ const DashboardMain = () => {
         {/* Custom Pagination */}
         {totalPages > 1 && (
           <div className={classes.pagination}>
-            <button 
+            <button
               className={classes.paginationButton}
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
               Previous
             </button>
-            
+
             <div className={classes.pageNumbers}>
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                <button
-                  key={page}
-                  className={`${classes.pageNumber} ${page === currentPage ? classes.activePage : ''}`}
-                  onClick={() => handlePageChange(page)}
-                >
-                  {page}
-                </button>
-              ))}
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                (page) => (
+                  <button
+                    key={page}
+                    className={`${classes.pageNumber} ${
+                      page === currentPage ? classes.activePage : ""
+                    }`}
+                    onClick={() => handlePageChange(page)}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
             </div>
 
-            <button 
+            <button
               className={classes.paginationButton}
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}

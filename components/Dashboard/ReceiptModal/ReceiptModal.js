@@ -12,16 +12,24 @@ import { FaInstagram } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 
-
 const ReceiptModal = () => {
   const receiptContext = useContext(ReceiptContext);
-  const {  hideReceiptModal,receiptData } = receiptContext;
+  const { hideReceiptModal, receiptData } = receiptContext;
 
+  const emailToName = {
+    "richard.ababio@eightball.com": "Richard Ababio",
+    "samuel.bempong@eightball.com": "Samuel Bempong",
+    "gideon.ababio@eightball.com": "Gideon Ababio",
+  };
+
+  const getIssuedByName = (email) => {
+    return emailToName[email];
+  };
 
   const formatDateToWords = (dateString) => {
     if (!dateString || !Date.parse(dateString)) {
-        return "Invalid Date";
-      }
+      return "Invalid Date";
+    }
     const formattedDate = format(new Date(dateString), "MMMM d, yyyy");
     return formattedDate;
   };
@@ -55,8 +63,8 @@ const ReceiptModal = () => {
         <p className={classes.head}>This is your cashup Receipt</p>
         <div className={classes.dateId}>
           <p>
-            {receiptData.cashupDate} <span>  </span>
-            <span>Time:  {receiptData.cashupTime}</span>
+            {receiptData.cashupDate} <span> </span>
+            <span>Time: {receiptData.cashupTime}</span>
           </p>
           <p>CashupId: {receiptData.cashupId}</p>
         </div>
@@ -110,28 +118,28 @@ const ReceiptModal = () => {
         <div className={classes.footer}>
           <div className={classes.section}>
             <p>Receipt Issued By:</p>
-            <p className={classes.blue}>{receiptData.enteredBy === 'richard.ababio@eightball.com'? "Richard Ababio" :"Samuel Bempong" }</p>
+            <p className={classes.blue}>
+              {getIssuedByName(receiptData.enteredBy)}
+            </p>
           </div>
           <div className={classes.section}>
             <p>Payment Method: </p>
             <p className={classes.blue}>Cash</p>
           </div>
           <p className={classes.foot}>
-           Keep reciept safe for future refrences. For any complaints or enquiries contact us on 0245830990
+            Keep reciept safe for future refrences. For any complaints or
+            enquiries contact us on 0245830990
           </p>
           <div className={classes.socials}>
             <FaInstagram />
             <FaFacebook />
             <FaYoutube />
-            </div>
-         
+          </div>
         </div>
       </div>
       <div className={classes.button}>
-      <HiOutlineDownload />
-        <button onClick={downloadReceipt}>
-          Download
-        </button>
+        <HiOutlineDownload />
+        <button onClick={downloadReceipt}>Download</button>
       </div>
     </Modal>
   );
