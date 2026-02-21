@@ -130,16 +130,24 @@ const DashboardMain = () => {
         }
       });
 
+      // Get last cashup date
+      let lastCashupDate = null;
+      if (asset.cashup && asset.cashup.length > 0) {
+        const dates = asset.cashup.map((c) => new Date(c.cashupDate));
+        lastCashupDate = new Date(Math.max(...dates));
+      }
+
       return {
         ...asset,
         totalSalesCurrentMonth: assetMonthlySales,
         weeklySales: assetWeeklySales,
+        lastCashupDate: lastCashupDate,
       };
     });
 
     // Sort by monthly performance
     const sortedByMonthlyPerformance = [...processedAssets].sort(
-      (a, b) => b.totalSalesCurrentMonth - a.totalSalesCurrentMonth
+      (a, b) => b.totalSalesCurrentMonth - a.totalSalesCurrentMonth,
     );
 
     return {
@@ -160,7 +168,7 @@ const DashboardMain = () => {
   }, [dashboardData, currentPage]);
 
   const totalPages = Math.ceil(
-    (dashboardData?.monthlyPerformance?.length || 0) / pageSize
+    (dashboardData?.monthlyPerformance?.length || 0) / pageSize,
   );
 
   // Check admin status
@@ -213,6 +221,21 @@ const DashboardMain = () => {
     setCurrentPage(page);
   };
 
+  // Helper function to calculate days ago
+  const getDaysAgo = (date) => {
+    if (!date) return "Never";
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const cashupDate = new Date(date);
+    cashupDate.setHours(0, 0, 0, 0);
+    const timeDiff = today - cashupDate;
+    const daysAgo = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    if (daysAgo === 0) return "Today";
+    if (daysAgo === 1) return "1 day ago";
+    return `${daysAgo} days ago`;
+  };
+
   return (
     <div className={classes.dashboardContainer}>
       <h2 className={classes.dashboardTitle}>Dashboard Overview</h2>
@@ -259,13 +282,14 @@ const DashboardMain = () => {
                 <th className={classes.tableHeader}>Location</th>
                 <th className={classes.tableHeader}>Asset ID</th>
                 <th className={classes.tableHeader}>Cashup Amount</th>
+                <th className={classes.tableHeader}>Last Cashup</th>
               </tr>
             </thead>
             <tbody className={classes.tableBody}>
               {paginatedData.length > 0 ? (
                 paginatedData.map((record, index) => {
                   const currentLocation = record.location?.find(
-                    (loc) => loc?.currentLocation
+                    (loc) => loc?.currentLocation,
                   );
                   const globalIndex = (currentPage - 1) * pageSize + index + 1;
 
@@ -286,19 +310,22 @@ const DashboardMain = () => {
                             record.totalSalesCurrentMonth < 1200
                               ? "red"
                               : record.totalSalesCurrentMonth < 2000
-                              ? "orange"
-                              : "green"
+                                ? "orange"
+                                : "green"
                           }
                         >
                           {record.totalSalesCurrentMonth}
                         </CustomTag>
+                      </td>
+                      <td className={classes.tableCell}>
+                        {getDaysAgo(record.lastCashupDate)}
                       </td>
                     </tr>
                   );
                 })
               ) : (
                 <tr>
-                  <td colSpan="4" className={classes.emptyState}>
+                  <td colSpan="5" className={classes.emptyState}>
                     No data available
                   </td>
                 </tr>
@@ -330,7 +357,7 @@ const DashboardMain = () => {
                   >
                     {page}
                   </button>
-                )
+                ),
               )}
             </div>
 
