@@ -4,13 +4,14 @@ import { EditContextProvider } from "../../Context/EditContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import firebase from "../../firebase";
-// import 'antd/dist/reset.css'; 
+// import 'antd/dist/reset.css';
 import {
   MonthContextProvider,
   ShowMonthContextProvider,
 } from "../../Context/ShowMonthContext";
 import { AssetDataContextProvider } from "../../Context/AssetDataContext";
 import { ReceiptContextProvider } from "../../Context/CashupReciept";
+import { OperatorProvider } from "../../Context/OperatorContext";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter();
@@ -42,18 +43,20 @@ export default function App({ Component, pageProps }) {
   }
 
   return (
-    <DeleteContextProvider>
-      <ReceiptContextProvider>
-        <ShowMonthContextProvider>
-          <MonthContextProvider>
-            <EditContextProvider>
-              <AssetDataContextProvider>
-                <Component {...pageProps} />
-              </AssetDataContextProvider>
-            </EditContextProvider>
-          </MonthContextProvider>
-        </ShowMonthContextProvider>
-      </ReceiptContextProvider>
-    </DeleteContextProvider>
+    <OperatorProvider>
+      <DeleteContextProvider>
+        <ReceiptContextProvider>
+          <ShowMonthContextProvider>
+            <MonthContextProvider>
+              <EditContextProvider>
+                <AssetDataContextProvider>
+                  <Component {...pageProps} />
+                </AssetDataContextProvider>
+              </EditContextProvider>
+            </MonthContextProvider>
+          </ShowMonthContextProvider>
+        </ReceiptContextProvider>
+      </DeleteContextProvider>
+    </OperatorProvider>
   );
 }

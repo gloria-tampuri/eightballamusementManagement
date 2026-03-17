@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import classes from "./Transport.module.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { getSignedInEmail } from "../../../../auth";
 // import ExpenYears from './ExpenYears/ExpenYears';
 import moment from "moment";
 
@@ -13,6 +14,20 @@ const TransportForm = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const [operatorEmail, setOperatorEmail] = useState("");
+
+  useEffect(() => {
+    const getOperator = async () => {
+      try {
+        const email = await getSignedInEmail();
+        setOperatorEmail(email);
+      } catch (error) {
+        console.error("Error getting operator email:", error);
+      }
+    };
+    getOperator();
+  }, []);
+
   const notify = () =>
     toast.success("Transport Added!", {
       position: "top-center",
@@ -23,7 +38,8 @@ const TransportForm = () => {
       ...data,
       amount: Number(data.amount),
       year: moment(data.transportDate).format("YYYY"),
-      paid:false
+      operator: operatorEmail,
+      paid: false,
     };
 
     const info = {
