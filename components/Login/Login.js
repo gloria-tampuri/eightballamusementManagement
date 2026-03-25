@@ -25,9 +25,6 @@ const Login = () => {
 
   return (
     <div className={classes.wrapper}>
-      <div className={classes.logo}>
-        <img src="/Eigtball-Logo.png" alt="logo" />
-      </div>
 
       <div className={classes.content}>
         <h2>Welcome</h2>

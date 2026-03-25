@@ -21,12 +21,12 @@ export default function App({ Component, pageProps }) {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // Only redirect to dashboard if user is on the login page
-        if (router.pathname === "/") {
+        if (router.pathname === "/login") {
           router.push("/dashboard");
         }
       } else {
         // Only redirect to login if user is trying to access protected routes
-        const publicRoutes = ["/"]; // Add other public routes here
+        const publicRoutes = ["/", "/catalogue", "/login"]; // Add other public routes here
         if (!publicRoutes.includes(router.pathname)) {
           router.push("/");
         }
